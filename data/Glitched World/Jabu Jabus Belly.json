@@ -3,7 +3,8 @@
         "region_name": "Jabu Jabus Belly Beginning",
         "dungeon": "Jabu Jabus Belly",
         "exits": {
-            "Jabu Jabus Belly Main": "can_use_projectile or can_isg"
+            "Zoras Fountain": "True",
+            "Jabu Jabus Belly Main": "can_use_projectile or (can_enemy_hover and glitch_insane)"
         }
     },
     {
@@ -12,13 +13,18 @@
         "locations": {
             "Jabu Jabus Belly Boomerang Chest": "True",
             "Jabu Jabus Belly GS Water Switch Room": "True",
-            "Jabu Jabus Belly GS Lobby Basement Lower": "can_use(Boomerang) or can_use(Hookshot) or can_hover",
+            "Jabu Jabus Belly GS Lobby Basement Lower": "can_use(Boomerang) or can_use(Hookshot) or can_enemy_hover",
             "Jabu Jabus Belly GS Lobby Basement Upper": "can_use(Boomerang) or can_use(Hookshot) or can_hover",
-            "Jabu Jabus Belly Deku Scrub": "True"
+            "Jabu Jabus Belly Deku Scrub": "True",
+            "Fairy Pot": "has_bottle"
         },
         "exits": {
             "Jabu Jabus Belly Beginning": "True",
-            "Jabu Jabus Belly Depths": "True"
+            "Jabu Jabus Belly Depths": "True",
+            # Biri hover here isn't too bad. Just mash backflip. You can also megaflip off the biri.
+            # The 2nd part is for skipping the door. Setups I saw required sword for positioning or backflipping and dumping bugs/fish. Like OI, but no other item.
+            "Jabu Jabus Belly Boss Area": "(can_use(Hover_Boots) or can_damage_boost or can_enemy_hover or can_enemy_mega) and
+                (can_jumpslash or Fish or Bugs)"
         }
     },
     {
@@ -31,15 +37,17 @@
         },
         "exits": {
             "Jabu Jabus Belly Main": "True",
-            "Jabu Jabus Belly Boss Area": "can_use(Boomerang) or can_use(Hover_Boots) or can_mega"
+            # Coming from here means you've killed big octo, no need for setups for door.
+            "Jabu Jabus Belly Boss Area": "can_use(Boomerang) or can_use(Hover_Boots) or can_mega or can_hover"
         }
     },
     {
         "region_name": "Jabu Jabus Belly Boss Area",
         "dungeon": "Jabu Jabus Belly",
         "locations": {
-            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (Sticks or Kokiri_Sword)",
-            "Barinade": "can_use(Boomerang) and (Sticks or Kokiri_Sword)",
+            # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
+            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or glitch_insane)",
+            "Barinade": "can_use(Boomerang) and (can_jumpslash or glitch_insane)",
             "Jabu Jabus Belly GS Near Boss": "True"
         },
         "exits": {
