@@ -127,6 +127,410 @@ class Scale(Setting_Info):
 
         super().__init__(name, int, gui_text, 'Scale', shared, choices, default, disabled_default, disable, gui_tooltip, gui_params, cosmetic)
 
+logic_glitches = {
+    'Putaway Ocarina Items': {
+        'name'    : 'glitch_oi',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    The act of playing a fake ocarina by putting
+                    away a filled bottle and pressing the button
+                    the bottle is on one frame later. Only this method
+                    of OI is in logic, as the other primary method
+                    can overwrite items if you use the wrong item.
+                    This can be used to play Sun's Song in the
+                    Treasure Chest minigame to reset the chests
+                    without resetting the doors, allowing you to
+                    get the reward without lens or perfect RNG.
+                    '''},
+    'Equip Swap': {
+        'name'    : 'glitch_equipswap',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Logically requires Din's fire as adult and sticks or
+                    Din's as child, due to rando-specific inventory changes.
+                    Only equip swapping boomerang, hammer, sticks, or
+                    slingshot (only useful for hitting cows in MQ jabu,
+                    requires having a quiver) is logically relevant. DO NOT
+                    USE EQUIP SWAP TO EQUIP A BOTTLE, as this can overwrite
+                    your din's or sticks with a bottle, potentially making
+                    the seed unbeatable.
+                    '''},
+    'Door of Time skip': {
+        'name'    : 'glitch_dot_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Adult or child link can clip through the left
+                    side of the Door of Time. Adult requires hover
+                    boots, Giant's Knife, or Biggoron's Sword to do
+                    this glitch.
+                    
+                    Logic expects you to have one of the three BEFORE
+                    doing this glitch - If you're starting as child,
+                    you will have access to hover boots or BGS before
+                    doing this glitch, and if you're starting as adult,
+                    you will have hover boots, BGS, or Giant's Knife
+                    before doing this glitch. Doing this glitch without
+                    one of those items has a VERY high chance of
+                    softlocking you.
+                    '''},
+    'Bomb Hovers': {
+        'name'    : 'glitch_hover',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Short hovers off of bombs or some enemies.
+                    Only considers bomb hovers of 10 bombs or
+                    bombchus, or of stationary, predictable enemies
+                    are in logic. "All Uses Enabled" puts all bomb
+                    hovers up to 20 bombs and 50 chus into logic,
+                    as well as some tricky enemies such as Tektites.
+                    '''},
+    'Weirdshot and Weirdclip': {
+        'name'    : 'glitch_weirdshot',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    By rolling into an exploding bomb, shielding
+                    the explosion, and pulling out hookshot, bow,
+                    slingshot, or boomerang with precise timing,
+                    you can move the camera and the origin point
+                    of the projectile to below the floor, allowing
+                    you to hookshot or shoot through walls.
+                    
+                    Weirdclips are done in the same way, but are
+                    expected to be done with any first-person item.
+                    Magic arrows do not require bow or magic to be
+                    used for this purpose.
+                    
+                    Logically adult-only, as, even though child can
+                    weirdshot and weirdclip, it can crash if you execute
+                    the glitch incorrectly.
+                    '''},
+    'Forest Escape': {
+        'name'    : 'glitch_forest_escape',
+        'tags'    : ("Kokiri Forest",),
+        'tooltip' : '''\
+                    Puts all item-using methods of forest escape into
+                    logic, to bring glitched logic closed forest in line
+                    with the intent for the glitchless version. Itemless
+                    escape is only in logic with All Uses Enabled on.
+                    '''},
+    'Superslides': {
+        'name'    : 'glitch_hess',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Regular supersliding, ESS, WESS, and HESS. While
+                    usually it's just to go fast, it can be used to
+                    clip past collision (usually boulders) in some places.
+                    It can also be used to escape forest (only in logic
+                    if the relevant trick is also in logic).
+                    
+                    A-slides are never in logic due to the fact that they
+                    require a lot of consecutive frame-perfect inputs to be
+                    remotely useful.
+                    '''},
+    'All Uses Enabled': {
+        'name'    : 'glitch_insane',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    When this option is enabled, all possible repeatable
+                    applications of enabled glitches are in logic.
+
+                    When disabled, only tamer applications of enabled glitches
+                    will be in logic. Check the glitched logic page on the
+                    wiki for exact details.
+            
+                    This will be a checkbox later, but I've made it a toggle
+                    for the time being, for testing purposes.
+                    '''},
+    # UPDATE: Update this tooltip
+    'Quick Putaway': {
+        'name'    : 'glitch_qpa',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Quick putaway to burn with a stick with no fire source.
+                    '''},
+    'Deku Mido Skip': {
+        'name'    : 'glitch_mido_skip',
+        'tags'    : ("Kokiri Forest",),
+        'tooltip' : '''\
+                    You can skip Mido when he's blocking the Deku Tree as child
+                    by using a jumpslash in the water to clip out of bounds and
+                    swim below Mido.
+                    '''},
+    'Rainbow Bridge Skip': {
+        'name'    : 'glitch_bridge_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Ganon's castle can be reached early with the use of a few
+                    different glitches. At least one of those glitches must
+                    be enabled for this glitch to be logically relevant.
+                    '''},
+    'Trials Skip': {
+        'name'    : 'glitch_trial_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can skip the barrier inside Ganon's Castle in a few
+                    different ways - the simplest of which is by using an
+                    armos statue to clip past the wall in spirit trial.
+                    '''},
+    'Hookshot Jump': {
+        'name'    : 'glitch_hookshot_jump',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Only the "bonk" version is in logic.
+                    '''},
+    'Early Shadow Temple Entry': {
+        'name'    : 'glitch_shadow_door_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can skip the door in front of Shadow Temple as adult
+                    by climbing up a seam by the door and using a ledge clip.
+                    
+                    Child can only skip the door by unloading it via the
+                    "Unload Graveyard Objects" glitch or by bomb hovering 
+                    to go above the loading trigger.
+                    '''},
+    'ZR Boulder Skip': {
+        'name'    : 'glitch_river_boulder_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    With careful positioning and a well-timed jumpslash,
+                    you can clip out of bounds to get around the boulders
+                    that block the main part of Zora's River as child.
+                    '''},
+    # UPDATE: This needs a better description
+    'King Jabu Early': {
+        'name'    : 'glitch_jabu_entry',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    With a well-angled jumpslash as child or the use of
+                    hoverboots and explosives as adult, you can enter
+                    Jabu as adult or without giving him a fish.
+                    '''},
+    # UPDATE: Make this description not suck
+    'Ledge Cancel': {
+        'name'    : 'glitch_ledge_cancel',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Climb a ledge and shield damage within 2 frames.
+                    Logically requires bombs or chus+something that
+                    can blow up the chu.
+                    '''},
+    'Gohma Heart As Adult With Nothing': {
+        'name'    : 'glitch_gohma_skip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    From the Compass room in Deku Tree, you can drop
+                    and jumpslash as adult to reach the loading zone
+                    for Gohma with no items.
+                    '''},
+    # UPDATE: Add a good description
+    'Deku Crawlspace Skip': {
+        'name'    : 'glitch_deku_crawlspace',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can get around the crawlspace in Deku B1 by
+                    using hookshot and a short hover.
+                    '''},
+    'Lake Lab to Domain and Temple': {
+        'name'    : 'glitch_lab_clip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    With a precise backflip, both child and adult can
+                    clip through the corners of the lab to access the
+                    Zora's Domain shortcut and Water Temple.
+                    '''},
+    'GV Itemless Chicken Jump': {
+        'name'    : 'glitch_gerudo_chicken_itemless',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    With a lot of precision and spinning, child can
+                    reach the far side of Gerudo Valley with only
+                    the chicken. The regular jump (with a jumpslash)
+                    is default logic.
+                    '''},
+    'Megaflip': {
+        'name'    : 'glitch_megaflip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Shield and backflip away from a bomb just as it
+                    explodes to backflip much further. This considers
+                    both megaflips and megasidehops.
+                    '''},
+    'Damage Boost': {
+        'name'    : 'not_a_glitch_damage_boost',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Not actually a glitch, but glitch-adjacent.
+                    
+                    Hold an explosive and Z, and jump off a ledge shortly
+                    before it explodes. Shield-drop the explosive and jumpslash
+                    a frame later.
+                    
+                    DO NOT USE THIS TO REACH ZELDA AS CHILD EARLY, AS THIS
+                    CAN SOFTLOCK YOU!
+                    '''},
+    'Unload Upland Zora': {
+        'name'    : 'glitch_upper_zora',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    By going out of bounds with a ledge clip, you can unload
+                    the water and waterfall in the upper part of Zora's river
+                    to access the LW shortcut and Zora's Domain with nothing.
+                    '''},
+    'Enter Deku as Adult': {
+        'name'    : 'glitch_deku_entry',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can clip through the mouth of the deku tree, or simply
+                    avoid the loading trigger for his mouth by going. Entering
+                    as adult in ER after child has opened the mouth is ALWAYS
+                    in logic.
+                    '''},
+    'Unload Graveyard Objects': {
+        'name'    : 'glitch_stairs',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    By running up and down the stairs in front of shadow temple,
+                    you can unload the graves in graveyard and even the door in
+                    front of Shadow Temple. The number of times up and down varies
+                    based on age, time of day, where you enter graveyard from, and
+                    whether or not the Royal Tomb was blown up, and it cannot always
+                    be blown up, so please check the glitch logic page on the wiki
+                    for exact numbers on how many times you need to go up and down.
+                    
+                    For unloading the Shadow Door to be in logic, you must also
+                    enable the "Early Shadow Temple Entry" glitch.
+                    '''},
+    'DMT GS Near Kak clip': {
+        'name'    : 'glitch_dmt_gs_clip',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can clip in to the alcove containing the Gold Skulltula
+                    near Kakariko with a jumpslash from above. Frame-perfect,
+                    and you will take fall damage.
+                    '''},
+    'Enter Dodongo\'s Cavern Without Explosives': {
+        'name'    : 'glitch_dodongo_entry',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can enter Dodongo's Cavern as child without blowing up
+                    the boulder with a sidehop from near the bomb flower, or by
+                    walking OOB from Summit after a short seamwalk.
+                    '''},
+    'Enter Treasure Chest Minigame During Daytime': {
+        'name'    : 'glitch_treasure_day',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can enter the treasure chest minigame during daytime
+                    as child with a jumpslash from the crates near child shooting
+                    and careful maneuvering OoB around the rest of Market.
+                    '''},
+    'Enter Mask Shop During Nighttime': {
+        'name'    : 'glitch_mask_night',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can enter the mask shop during nighttime as child with
+                    a jumpslash from the crates near child shooting and a
+                    well-timed jumpslash and roll to stay OoB until you get to
+                    the Mask Shop entrance.
+                    '''},
+    'DMT Chest Clip': {
+        'name'    : 'glitch_dmt_chest',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can clip past the bombable wall near Goron City with
+                    a well-timed and well-positioned jumpslash.
+                    '''},
+    'Forest Temple Basement Early': {
+        'name'    : 'glitch_forest_basement',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can reach the basement in forest temple by using an
+                    acute angle clip to get OoB, then using hoverboots and
+                    a megasidehop to reach the loading trigger for the basement.
+                    
+                    Requires Megaflips to be in logic. Applies to both vanilla
+                    and MQ.
+                    '''},
+    'Forest Temple BK skip': {
+        'name'    : 'glitch_bk_skip_forest',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can jump into the railing at the top of the
+                    stairway before the first Stalfos fight, perform
+                    a ledge clip, and then jump straight to the loading
+                    zone for the boss fight.
+                    
+                    Applies to both vanilla and MQ.
+                    '''},
+    'Fire Temple BK skip': {
+        'name'    : 'glitch_bk_skip_fire',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    UPDATE: Add description here
+                    
+                    Applies to both vanilla and MQ.
+                    '''},
+    'Water Temple BK skip': {
+        'name'    : 'glitch_bk_skip_water',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    UPDATE: Add description here.
+                    
+                    ONLY applies to vanilla. MQ has a separate, much
+                    easier skip.
+                    '''},
+    'MQ Water Temple BK skip': {
+        'name'    : 'glitch_bk_skip_water_mq',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    Climb on top of the right hookshot pillar, sidehop,
+                    and jumpslash mid-air.
+                    
+                    Only applies to MQ, as vanilla does not have the
+                    hookshot pillars.
+                    '''},
+    'Shadow Temple BK skip': {
+        'name'    : 'glitch_bk_skip_shadow',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    UPDATE: Add description here
+                    
+                    Applies to both vanilla and MQ.
+                    '''},
+    'Spirit Temple BK skip': {
+        'name'    : 'glitch_bk_skip_spirit',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    UPDATE: Add description here
+                    
+                    Applies to both vanilla and MQ.
+                    '''},
+    'Dodongo\'s Cavern Boss Area with Strength': {
+        'name'    : 'glitch_dodongo_strength',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    By supersliding off of the first bomb flower,
+                    you can carry a second bomb flower to the
+                    right-side bomb flower to superslide off of that
+                    flower up the elevator pillar to light the eyes
+                    of the dead dodongo. Requires hoverboots.
+                    '''},
+    'Chu Groundjumps with Grabbable Objects': {
+        'name'    : 'glitch_chu_groundjumps',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    You can store a groundjump using a bombchu to
+                    destroy an object you can grab while canceling
+                    picking it up with a shield. Functions just
+                    like storing a ground jump off of a bomb, but
+                    instead of the object exploding on its own, the
+                    chu blows the object up.
+                    
+                    This can be used to kill King Dodongo as adult,
+                    by jumping a chu into his mouth.
+                    '''},
+}
 
 logic_tricks = {
     'Fewer Tunic Requirements': {
@@ -2172,7 +2576,7 @@ setting_infos = [
         default        = 'glitchless',
         choices        = {
             'glitchless': 'Glitchless',
-            'glitched':   'Glitched',
+            'glitched':   'Glitch Logic',
             'none':       'No Logic',
             },
         gui_tooltip    = '''\
@@ -2191,10 +2595,9 @@ setting_infos = [
             considered available. MAY BE IMPOSSIBLE TO BEAT.
         ''',
         disable        = {
-            'glitched'  : {'settings' : ['allowed_tricks', 'shuffle_interior_entrances', 'shuffle_grotto_entrances',
-                                         'shuffle_dungeon_entrances', 'shuffle_overworld_entrances', 'owl_drops',
-                                         'warp_songs', 'spawn_positions', 'mq_dungeons_random', 'mq_dungeons', ]},
-            'none'      : {'settings' : ['allowed_tricks', 'logic_no_night_tokens_without_suns_song', 'all_reachable']},
+            'glitchless' : {'settings' : ['allowed_glitches']},
+            'glitched'   : {'settings' : ['allowed_tricks', 'mq_dungeons_random', 'mq_dungeons']},
+            'none'       : {'settings' : ['allowed_tricks', 'allowed_glitches', 'logic_no_night_tokens_without_suns_song', 'all_reachable']},
         },
         shared         = True,
     ),
@@ -3317,6 +3720,28 @@ setting_infos = [
             Tricks in the left column are NEVER required.
             
             Tricks are only relevant for Glitchless logic.
+        '''
+    ),
+    Setting_Info(
+        name           = 'allowed_glitches',
+        type           = list,
+        gui_text       = "Enable Glitches",
+        gui_type       = "SearchBox",
+        shared         = True,
+        choices        = {
+            val['name']: gui_text for gui_text, val in logic_glitches.items()
+        },
+        default        = [],
+        gui_params     = {
+            'choice_tooltip': {choice['name']: choice['tooltip'] for choice in logic_glitches.values()},
+            'filterdata': {val['name']: val['tags'] for _, val in logic_glitches.items()},
+            "hide_when_disabled": True,
+        },
+        gui_tooltip    = '''
+            Tricks moved to the right column are in-logic
+            and MAY be required to complete the game.
+            Tricks in the left column are NEVER required.
+            These tricks are only relevant for Glitch logic.
         '''
     ),
     Combobox(
