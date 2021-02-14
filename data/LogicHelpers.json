@@ -29,6 +29,10 @@
     "Fish": "'Fish' or Buy_Fish",
     "Fairy": "'Fairy' or Buy_Fairys_Spirit",
     # "Big_Poe": "'Big Poe'",
+    "Red Potion": "(Buy_Red_Potion or Buy_Red_Potion_[30] or Buy_Red_Potion_[40] or Buy_Red_Potion_[50]) and Bottle",
+    "Green Potion": "Buy_Green_Potion and Bottle",
+    "Blue Potion": "Buy_Blue_Potion and Bottle",
+    "Small Poe": "('Poe' or Buy_Poe) and Bottle",
 
     "has_bombchus": "(Buy_Bombchu_5 or Buy_Bombchu_10 or Buy_Bombchu_20 or Bombchu_Drop) and (bombchus_in_logic or Bomb_Bag)",
     "found_bombchus": "(bombchus_in_logic and (Bombchus or Bombchus_5 or Bombchus_10 or Bombchus_20)) or (not bombchus_in_logic and Bomb_Bag)",
@@ -38,27 +42,27 @@
     "is_starting_age": "age == starting_age",
     "is_glitched": "logic_rules != 'glitchless'",
     "can_blast_or_smash": "has_explosives or can_use(Megaton_Hammer)",
-    "can_child_attack": "is_child and (Slingshot or Boomerang or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire))",
-    "can_child_damage": "is_child and (Slingshot or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire))",
-    "can_cut_shrubs": "is_adult or Sticks or Kokiri_Sword or Boomerang or has_explosives",
+    "can_child_attack": "is_child and (Slingshot or Boomerang or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or (can_equipswap and Megaton_Hammer))",
+    "can_child_damage": "is_child and (Slingshot or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or (can_equipswap and Megaton_Hammer))",
+    "can_cut_shrubs": "is_adult or Sticks or Kokiri_Sword or Boomerang or has_explosives or can_use(Megaton_Hammer)",
     "can_dive": "Progressive_Scale",
-    "can_leave_forest": "open_forest != 'closed' or is_adult or is_glitched or Deku_Tree_Clear",
+    "can_leave_forest": "open_forest != 'closed' or is_adult or Deku_Tree_Clear",
     "can_plant_bugs": "is_child and Bugs",
     "can_ride_epona": "is_adult and Epona and (can_play(Eponas_Song) or (is_glitched and can_hover))",
-    "can_stun_deku": "is_adult or (Slingshot or Boomerang or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or Nuts or Deku_Shield)",
-    "can_summon_gossip_fairy": "Ocarina and (Zeldas_Lullaby or Eponas_Song or Song_of_Time or Suns_Song)",
-    "can_summon_gossip_fairy_without_suns": "Ocarina and (Zeldas_Lullaby or Eponas_Song or Song_of_Time)",
+    "can_stun_deku": "is_adult or Slingshot or Boomerang or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or Nuts or Deku_Shield or can_use(Megaton_Hammer)",
+    "can_summon_gossip_fairy": "(Ocarina or can_oi) and (Zeldas_Lullaby or Eponas_Song or Song_of_Time or Suns_Song)",
+    "can_summon_gossip_fairy_without_suns": "(Ocarina or can_oi) and (Zeldas_Lullaby or Eponas_Song or Song_of_Time)",
     "can_plant_bean": "is_child and (Magic_Bean or Magic_Bean_Pack)",
-    "can_play(song)": "Ocarina and song",
+    "can_play(song)": "(Ocarina or (can_oi and is_glitched)) and song",
     "can_open_bomb_grotto": "can_blast_or_smash and (Stone_of_Agony or logic_grottos_without_agony)",
     "can_open_storm_grotto": "can_play(Song_of_Storms) and (Stone_of_Agony or logic_grottos_without_agony)",
     # The last case in a conditional still needs a check, to prevent failure from falling through
     # into what should be the 'else' case.
-    "can_use_projectile": "has_explosives or (is_adult and (Bow or Hookshot)) or (is_child and (Slingshot or Boomerang))",
+    "can_use_projectile": "has_explosives or (is_adult and (Bow or Hookshot or (Boomerang and can_equipswap))) or (is_child and (Slingshot or Boomerang))",
     "has_projectile(for_age)": "has_explosives
             or (for_age == child and (Slingshot or Boomerang))
-            or (for_age == adult and (Bow or Hookshot))
-            or (for_age == both and (Slingshot or Boomerang) and (Bow or Hookshot))
+            or (for_age == adult and (Bow or Hookshot or (Boomerang and can_equipswap)))
+            or (for_age == both and (Slingshot or Boomerang) and (Bow or Hookshot or (Boomerang and can_equipswap)))
             or (for_age == either and (Slingshot or Boomerang or Bow or Hookshot))",
 
     # can_use and helpers
@@ -67,33 +71,66 @@
     "can_use(item)": "(_is_magic_item(item) and item and Magic_Meter)
             or (_is_adult_item(item) and is_adult and item)
             or (_is_magic_arrow(item) and is_adult and item and Bow and Magic_Meter)
-            or (_is_child_item(item) and is_child and item)",
+            or (_is_child_item(item) and is_child and item)
+            or (_is_equipswap_item(item) and can_equipswap)
+            or (_is_equipswap_slingshot(item) and can_use(Bow) and can_equipswap)",
     "_is_magic_item(item)": "item == Dins_Fire or item == Farores_Wind or item == Nayrus_Love or item == Lens_of_Truth",
     "_is_adult_item(item)": "item == Bow or item == Megaton_Hammer or item == Iron_Boots or item == Hover_Boots or item == Hookshot or item == Longshot or item == Silver_Gauntlets or item == Golden_Gauntlets or item == Goron_Tunic or item == Zora_Tunic or item == Scarecrow or item == Distant_Scarecrow",
     "_is_child_item(item)": "item == Slingshot or item == Boomerang or item == Kokiri_Sword or item == Sticks or item == Deku_Shield",
     "_is_magic_arrow(item)": "item == Fire_Arrows or item == Light_Arrows",
-
+    "_is_equipswap_item(item)": "item == Megaton_Hammer or item == Boomerang or item == Sticks",
+    # Slingshot as adult requires quiver so it needs to specifically check for that.
+    "_is_equipswap_slingshot(item)": "item == Slingshot",
+    
     # Biggoron's trade path
     # ER with certain settings disables timers and prevents items from reverting on save warp.
+    # ER with these settings disables timers and prevents items from reverting on save warp.
     # Otherwise, to get to Biggoron requires: a trick, clearing boulders on DMT, or Darunia's Chamber
-    "guarantee_trade_path": "disable_trade_revert or can_blast_or_smash or 'Stop GC Rolling Goron as Adult' or (logic_dmt_climb_hovers and can_use(Hover_Boots)) or (logic_biggoron_bolero and not warp_songs and can_play(Bolero_of_Fire) and at('DMC Central Local', can_use(Hookshot) or can_use(Hover_Boots) or can_plant_bean))",
+    "guarantee_trade_path": "disable_trade_revert or can_blast_or_smash or 'Stop GC Rolling Goron as Adult' or (logic_dmt_climb_hovers and can_use(Hover_Boots)) or (logic_biggoron_bolero and not warp_songs and can_play(Bolero_of_Fire) and at('DMC Central Local', can_use(Hookshot) or can_use(Hover_Boots) or can_plant_bean))"
     "guarantee_hint": "(hints == 'mask' and Mask_of_Truth) or (hints == 'agony' and Stone_of_Agony) or (hints != 'mask' and hints != 'agony')",
     "has_fire_source": "can_use(Dins_Fire) or can_use(Fire_Arrows)",
-    "has_fire_source_with_torch": "has_fire_source or (is_child and Sticks)",
+    "has_fire_source_with_torch": "has_fire_source or can_use(Sticks)",
+    # Only used for quick putaway right now, but defining it here since it'll be easier in case it needs use somewhere else
+    "has_adult_trade_item": "Pocket Cucco or Cojiro or Odd Mushroom or Odd Potion or Poachers Saw or Broken Sword or Prescription or Eyeball Frog or Eyedrops or Claim Check",
 
     # Gerudo Fortress
-    "can_finish_GerudoFortress": "(gerudo_fortress == 'normal' and (Small_Key_Gerudo_Fortress, 4) and (is_adult or Kokiri_Sword or is_glitched) and (is_adult and (Bow or Hookshot or Hover_Boots) or Gerudo_Membership_Card or logic_gerudo_kitchen or is_glitched))
-            or (gerudo_fortress == 'fast' and Small_Key_Gerudo_Fortress and (is_adult or Kokiri_Sword or is_glitched))
+    "can_finish_GerudoFortress": "(gerudo_fortress == 'normal' and (Small_Key_Gerudo_Fortress, 4) and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang))))) and ((is_adult and (Bow or Hookshot or Hover_Boots) or Gerudo_Membership_Card or logic_gerudo_kitchen or is_glitched))))
+            or (gerudo_fortress == 'fast' and Small_Key_Gerudo_Fortress and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Megaton_Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))))
             or (gerudo_fortress != 'normal' and gerudo_fortress != 'fast')",
     # Mirror shield does not count because it cannot reflect scrub attack.
     "has_shield": "(is_adult and Hylian_Shield) or (is_child and Deku_Shield)",
     "can_shield": "(is_adult and (Hylian_Shield or Mirror_Shield)) or (is_child and Deku_Shield)",
-    "can_mega": "has_explosives and can_shield",
-    "can_isg": "can_shield and (is_adult or Sticks or Kokiri_Sword)",
-    "can_hover": "can_mega and can_isg",
-    "can_weirdshot": "can_mega and can_use(Hookshot)",
     "can_jumpslash": "is_adult or Sticks or Kokiri_Sword",
-
+    
+    # Glitch logic exclusive
+    "can_enemy_mega": "can_shield and glitch_megaflip",
+    "can_mega": "has_explosives can_enemy_mega",
+    "can_isg": "can_shield and (is_adult or Sticks or Kokiri_Sword or can_use(Megaton_Hammer))",
+    "can_enemy_hover": "can_isg and glitch_hover",
+    "can_hover": "has_explosives and can_enemy_hover",
+    # Make sure to specify WHICH item you're expecting a weirdshot with.
+    # Logically requires being adult as child crashes often while weirdshotting/weirdclipping
+    "can_weirdshot": "is_adult and (has_explosives and can_shield and glitch_weirdshot)",
+    # Elemental arrows and slingshot only need to be equippable, not necessarily usable. Also potential WotH ice arrows lol
+    "can_weirdclip": "is_adult and can_weirdshot and (can_use(Bow) or (Slingshot and can_equipswap) or can_use(Hookshot) or Ice_Arrows or Fire_Arrows or Light_Arrows)",
+    "can_oi": "(Fish or Bugs) and glitch_oi",
+    "can_groundjump": "can_shield and Bombs",
+    "can_equipswap": "(Dins_Fire or (is_child and Sticks)) and glitch_equipswap",
+    "can_hess": "has_explosives and can_shield and glitch_hess",
+    "can_wess": "can_jumpslash and glitch_hess",
+    # This can also be done with a ledge, but that's better to define on-location rather than with a helper.
+    "can_qpa": "glitch_qpa and can_use(Sticks) and (has_cutscene_item or Nuts)",
+    # Chus are hard to work with without something specific to blow them up on (e.g. King Zora's sign).
+    "can_ledge_cancel": "glitch_ledge_cancel and can_shield and Bombs",
+    "can_ledge_cancel_chus": "glitch_ledge_cancel and can_shield and has_explosives",
+    "can_damage_boost": "not_a_glitch_damage_boost and has_explosives and can_jumpslash and (can_live_dmg(0.5) or can_use(Nayrus_Love))",
+    # Blue Fire works for this, but requiring 200 rupees every time for any glitch involving cutscene items is simply too cruel.
+    # Beans, big poes, both letters, and weird egg are all also cutscene items, but they can all be used up so they can't be in logic.
+	# I can't seem to add small poes or any kind of potion because it needs to be defined still. I've left it out for now but it could potentially be done.
+    "has_cutscene_item": "(has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
+        can_use(Dins_Fire) or can_use(Farores_Wind) or can_use(Nayrus_Love) or Ocarina or has_bottle_item",
+    "has_bottle_item": "(Bugs or Fish or Fairy or Milk) and Bottle",
+    
     # Bridge Requirements
     "has_all_stones": "Kokiri_Emerald and Goron_Ruby and Zora_Sapphire",
     "has_all_medallions": "Forest_Medallion and Fire_Medallion and Water_Medallion and Shadow_Medallion and Spirit_Medallion and Light_Medallion",
