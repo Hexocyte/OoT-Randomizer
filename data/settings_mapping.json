@@ -247,7 +247,7 @@
           "text": "Enable Tricks",
           "row_span": [8,10,10],
           "settings": [
-            "allowed_tricks,
+            "allowed_tricks",
             "allowed_glitches"
           ]
         }
