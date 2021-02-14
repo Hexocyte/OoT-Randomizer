@@ -705,7 +705,10 @@ def validate_world(world, worlds, entrance_placed, locations_to_ensure_reachable
     # This means we need to hard check that none of the relevant entrances are ever reachable as that age
     # This is mostly relevant when shuffling special interiors (such as windmill or kak potion shop)
     # Warp Songs and Overworld Spawns can also end up inside certain indoors so those need to be handled as well
-    CHILD_FORBIDDEN = ['OGC Great Fairy Fountain -> Castle Grounds', 'GV Carpenter Tent -> GV Fortress Side']
+    # Glitch logic needs to allow child into the carpenter tent because that's a valid entrance
+    CHILD_FORBIDDEN = ['OGC Great Fairy Fountain -> Castle Grounds']
+    if (world.logic_rules == 'glitchless'):
+        CHILD_FORBIDDEN.append('GV Carpenter Tent -> GV Fortress Side')
     ADULT_FORBIDDEN = ['HC Great Fairy Fountain -> Castle Grounds', 'HC Storms Grotto -> Castle Grounds']
 
     for entrance in world.get_shufflable_entrances():
@@ -740,7 +743,8 @@ def validate_world(world, worlds, entrance_placed, locations_to_ensure_reachable
             raise EntranceShuffleError('Kak Potion Shop entrances are not in the same hint area')
 
         # When cows are shuffled, ensure the same thing for Impa's House, since the cow is reachable from both sides
-        if world.shuffle_cows:
+        # Also ensure the same thing for glitch logic, as that is a valid transition.       
+        if world.shuffle_cows or world.logic_rules != 'glitchless':
             impas_front_entrance = get_entrance_replacing(world.get_region('Kak Impas House'), 'Kakariko Village -> Kak Impas House')
             impas_back_entrance = get_entrance_replacing(world.get_region('Kak Impas House Back'), 'Kak Impas Ledge -> Kak Impas House Back')
             if impas_front_entrance is not None and impas_back_entrance is not None and not same_hint_area(impas_front_entrance, impas_back_entrance):
