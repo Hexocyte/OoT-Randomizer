@@ -6,7 +6,8 @@
             "Links Pocket": "True"
         },
         "exits": {
-            "Root Exits": "is_starting_age or Time_Travel"
+            "Root Exits": "is_starting_age or Time_Travel",
+            "HC Garden Locations": "skip_child_zelda"
         }
     },
     {
@@ -621,9 +622,8 @@
         "exits": {
             "Market": "True",
             # Child can do this itemless, but to prevent softlocks he needs an item for adult to return. Check for the item BEFORE crossing the door.
-            # UPDATE: Fix this if shuffle Giant's Knife gets accepted
             "Beyond Door of Time": "can_play(Song_of_Time) or open_door_of_time or
-                (((Hover_Boots and (Hylian_Shield or Mirror_Shield)) or Biggoron_Sword or 'Has Giants Knife') and glitch_dot_skip)"
+                (((Hover_Boots and (Hylian_Shield or Mirror_Shield)) or Biggoron_Sword or Giants_Knife) and glitch_dot_skip)"
         }
     },
     {
@@ -663,7 +663,7 @@
         "exits": {
             "Castle Grounds": "True",
             #// garden will logically need weird-egg as letter first can screw over the mask quest
-            "HC Garden": "Weird_Egg or (not shuffle_weird_egg)",
+            "HC Garden": "Weird_Egg or skip_child_zelda or (not shuffle_weird_egg)",
             # Seamwalk around, somewhat precise
             "HC Great Fairy Fountain": "True",
             "HC Storms Grotto": "can_play(Song_of_Storms)"
@@ -673,16 +673,24 @@
         "region_name": "HC Garden",
         "scene": "Castle Grounds",
         "hint": "Hyrule Castle",
-        "locations": {
-            "HC Zeldas Letter": "True",
-            "Song from Impa": "True"
-        },
         "exits": {
+            "HC Garden Locations": "True",
             "Hyrule Castle Grounds": "True"
         }
     },
     {
+        # Directly reachable from Root in "Free Zelda"
+        "region_name": "HC Garden Locations",
+        "scene": "Castle Grounds",
+        "hint": "Hyrule Castle",
+        "locations": {
+            "HC Zeldas Letter": "True",
+            "Song from Impa": "True"
+        }
+    },
+    {
         "region_name": "HC Great Fairy Fountain",
+        "scene": "HC Great Fairy Fountain",
         "locations": {
             "HC Great Fairy Reward": "can_play(Zeldas_Lullaby)"
         },
@@ -1225,10 +1233,6 @@
                 can_blast_or_smash or can_use(Dins_Fire) or can_use(Bow) or Progressive_Strength_Upgrade or Blue_Fire",
             "Stop GC Rolling Goron as Adult": "is_adult and 
                 (Progressive_Strength_Upgrade or has_explosives or Bow or can_use(Dins_Fire) or Blue_Fire)",
-            # UPDATE: Change this to Roman's new stuff on the next update.
-            # It'd cost 1200 rupees to get here with blue fire. That's just too much for base logic.
-            "Has Giants Knife": "is_adult and Progressive_Wallet and
-                here(can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))"
         },
         "locations": {
             # Hover backwalk from left chest, or hess using bomb flowers (strength or sticks work), or intended strats.
@@ -1242,14 +1246,14 @@
             "GC Maze Right Chest": "
                 can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or is_child at('GC Darunias Chamber', is child))
                     and can_shield and glitch_hess)",
-            "GC Pot Freestanding PoH": "
-                is_child and 
+            "GC Pot Freestanding PoH": "is_child and 
                 (has_explosives or Progressive_Strength_Upgrade) and 
                 (((can_play(Zeldas_Lullaby) or can_shield) and Sticks) or can_use(Dins_Fire) or can_qpa)",
-            "GC Rolling Goron as Child": "
-                is_child and 
+            "GC Rolling Goron as Child": "is_child and 
                 (has_explosives or Progressive_Strength_Upgrade)",
             "GC Rolling Goron as Adult": "'Stop GC Rolling Goron as Adult'",
+            "GC Medigoron": "is_adult and Progressive_Wallet and
+                here(can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))"
             # Sticks are always True in GC, so no point in checking for strength for this hess
             "GC GS Boulder Maze": "is_child and (can_blast_or_smash or (can_shield and glitch_hess))",
             "GC GS Center Platform": "is_adult",
