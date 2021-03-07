@@ -22,7 +22,7 @@
                 is_adult or Slingshot or Sticks or has_explosives or Kokiri_Sword or can_use(Megaton_Hammer)",
             # Can stun the scrub with a pot from the hallway with the scarecrow GS
             "Dodongos Cavern Deku Scrub Lobby": "True",
-            "Dodongos Cavern Gossip Stone": "True"
+            "Dodongos Cavern Gossip Stone": "True",
             "Gossip Stone Fairy": "can_summon_gossip_fairy and has_bottle"
         },
         "exits": {

@@ -1,8 +1,9 @@
 [    
-	{
+    {
         "region_name": "Bottom of the Well",
         "dungeon": "Bottom of the Well",
         "exits": {
+            "Kakariko Village": "True",
             "Bottom of the Well Main Area" : "is_child and (can_child_attack or Nuts)"
         }
     },
@@ -18,30 +19,31 @@
             "Bottom of the Well Back Left Bombable Chest": "has_explosives",
             "Bottom of the Well Freestanding Key": "Sticks or can_use(Dins_Fire) or Boomerang",
             "Bottom of the Well Lens of Truth Chest": "
-                (can_play(Zeldas_Lullaby) or  (Small_Key_Bottom_of_the_Well,3)) and 
-                (Kokiri_Sword or Sticks)", 
-            "Bottom of the Well Invisible Chest": "(can_play(Zeldas_Lullaby) or  (Small_Key_Bottom_of_the_Well,3))",
+                (can_play(Zeldas_Lullaby) or ((Small_Key_Bottom_of_the_Well, 3) and glitch_actor)) and
+                (Kokiri_Sword or Sticks or can_use(Megaton_Hammer))",
+            "Bottom of the Well Invisible Chest": "can_play(Zeldas_Lullaby) or
+                ((Small_Key_Bottom_of_the_Well, 3) and glitch_actor)",
             "Bottom of the Well Underwater Front Chest": "can_play(Zeldas_Lullaby)",
             "Bottom of the Well Underwater Left Chest": "can_play(Zeldas_Lullaby)",
-            "Bottom of the Well Map Chest": "
-                has_explosives or 
-                (((Small_Key_Bottom_of_the_Well, 3) or 
-                    can_use(Dins_Fire) or Sticks) and 
-                Progressive_Strength_Upgrade)",
+            # Technically requires a fire source w/torch or 3 keys, but there's a stick pot.
+            "Bottom of the Well Map Chest": "has_explosives or
+                Progressive_Strength_Upgrade",
             "Bottom of the Well Fire Keese Chest": "
-                (Small_Key_Bottom_of_the_Well, 3)", 
+                (Small_Key_Bottom_of_the_Well, 3)",
             "Bottom of the Well Like Like Chest": "
                 (Small_Key_Bottom_of_the_Well, 3)",
             "Bottom of the Well GS West Inner Room": "
-                (Boomerang or can_isg) and 
+                (Boomerang or can_enemy_hover) and
                 (Small_Key_Bottom_of_the_Well, 3)",
+            # Hovering off of keese sucks, but it was also in logic before so it's getting in with insane mode.
             "Bottom of the Well GS East Inner Room": "
-                (Boomerang or can_isg) and 
+                (Boomerang or can_hover or (can_enemy_hover and glitch_insane)) and 
                 (Small_Key_Bottom_of_the_Well, 3)",
             "Bottom of the Well GS Like Like Cage": "
-                (Boomerang or can_isg) and 
+                (Boomerang or can_enemy_hover) and
                 (Small_Key_Bottom_of_the_Well, 3)",
-            "Stick Pot": "True"
+            "Stick Pot": "True",
+            "Nut Pot": "True"
         },
         "exits": {
             "Bottom of the Well" : "True"

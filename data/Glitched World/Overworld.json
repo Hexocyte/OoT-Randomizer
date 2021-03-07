@@ -80,7 +80,7 @@
                 (is_adult and (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or
                 (glitch_deku_entry and ((can_live_dmg(0.5) and has_explosives) or Hover_Boots)))",
             # There are other ways past this, but the only way to get to this side as a logical passage is to do reverse spirit, which means you hovered.
-            "Kokiri Forest": "'Showed Mido Sword & Shield' or is_adult or can_hover"
+            "Kokiri Forest": "'Showed Mido Sword & Shield' or is_adult or (glitch_mido_skip and can_hover)"
         }
     },
     {
@@ -423,7 +423,7 @@
         "locations": {
             "GV Crate Freestanding PoH": "True"
         },
-        "exits': {
+        "exits": {
             "GV Lower Stream":"True"
         }
     },
@@ -453,7 +453,7 @@
                 gerudo_fortress == 'open' or 'Carpenter Rescue'",
             "GV Crate Ledge": "(can_use(Hover_Boots) or can_mega) and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love)) or
                 (can_damage_boost and can_live_dmg(1.5))",
-            "GV Crate Ledge": "(can_use(Hover_Boots) and can_live_dmg(0.5)) or (Bombs and can_live_dmg(1.5)"
+            "GV Crate Ledge": "(can_use(Hover_Boots) and can_live_dmg(0.5)) or (Bombs and can_live_dmg(1.5))"
         }
     },
     {
@@ -1142,7 +1142,7 @@
             # He also can't unload it if he's blown up tomb and Dampe is out, but he is always able to force ToD to change if ToD is checked so at_night suffices.
             "Shadow Temple Entryway": "can_use(Dins_Fire) or can_use(Fire_Arrows) or (glitch_qpa and can_use(Sticks) and can_shield) or
                 (glitch_shadow_door_skip and (is_adult or (can_hover and (can_live_dmg(1) or can_use(Nayrus_Love) or Fairy) or
-                (glitch_stairs and ('Trade Spooky Mask' or can_play(Zeldas_Lullaby) or at_night))))"
+                (glitch_stairs and ('Trade Spooky Mask' or can_play(Zeldas_Lullaby) or at_night)))))"
         }
     },
     {
@@ -1151,7 +1151,7 @@
         "hint": "Death Mountain Trail",
         "time_passes": true,
         "events": {
-            "Plant DMT Bean": "can_plant_bean and (has_explosives or Progressive_Strength_Upgrade)
+            "Plant DMT Bean": "can_plant_bean and (has_explosives or Progressive_Strength_Upgrade)"
         },
         "locations": {
             "DMT Chest": "
@@ -1232,19 +1232,19 @@
             "GC Woods Warp Open": "
                 can_blast_or_smash or can_use(Dins_Fire) or can_use(Bow) or Progressive_Strength_Upgrade or Blue_Fire",
             "Stop GC Rolling Goron as Adult": "is_adult and 
-                (Progressive_Strength_Upgrade or has_explosives or Bow or can_use(Dins_Fire) or Blue_Fire)",
+                (Progressive_Strength_Upgrade or has_explosives or Bow or can_use(Dins_Fire) or Blue_Fire)"
         },
         "locations": {
             # Hover backwalk from left chest, or hess using bomb flowers (strength or sticks work), or intended strats.
             "GC Maze Left Chest": "
                 can_use(Megaton_Hammer) or can_use(Silver_Gauntlets) or
-                ((Progressive_Strength_Upgrade or has_explosives or at('GC Darunias Chamber', is child)) and can_shield and glitch_hess)
-                or (has_explosives and can_use(Hover_Boots)) or at('GC Darunias Chamber', can_ledge_cancel)",
+                ((Progressive_Strength_Upgrade or has_explosives or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess) or
+                (has_explosives and can_use(Hover_Boots)) or at('GC Darunias Chamber', can_ledge_cancel)",
             "GC Maze Center Chest": "
-                can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is child))
+                can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child))
                     and can_shield and glitch_hess)",
             "GC Maze Right Chest": "
-                can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or is_child at('GC Darunias Chamber', is child))
+                can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child))
                     and can_shield and glitch_hess)",
             "GC Pot Freestanding PoH": "is_child and 
                 (has_explosives or Progressive_Strength_Upgrade) and 
@@ -1253,18 +1253,18 @@
                 (has_explosives or Progressive_Strength_Upgrade)",
             "GC Rolling Goron as Adult": "'Stop GC Rolling Goron as Adult'",
             "GC Medigoron": "is_adult and Progressive_Wallet and
-                here(can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))"
+                here(can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))",
             # Sticks are always True in GC, so no point in checking for strength for this hess
             "GC GS Boulder Maze": "is_child and (can_blast_or_smash or (can_shield and glitch_hess))",
             "GC GS Center Platform": "is_adult",
             "GC Maze Gossip Stone": "can_blast_or_smash or can_use(Silver_Gauntlets) or
-                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is child)) and can_shield and glitch_hess)",
+                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess)",
             "GC Medigoron Gossip Stone": "can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire)",
             "Gossip Stone Fairy": "
                 can_summon_gossip_fairy_without_suns and has_bottle and
                 (can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))",
             "Bug Rock": "has_bottle and (can_blast_or_smash or can_use(Silver_Gauntlets) or
-                (Progressive_Strength_Upgrade or at('GC Darunias Chamber', is child)) and can_shield and glitch_hess))",
+                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess))",
             "Stick Pot": "is_child"
         },
         "exits": {
@@ -1547,7 +1547,7 @@
             # Child technically requires a jumpslash, but stick pot exists.
             "Lake Hylia": "True",
             # Adult can exit with a glitchless jump, child can clip into the acute angle with a stick that's burning out (sidehop from the ledge near it).
-            "ZD Behind King Zora": "True"
+            "ZD Behind King Zora": "True",
             "ZD Shop": "True",
             "ZD Storms Grotto": "can_play(Song_of_Storms)"
         }
@@ -1587,7 +1587,7 @@
             # Hover up from near jabu to the wall, then walk around OoB and jump down into the loading zone.
             "ZF Ice Ledge": "is_adult or (is_child and can_hover)",
             "ZF Great Fairy Fountain": "has_explosives or (can_use(Hookshot) and glitch_hookshot_jump) or
-                (can_use(Silver_Gauntlets) and can_use(Megaton_Hammer)"
+                (can_use(Silver_Gauntlets) and can_use(Megaton_Hammer))"
         }
     },
     {
@@ -1629,7 +1629,7 @@
         "scene": "Lon Lon Ranch",
         "hint": "Lon Lon Ranch",
         "events": {
-            "Epona": "(can_play(Eponas_Song) or can_hover or (can_hess and can_use(Hover_Boots) and glitch_insane) and is_adult",
+            "Epona": "(can_play(Eponas_Song) or can_hover or (can_hess and can_use(Hover_Boots) and glitch_insane)) and is_adult",
             "Links Cow": "(can_play(Eponas_Song) or can_hover) and is_adult"
         },
         "locations": {
@@ -1774,8 +1774,8 @@
     {
         "region_name": "SFM Wolfos Grotto",
         "locations": {
-            "SFM Wolfos Grotto Chest": "is_adult or Sticks or Kokiri_Sword or can_use(Dins_Fire) or
-                can_use(Megaton_Hammer) or Slingshot or (has explosives and (has_bombchus or Nuts or Boomerang))"
+            "SFM Wolfos Grotto Chest": "can_jumpslash or can_use(Dins_Fire) or
+                can_use(Megaton_Hammer) or Slingshot or (has_explosives and (has_bombchus or Nuts or Boomerang))"
         },
         "exits": {
             "SFM Entryway": "True"
@@ -1907,8 +1907,7 @@
     {
         "region_name": "Kak Redead Grotto",
         "locations": {
-            "Kak Redead Grotto Chest": "
-                is_adult or (Sticks or Kokiri_Sword or can_use(Megaton Hammer) or can_use(Dins_Fire))"
+            "Kak Redead Grotto Chest": "can_jumpslash or can_use(Megaton_Hammer) or can_use(Dins_Fire)"
         },
         "exits": {
             "Kakariko Village": "True"
