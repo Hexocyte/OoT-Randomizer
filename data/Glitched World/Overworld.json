@@ -57,7 +57,7 @@
             "Lost Woods": "True",
             # Triple slash clip, or Walking While Talking, or stick WESS or itemless
             "LW Bridge From Forest": "can_leave_forest or
-                (glitch_forest_escape and (Kokiri_Sword or Nuts (glitch_hess and Sticks) or glitch_insane))",
+                (glitch_forest_escape and (Kokiri_Sword or Nuts or (glitch_hess and Sticks) or glitch_insane))",
             "KF Storms Grotto": "can_play(Song_of_Storms)"
         }
     },
@@ -498,7 +498,7 @@
         "events": {
             "GF Gate Open": "
                 is_adult and Gerudo_Membership_Card and
-                (shuffle_gerudo_card or shuffle_overworld_entrances or shuffle_special_indoor_entrances)"
+                (shuffle_gerudo_card or shuffle_overworld_entrances or shuffle_special_interior_entrances)"
         },
         "exits": {
             "Gerudo Fortress": "is_adult or can_hover or (shuffle_overworld_entrances and 'GF Gate Open')",
