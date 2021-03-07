@@ -15,8 +15,9 @@
             "Deku Tree Slingshot Room": "here(has_shield) or can_use(Hammer)",
             "Deku Tree Basement Backroom": "is_child or (here(can_use(Slingshot) or can_use(Bow)) and here(has_fire_source_with_torch or can_use(Bow))) or
                 (glitch_deku_crawlspace and can_hover and can_use(Hookshot))",
-            "Deku Tree Boss Room": "here((has_fire_source_with_torch or can_use(Bow)) and (has_shield or can_use(Hammer)))
-                or (is_adult and glitch_gohma_skip)"
+            "Deku Tree Boss Room": "(here((has_fire_source_with_torch or can_use(Bow)) or (can_weirdshot and can_use(Hookshot))) and
+                    (has_shield or can_use(Hammer))) or
+                (is_adult and glitch_gohma_skip)"
         }
     },
     {
