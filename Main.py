@@ -27,7 +27,7 @@ from Hints import buildGossipHints
 from Utils import default_output_path, is_bundled, subprocess_args, data_path
 from version import __version__
 from N64Patch import create_patch_file, apply_patch_file
-from SettingsList import setting_infos, logic_tricks
+from SettingsList import setting_infos, logic_tricks, logic_glitches
 from Rules import set_rules, set_shop_rules
 from Plandomizer import Distribution
 from Search import Search, RewindableSearch
@@ -80,6 +80,9 @@ def resolve_settings(settings, window=dummy_window()):
 
     for trick in logic_tricks.values():
         settings.__dict__[trick['name']] = trick['name'] in settings.allowed_tricks
+
+    for glitch in logic_glitches.values():
+        settings.__dict__[glitch['name']] = glitch['name'] in settings.allowed_glitches
 
     # we load the rom before creating the seed so that errors get caught early
     if settings.compress_rom == 'None' and not settings.create_spoiler:
