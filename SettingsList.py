@@ -2628,7 +2628,7 @@ setting_infos = [
         disable        = {
             'glitchless' : {'settings' : ['allowed_glitches']},
             'glitched'   : {'settings' : ['allowed_tricks', 'mq_dungeons_random', 'mq_dungeons']},
-            'none'       : {'settings' : ['allowed_tricks', 'allowed_glitches', 'logic_no_night_tokens_without_suns_song', 'reachable_locations']},
+            'none'       : {'settings' : ['allowed_tricks', 'allowed_glitches', 'logic_no_night_tokens_without_suns_song', 'all_reachable']},
         },
         shared         = True,
     ),
