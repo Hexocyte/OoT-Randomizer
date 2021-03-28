@@ -76,9 +76,7 @@
         },
         "exits": {
             #// Adult would technically come from Kokiri Forest, but the transition in both directions is True
-            "Deku Tree Lobby": "is_child or 
-                (is_adult and (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or
-                (glitch_deku_entry and ((can_live_dmg(0.5) and has_explosives) or Hover_Boots)))",
+            "Deku Tree Lobby": "is_child or (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or glitch_deku_entry",
             # There are other ways past this, but the only way to get to this side as a logical passage is to do reverse spirit, which means you hovered.
             "Kokiri Forest": "'Showed Mido Sword & Shield' or is_adult or (glitch_mido_skip and can_hover)"
         }
