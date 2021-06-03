@@ -8,7 +8,7 @@
                 (can_use(Megaton_Hammer) or can_use(Hookshot) or (has_explosives and is_adult)) and (is_adult or can_groundjump)",
             "Fire Temple Boss Key Chest": "(((Small_Key_Fire_Temple, 8) or not keysanity) and can_use(Megaton_Hammer)) or
                 (can_weirdshot and Hookshot) or
-                (glitch_actor and can_use(Dins_Fire) and Bombs and can_live_dmg(1.5))",
+                (glitch_actor and can_use(Dins_Fire) and has_explosives and can_live_dmg(1.5))",
             "Fire Temple GS Boss Key Loop": "((Small_Key_Fire_Temple, 8) or not keysanity) and (is_adult or can_use(Megaton_Hammer))",
             "Fairy Pot": "has_bottle and (can_use(Hover_Boots) or can_use(Hookshot) or can_mega or can_hover)"
         },
