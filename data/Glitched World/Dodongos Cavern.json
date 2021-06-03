@@ -61,7 +61,7 @@
         },
         "exits": {
             "Dodongos Cavern Boss Area": "has_explosives or
-                here(can_use(Hover_Boots) and glitch_hess and Progressive_Strength_Upgrade and glitch_dodongo_strength)",
+                here(can_use(Hover_Boots) and glitch_slide and Progressive_Strength_Upgrade and glitch_dodongo_strength)",
             "Dodongos Cavern Lobby": "True"
         }
     },
@@ -71,11 +71,9 @@
         "locations": {
             "Dodongos Cavern Boss Room Chest": "True",
             "Dodongos Cavern King Dodongo Heart": "((can_jumpslash and has_explosives) or can_use(Megaton_Hammer)) and
-                (Bombs or Progressive_Strength_Upgrade or
-                (has_bombchus and (is_adult or can_hover)))",
+                (Bombs or Progressive_Strength_Upgrade or (glitch_hard_bosses and has_bombchus and (is_adult or can_hover)))",
             "King Dodongo": "((can_jumpslash and has_explosives) or can_use(Megaton_Hammer)) and
-            (Bombs or Progressive_Strength_Upgrade or
-            (has_bombchus and (is_adult or can_hover)))",
+                (Bombs or Progressive_Strength_Upgrade or (glitch_hard_bosses and has_bombchus and (is_adult or can_hover)))",
             "Dodongos Cavern GS Back Room": "here(can_blast_or_smash) or Blue_Fire"
         },
         "exits": {
