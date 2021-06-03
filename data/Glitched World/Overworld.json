@@ -57,7 +57,7 @@
             "Lost Woods": "True",
             # Triple slash clip, or Walking While Talking, or stick WESS or itemless
             "LW Bridge From Forest": "can_leave_forest or
-                (glitch_forest_escape and (Kokiri_Sword or Nuts or (glitch_hess and Sticks) or glitch_insane))",
+                (glitch_forest_escape and (Kokiri_Sword or Nuts or can_wess or glitch_insane))",
             "KF Storms Grotto": "can_play(Song_of_Storms)"
         }
     },
@@ -76,7 +76,9 @@
         },
         "exits": {
             #// Adult would technically come from Kokiri Forest, but the transition in both directions is True
-            "Deku Tree Lobby": "is_child or (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or glitch_deku_entry",
+            "Deku Tree Lobby": "is_child or 
+                (is_adult and (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or
+                (glitch_deku_entry and ((can_live_dmg(0.5) and has_explosives) or Hover_Boots)))",
             # There are other ways past this, but the only way to get to this side as a logical passage is to do reverse spirit, which means you hovered.
             "Kokiri Forest": "'Showed Mido Sword & Shield' or is_adult or (glitch_mido_skip and can_hover)"
         }
@@ -189,7 +191,7 @@
         "exits": {
             "LW Forest Exit": "True",
             # Adult can use bomb push from the back
-            "Lost Woods": "is_child or at('Lost Woods', can_play(Sarias_Song)) or can_hess or (can_use(Hover_Boots) and can_shield) or (Bombs and can_shield)",
+            "Lost Woods": "is_child or at('Lost Woods', can_play(Sarias_Song)) or can_bomb_slide or (can_use(Hover_Boots) and can_shield) or (Bombs and can_shield)",
             "SFM Entryway": "True",
             "Deku Theater": "True",
             "LW Scrubs Grotto": "can_blast_or_smash"
@@ -528,8 +530,8 @@
         "locations": {
             "Colossus Freestanding PoH": "
                 (is_adult and here(can_plant_bean)) or
-                at('Mirror Shield Hand', (can_mega or (can_hess and can_use(Hover_Boots)))) or
-                at('Silver Gauntlets Hand', (can_mega or (can_hess and can_use(Hover_Boots)))) or
+                at('Mirror Shield Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
+                at('Silver Gauntlets Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
                 (can_hover and (can_use(Hover_Boots) or can_qpa or glitch_insane))",
             "Sheik at Colossus": "True",
             "Colossus GS Bean Patch": "can_plant_bugs and can_child_attack",
@@ -711,7 +713,7 @@
                 (has_explosives and (can_live_dmg(0.5) or can_use(Nayrus_Love))) or (can_use(Hover_Boots) and (can_shield or can_use(Megaton_Hammer))) or glitch_insane)",
             # Bomb hover or hoverboots hess across
             "Ganons Castle Lobby": "can_build_rainbow_bridge or
-                (glitch_bridge_skip and (can_hover or (can_hess and can_use(Hover_Boots))))"
+                (glitch_bridge_skip and (can_hover or (can_bomb_slide and can_use(Hover_Boots))))"
         }
     },
     {
@@ -942,8 +944,6 @@
         }
     },
     {
-    # UPDATE: These three areas should be a special interior, but it can't be split, so I did some stuff in EntranceShuffle.py to at least fix them to the same hint region
-    # on glitch and no logic. Partially because it solves the special interior problem well enough for me, and partially because the heart piece is accessible from both sides.
         "region_name": "Kak Impas House",
         "exits": {
             "Kakariko Village": "True",
@@ -1115,7 +1115,7 @@
         "exits": {
             "Graveyard": "True",
             "Kak Windmill": "(is_child and can_groundjump) or 
-                (is_adult and (can_play(Song_of_Time) or can_hess or (has_explosives and can_live_dmg(0.5))))"
+                (is_adult and (can_play(Song_of_Time) or can_bomb_slide or (has_explosives and can_live_dmg(0.5))))"
         }
     },
     {
@@ -1228,22 +1228,22 @@
         "hint": "Goron City",
         "events": {
             "GC Woods Warp Open": "
-                can_blast_or_smash or can_use(Dins_Fire) or can_use(Bow) or Progressive_Strength_Upgrade or Blue_Fire",
+                can_blast_or_smash or can_use(Dins_Fire) or can_use(Bow) or Progressive_Strength_Upgrade or Blue_Fire or can_qpa",
             "Stop GC Rolling Goron as Adult": "is_adult and 
-                (Progressive_Strength_Upgrade or has_explosives or Bow or can_use(Dins_Fire) or Blue_Fire)"
+                (Progressive_Strength_Upgrade or has_explosives or Bow or can_use(Dins_Fire) or Blue_Fire or can_qpa)"
         },
         "locations": {
             # Hover backwalk from left chest, or hess using bomb flowers (strength or sticks work), or intended strats.
             "GC Maze Left Chest": "
                 can_use(Megaton_Hammer) or can_use(Silver_Gauntlets) or
-                ((Progressive_Strength_Upgrade or has_explosives or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess) or
+                ((Progressive_Strength_Upgrade or has_explosives or at('GC Darunias Chamber', is_child)) and can_shield and glitch_slide) or
                 (has_explosives and can_use(Hover_Boots)) or at('GC Darunias Chamber', can_ledge_cancel)",
             "GC Maze Center Chest": "
                 can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child))
-                    and can_shield and glitch_hess)",
+                    and can_shield and glitch_slide)",
             "GC Maze Right Chest": "
                 can_blast_or_smash or can_use(Silver_Gauntlets) or ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child))
-                    and can_shield and glitch_hess)",
+                    and can_shield and glitch_slide)",
             "GC Pot Freestanding PoH": "is_child and 
                 (has_explosives or Progressive_Strength_Upgrade) and 
                 (((can_play(Zeldas_Lullaby) or can_shield) and Sticks) or can_use(Dins_Fire) or can_qpa)",
@@ -1253,16 +1253,16 @@
             "GC Medigoron": "is_adult and Progressive_Wallet and
                 here(can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))",
             # Sticks are always True in GC, so no point in checking for strength for this hess
-            "GC GS Boulder Maze": "is_child and (can_blast_or_smash or (can_shield and glitch_hess))",
+            "GC GS Boulder Maze": "is_child and (can_blast_or_smash or (can_shield and glitch_slide))",
             "GC GS Center Platform": "is_adult",
             "GC Maze Gossip Stone": "can_blast_or_smash or can_use(Silver_Gauntlets) or
-                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess)",
+                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_slide)",
             "GC Medigoron Gossip Stone": "can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire)",
             "Gossip Stone Fairy": "
                 can_summon_gossip_fairy_without_suns and has_bottle and
                 (can_blast_or_smash or Progressive_Strength_Upgrade or (glitch_insane and Blue_Fire))",
             "Bug Rock": "has_bottle and (can_blast_or_smash or can_use(Silver_Gauntlets) or
-                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_hess))",
+                ((Progressive_Strength_Upgrade or at('GC Darunias Chamber', is_child)) and can_shield and glitch_slide))",
             "Stick Pot": "is_child"
         },
         "exits": {
@@ -1285,7 +1285,7 @@
     {
         "region_name": "GC Woods Warp",
         "events": {
-            "GC Woods Warp Open": "can_blast_or_smash or can_use(Dins_Fire)"
+            "GC Woods Warp Open": "can_blast_or_smash or can_use(Dins_Fire) or (is_adult and can_qpa and Biggoron_Sword)"
         },
         "exits": {
             "Goron City": "(can_leave_forest or glitch_forest_escape) and 'GC Woods Warp Open'",
@@ -1306,7 +1306,7 @@
             # UPDATE: I vaguely remember something about a triple slash clip here...not sure if I'm wrong though.
             # Child can use heap fragmentation to unload the statue.
             "DMC Lower Nearby": "is_adult or
-                (glitch_stairs or can_hess or (Bombs and (can_live_dmg(0.5) or can_use(Nayrus_Love))))"
+                (glitch_stairs or can_bomb_slide or (Bombs and (can_live_dmg(0.5) or can_use(Nayrus_Love))))"
         }
     },
     {
@@ -1385,7 +1385,7 @@
             "DMC Lower Local": "can_use(Goron_Tunic)",
             "GC Darunias Chamber": "True",
             # Child can just sidehop through
-            "DMC Great Fairy Fountain": "can_use(Megaton_Hammer) or can_hess or is_child",
+            "DMC Great Fairy Fountain": "can_use(Megaton_Hammer) or can_bomb_slide or is_child",
             "DMC Hammer Grotto": "can_use(Megaton_Hammer) or can_weirdclip",
             "DMC Central Nearby": "can_use(Hover_Boots) or can_use(Hookshot) or can_mega"
         }
@@ -1627,7 +1627,7 @@
         "scene": "Lon Lon Ranch",
         "hint": "Lon Lon Ranch",
         "events": {
-            "Epona": "(can_play(Eponas_Song) or can_hover or (can_hess and can_use(Hover_Boots) and glitch_insane)) and is_adult",
+            "Epona": "(can_play(Eponas_Song) or can_hover or (can_bomb_slide and can_use(Hover_Boots) and glitch_insane)) and is_adult",
             "Links Cow": "(can_play(Eponas_Song) or can_hover) and is_adult"
         },
         "locations": {

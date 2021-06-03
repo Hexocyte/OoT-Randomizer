@@ -46,8 +46,8 @@
         "dungeon": "Jabu Jabus Belly",
         "locations": {
             # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
-            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or glitch_insane)",
-            "Barinade": "can_use(Boomerang) and (can_jumpslash or glitch_insane)",
+            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or glitch_hard_bosses)",
+            "Barinade": "can_use(Boomerang) and (can_jumpslash or glitch_hard_bosses)",
             "Jabu Jabus Belly GS Near Boss": "True"
         },
         "exits": {

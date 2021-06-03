@@ -77,7 +77,7 @@
     "_is_magic_item(item)": "item == Dins_Fire or item == Farores_Wind or item == Nayrus_Love or item == Lens_of_Truth",
     "_is_adult_item(item)": "item == Bow or item == Megaton_Hammer or item == Iron_Boots or item == Hover_Boots or item == Hookshot or item == Longshot or item == Silver_Gauntlets or item == Golden_Gauntlets or item == Goron_Tunic or item == Zora_Tunic or item == Scarecrow or item == Distant_Scarecrow",
     "_is_child_item(item)": "item == Slingshot or item == Boomerang or item == Kokiri_Sword or item == Sticks or item == Deku_Shield",
-    "_is_magic_arrow(item)": "item == Fire_Arrows or item == Light_Arrows",
+    "_is_magic_arrow(item)": "item == Fire_Arrows or item == Ice_Arrows or item == Light_Arrows",
     "_is_equipswap_item(item)": "item == Megaton_Hammer or item == Boomerang or item == Sticks",
     # Slingshot as adult requires quiver so it needs to specifically check for that.
     "_is_equipswap_slingshot(item)": "item == Slingshot",
@@ -116,8 +116,8 @@
     "can_oi": "(Fish or Bugs) and glitch_oi",
     "can_groundjump": "can_shield and Bombs",
     "can_equipswap": "(Dins_Fire or (is_child and Sticks)) and glitch_equipswap",
-    "can_hess": "has_explosives and can_shield and glitch_hess",
-    "can_wess": "can_jumpslash and glitch_hess",
+    "can_bomb_slide": "has_explosives and can_shield and glitch_slide",
+    "can_wess": "can_jumpslash and glitch_slide",
     # This can also be done with a ledge, but that's better to define on-location rather than with a helper.
     "can_qpa": "glitch_qpa and can_use(Sticks) and (has_cutscene_item or Nuts)",
     # Chus are hard to work with without something specific to blow them up on (e.g. King Zora's sign).

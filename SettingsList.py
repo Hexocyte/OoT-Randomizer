@@ -222,8 +222,8 @@ logic_glitches = {
                     with the intent for the glitchless version. Itemless
                     escape is only in logic with All Uses Enabled on.
                     '''},
-    'Superslides': {
-        'name'    : 'glitch_hess',
+    'All Superslides': {
+        'name'    : 'glitch_slide',
         'tags'    : ("General",),
         'tooltip' : '''\
                     Includes superslides, ESS, WESS, and HESS. While,
@@ -396,7 +396,7 @@ logic_glitches = {
         'name'    : 'glitch_upper_zora',
         'tags'    : ("Zora's River",),
         'tooltip' : '''\
-                    By going out of bounds with a ledge clip, you can unload
+                    By going out of bounds with a ladder clip, you can unload
                     the water and waterfall in the upper part of Zora's river
                     to access the LW shortcut and Zora's Domain with nothing.
                     '''},
@@ -479,6 +479,8 @@ logic_glitches = {
         'name'    : 'glitch_bk_skip_forest',
         'tags'    : ("General",),
         'tooltip' : '''\
+                    UPDATE: add child vine clip
+                    
                     You can jump into the railing at the top of the
                     stairway before the first Stalfos fight, perform
                     a ledge clip, and then jump straight to the loading
@@ -488,14 +490,18 @@ logic_glitches = {
                     '''},
     'Fire Temple BK skip': {
         'name'    : 'glitch_bk_skip_fire',
-        'tags'    : ("General",),
+        'tags'    : ("Fire Temple",),
         'tooltip' : '''\
-                    UPDATE: Add description here
+                    You can hammerslide or HESS from the hammer room to
+                    fall into the loading zone for the boss room from above.
+                    
+                    With All Uses Enabled on, this can also consider hovering
+                    from the room before the boss door.
                     
                     Applies to both vanilla and MQ.
                     '''},
     'Water Temple BK skip': {
-        'name'    : 'glitch_bk_skip_water',
+        'name'    : 'glitch_bk_skip_water_vanilla',
         'tags'    : ("General",),
         'tooltip' : '''\
                     UPDATE: Add description here.
@@ -537,7 +543,8 @@ logic_glitches = {
                     you can carry a second bomb flower to the
                     right-side bomb flower to superslide off of that
                     flower up the elevator pillar to light the eyes
-                    of the dead dodongo. Requires hoverboots.
+                    of the dead dodongo. Requires hoverboots, and
+                    requires superslides to be in logic.
                     '''},
     'Bombchu Groundjumps with Grabbable Objects': {
         'name'    : 'glitch_chu_groundjumps',
@@ -545,8 +552,8 @@ logic_glitches = {
         'tooltip' : '''\
                     You can store a groundjump using a bombchu to
                     destroy an object you can grab while canceling
-                    picking it up with a shield. Functions just
-                    like storing a ground jump off of a bomb, but
+                    picking it up with a shield. Functions similar
+                    to storing a ground jump off of a bomb, but
                     instead of the object exploding on its own, the
                     chu blows the object up.
                     '''},
@@ -560,6 +567,18 @@ logic_glitches = {
                     the next room while remaining in the current room,
                     allowing you to bypass some actors, such as the
                     water in BotW.
+                    '''},
+    'Bosses Without Usual Items': {
+        'name'    : 'glitch_hard_bosses',
+        'tags'    : ("General", "Dungeons",),
+        'tooltip' : '''\
+                    Puts various bosses into logic without items you would
+                    normally have. Included bosses are: King Dodongo with chus,
+                    Barinade with pots, Volvagia without tunic, Morpha without
+                    hookshot, and Bongo Bongo without projectiles.
+                    
+                    If All Uses Enabled is on and bomb hovers are in logic, then
+                    this also puts Phantom Ganon without projectiles in logic.
                     '''},
 }
 
