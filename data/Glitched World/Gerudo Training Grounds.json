@@ -13,7 +13,8 @@
             "Gerudo Training Grounds Heavy Block Room": "True",
             "Gerudo Training Grounds Lava Room": "
                 here(has_explosives and can_jumpslash)",
-            "Gerudo Training Grounds Central Maze": "True"
+            "Gerudo Training Grounds Central Maze": "True",
+            "Gerudo Fortress": "True"
         }
     },
     {
