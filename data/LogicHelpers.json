@@ -126,7 +126,7 @@
     "can_damage_boost": "not_a_glitch_damage_boost and has_explosives and can_jumpslash and (can_live_dmg(0.5) or can_use(Nayrus_Love))",
     # Blue Fire works for this, but requiring 200 rupees every time for any glitch involving cutscene items is simply too cruel.
     # Beans, big poes, both letters, and weird egg are all also cutscene items, but they can all be used up so they can't be in logic.
-	# I can't seem to add small poes or any kind of potion because it needs to be defined still. I've left it out for now but it could potentially be done.
+    # I can't seem to add small poes or any kind of potion because it needs to be defined still. I've left it out for now but it could potentially be done.
     "has_cutscene_item": "(has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
         can_use(Dins_Fire) or can_use(Farores_Wind) or can_use(Nayrus_Love) or Ocarina or has_bottle_item",
     "has_bottle_item": "(Bugs or Fish or Fairy or Milk) and Bottle",
