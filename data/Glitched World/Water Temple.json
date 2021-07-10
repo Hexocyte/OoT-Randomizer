@@ -13,7 +13,8 @@
             "Central Pillar from Lobby": "can_use(Hookshot) and Iron_Boots and
                 (Small_Key_Water_Temple,5)",
             "Compass Room": "can_use(Iron_Boots) and can_use(Hookshot)",
-            "Ruto Column": "can_use(Iron_Boots) or can_use(Longshot) or can_jumpslash"
+            "Ruto Column": "can_use(Iron_Boots) or can_use(Longshot) or can_jumpslash",
+            "Lake Hylia": "True"
         }
     },
     {
