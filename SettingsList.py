@@ -580,6 +580,39 @@ logic_glitches = {
                     If All Uses Enabled is on and bomb hovers are in logic, then
                     this also puts Phantom Ganon without projectiles in logic.
                     '''},
+    # UPDATE: I'm really not sure on whether this should be default or not.
+    # It's a trick in the meantime, until I figure it out.
+    'Shared Flag Abuse': {
+        'name'    : 'glitch_shared_flags',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    In some dungeons, flags between two unrelated actions are
+                    shared. You can abuse this to complete some actions (e.g.
+                    opening the first silver rupee gate in Shadow) by doing
+                    the shared, unrelated action (e.g. Killing the two redeads
+                    in the invisible spikes room).
+                    '''},
+    'Climb the Shadow Boat as Child': {
+        'name'   : 'glitch_shadow_boat',
+        'tags'   : ("Shadow Temple",),
+        'tooltip' : '''\
+                    With very careful movement, you can jump to the bell
+                    as child. From there, you can clip partially into the boat,
+                    giving you just enough height to damage boost onto the wheel,
+                    allowing you to jump onto the boat itself.
+                    
+                    Requires damage boosts to be in logic.
+                    '''},
+    'Reach Shadow Boat GS with Nothing': {
+        'name'    : 'glitch_shadow_boat_gs',
+        'tags'    : ("Shadow Temple", "Skulltulas",),
+        'tooltip' : '''\
+                    By using a specific cage clip and a twisted sideroll, you
+                    can reach the platform where the shadow boat GS is.
+                    
+                    You will still need hookshot, boomerang, or to ground jump
+                    to actually grab the skull.
+                    '''},
 }
 
 logic_tricks = {
