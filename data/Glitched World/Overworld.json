@@ -13,15 +13,62 @@
     {
         "region_name": "Root Exits",
         "exits": {
-            "KF Links House": "is_child",
-            "Temple of Time": "
-                is_adult or 
-                (can_play(Prelude_of_Light) and can_leave_forest)",
-            "Sacred Forest Meadow": "can_play(Minuet_of_Forest)",
-            "DMC Central Local": "can_play(Bolero_of_Fire) and can_leave_forest",
-            "Lake Hylia": "can_play(Serenade_of_Water) and can_leave_forest",
-            "Graveyard Warp Pad Region": "can_play(Nocturne_of_Shadow) and can_leave_forest",
-            "Desert Colossus": "can_play(Requiem_of_Spirit) and can_leave_forest"
+            "Child Spawn": "is_child",
+            "Adult Spawn": "is_adult",
+            "Prelude of Light Warp": "can_play(Prelude_of_Light) and can_leave_forest",
+            "Minuet of Forest Warp": "can_play(Minuet_of_Forest)",
+            "Bolero of Fire Warp": "can_play(Bolero_of_Fire) and can_leave_forest",
+            "Serenade of Water Warp": "can_play(Serenade_of_Water) and can_leave_forest",
+            "Nocturne of Shadow Warp": "can_play(Nocturne_of_Shadow) and can_leave_forest",
+            "Requiem of Spirit Warp": "can_play(Requiem_of_Spirit) and can_leave_forest"
+        }
+    },
+    {
+        "region_name": "Child Spawn",
+        "exits": {
+            "KF Links House": "True"
+        }
+    },
+    {
+        "region_name": "Adult Spawn",
+        "exits": {
+            "Temple of Time": "True"
+        }
+    },
+    {
+        "region_name": "Prelude of Light Warp",
+        "exits": {
+            "Temple of Time": "True"
+        }
+    },
+    {
+        "region_name": "Minuet of Forest Warp",
+        "exits": {
+            "Sacred Forest Meadow": "True"
+        }
+    },
+    {
+        "region_name": "Bolero of Fire Warp",
+        "exits": {
+            "DMC Central Local": "True"
+        }
+    },
+    {
+        "region_name": "Serenade of Water Warp",
+        "exits": {
+            "Lake Hylia": "True"
+        }
+    },
+    {
+        "region_name": "Nocturne of Shadow Warp",
+        "exits": {
+            "Graveyard Warp Pad Region": "True"
+        }
+    },
+    {
+        "region_name": "Requiem of Spirit Warp",
+        "exits": {
+            "Desert Colossus": "True"
         }
     },
     {
@@ -77,8 +124,7 @@
         "exits": {
             #// Adult would technically come from Kokiri Forest, but the transition in both directions is True
             "Deku Tree Lobby": "is_child or 
-                (is_adult and (shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or
-                (glitch_deku_entry and ((can_live_dmg(0.5) and has_explosives) or Hover_Boots)))",
+                ((shuffle_dungeon_entrances and 'Showed Mido Sword & Shield') or glitch_deku_entry)",
             # There are other ways past this, but the only way to get to this side as a logical passage is to do reverse spirit, which means you hovered.
             "Kokiri Forest": "'Showed Mido Sword & Shield' or is_adult or (glitch_mido_skip and can_hover)"
         }
@@ -158,7 +204,7 @@
             "LW Skull Kid": "is_child and can_play(Sarias_Song)",
             "LW Ocarina Memory Game": "is_child and (Ocarina or can_oi)",
             # Adult cannot get this, even with equipswap.
-            "LW Target in Woods": "(can_use(Slingshot) or (can_qpa and can_hover)) and is_child",
+            "LW Target in Woods": "is_child and (can_use(Slingshot) or (can_qpa and can_hover))",
             "LW Deku Scrub Near Bridge": "is_child and can_stun_deku",
             "LW GS Bean Patch Near Bridge": "can_plant_bugs and can_child_attack",
             "LW Gossip Stone": "True",
@@ -211,6 +257,7 @@
     },
     {
         "region_name": "Sacred Forest Meadow",
+        "scene": "Sacred Forest Meadow",
         "hint": "Sacred Forest Meadow",
         "locations": {
             "Song from Saria": "is_child and Zeldas_Letter",
@@ -222,9 +269,18 @@
         },
         "exits": {
             "SFM Entryway": "True",
-            "Forest Temple Lobby": "can_use(Hookshot) or can_hover",
+            "SFM Forest Temple Entrance Ledge": "can_use(Hookshot) or can_hover",
             "SFM Fairy Grotto": "True",
             "SFM Storms Grotto": "can_play(Song_of_Storms)"
+        }
+    },
+    {
+        "region_name": "SFM Forest Temple Entrance Ledge",
+        "scene": "Sacred Forest Meadow",
+        "hint": "Sacred Forest Meadow",
+        "exits": {
+            "Sacred Forest Meadow": "True",
+            "Forest Temple Lobby": "True"
         }
     },
     {
@@ -262,7 +318,7 @@
             "LW Bridge": "True",
             "Lake Hylia": "True",
             "Gerudo Valley": "True",
-            "Market": "True",
+            "Market Entrance": "True",
             "Kakariko Village": "True", 
             "ZR Front": "True",
             "Lon Lon Ranch": "True",
@@ -314,11 +370,20 @@
             "LH Owl Flight": "is_child",
             "LH Lab": "True",
             # Tektite hover is stupid hard
-            "LH Fishing Hole": "
+            "LH Fishing Island": "
                 is_child or can_use(Scarecrow) or here(can_plant_bean) or 'Water Temple Clear' or can_hover or (can_enemy_hover and glitch_insane)",
             # Adult can always lower water and navi dive after opening.
             "Water Temple Lobby": "can_use(Hookshot) or glitch_lab_clip",
             "LH Grotto": "True"
+        }
+    },
+    {
+        "region_name": "LH Fishing Island",
+        "scene": "Lake Hylia",
+        "hint": "Lake Hylia",
+        "exits": {
+            "Lake Hylia": "True",
+            "LH Fishing Hole": "True"
         }
     },
     {
@@ -354,7 +419,7 @@
             "LH Adult Fishing": "is_adult"
         },
         "exits": {
-            "Lake Hylia": "True"
+            "LH Fishing Island": "True"
         }
     },
     { 
@@ -487,6 +552,7 @@
         },
         "exits": {
         # Use antigrav from the HBA area for both of these. It unloads both gates.
+            "GV Fortress Side": "True",
             "GF Outside Gate": "True",
             "Gerudo Training Grounds Lobby": "True",
             "GF Storms Grotto": "is_adult and can_play(Song_of_Storms)"
@@ -502,6 +568,16 @@
         },
         "exits": {
             "Gerudo Fortress": "is_adult or can_hover or (shuffle_overworld_entrances and 'GF Gate Open')",
+            "Wasteland Near Fortress": "True"
+        }
+    },
+    # This needs to exist for ER reasons.
+    {
+        "region_name": "Wasteland Near Fortress",
+        "scene": "Haunted Wasteland",
+        "hint": "Haunted Wasteland",
+        "exits": {
+            "GF Outside Gate": "True",
             "Haunted Wasteland": "True"
         }
     },
@@ -518,8 +594,17 @@
             "Nut Pot": "True"
         },
         "exits": {
+            "Wasteland Near Fortress": "True",
+            "Wasteland Near Colossus": "True"
+        }
+    },
+    {
+        "region_name": "Wasteland Near Colossus",
+        "scene": "Haunted Wasteland",
+        "hint": "Haunted Wasteland",
+        "exits": {
             "Desert Colossus": "True",
-            "GF Outside Gate": "True"
+            "Haunted Wasteland": "True"
         }
     },
     {
@@ -533,7 +618,6 @@
                 at('Mirror Shield Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
                 at('Silver Gauntlets Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
                 (can_hover and (can_use(Hover_Boots) or can_qpa or glitch_insane))",
-            "Sheik at Colossus": "True",
             "Colossus GS Bean Patch": "can_plant_bugs and can_child_attack",
             "Colossus GS Tree": "is_adult and (can_use(Hookshot) or can_hover or can_use(Boomerang)) and at_night",
             "Colossus GS Hill": "is_adult and at_night",
@@ -543,6 +627,7 @@
             "Bug Rock": "has_bottle"
         },
         "exits": {
+            "Wasteland Near Colossus": "True",
             "Colossus Great Fairy Fountain": "has_explosives or (can_use(Hookshot) and can_use(Hover_Boots))",
             "Spirit Temple Lobby": "True",
             # This weirdclip is hard because sand is sand and leevers are a mistake.
@@ -557,6 +642,17 @@
                 (glitch_qpa and can_use(Sticks) and (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
                     (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))))) and
                 (here(can_plant_bean and is_adult) or (glitch_insane and has_bombchus))"
+        }
+    },
+    {
+        "region_name": "Desert Colossus From Spirit Lobby",
+        "scene": "Desert Colossus",
+        "hint": "Desert Colossus",
+        "locations": {
+            "Sheik at Colossus": "True"
+        },
+        "exits": {
+            "Desert Colossus": "True"
         }
     },
     {
@@ -591,10 +687,18 @@
             "Market Shooting Gallery": "is_child",
             "Market Bombchu Bowling": "is_child",
             "Market Potion Shop": "is_child and (at_day or Kokiri_Sword)",
-            "Market Treasure Chest Game": "is_child and (at_night or (Kokiri_Sword and glitch_treasure_day))",
-            "Market Bombchu Shop": "is_child and at_night",
-            "Market Dog Lady House": "is_child and at_night",
-            "Market Man in Green House": "is_child and at_night"
+            "Market Treasure Chest Game": "is_child and (at_night or (Kokiri_Sword and glitch_treasure_day))"
+        }
+    },
+    {
+        "region_name": "Market Back Alley",
+        "scene": "Market",
+        "hint": "the Market",
+        "exits": {
+            "Market": "True",
+            "Market Bombchu Shop": "at_night",
+            "Market Dog Lady House": "True",
+            "Market Man in Green House": "at_night"
         }
     },
     {
@@ -620,7 +724,7 @@
             "ToT Light Arrows Cutscene": "is_adult and can_trigger_lacs"
         },
         "exits": {
-            "Market": "True",
+            "ToT Entrance": "True",
             # Child can do this itemless, but to prevent softlocks he needs an item for adult to return. Check for the item BEFORE crossing the door.
             "Beyond Door of Time": "can_play(Song_of_Time) or open_door_of_time or
                 (((Hover_Boots and (Hylian_Shield or Mirror_Shield)) or Biggoron_Sword or Giants_Knife) and glitch_dot_skip)"
@@ -827,7 +931,7 @@
             "Market Bombchu Shop Item 8": "True"
         },
         "exits": {
-            "Market": "True"
+            "Market Back Alley": "True"
         }
     },
     {
@@ -836,13 +940,13 @@
             "Market Lost Dog": "True"
         },
         "exits": {
-            "Market": "True"
+            "Market Back Alley": "True"
         }
     },
     {
         "region_name": "Market Man in Green House",
         "exits": {
-            "Market": "True"
+            "Market Back Alley": "True"
         }
     },
     {
@@ -870,7 +974,6 @@
             "Kak GS Guards House": "is_child and at_night",
             "Kak GS Tree": "is_child and at_night",
             "Kak GS Watchtower": "'Killed Watchtower Skull'",
-            "Kak GS Above Impas House": "is_adult and (can_use(Hookshot) or can_use(Hover_Boots) or can_hover) and at_night",
             "Bug Rock": "has_bottle"
         },
         "exits": {
@@ -883,6 +986,7 @@
             # Chickens don't exist during the night.
             "Kak Impas Ledge": "is_adult or
                 (at_day or can_hover or can_mega)",
+            "Kak Impas Rooftop": "can_use(Hookshot) or can_use(Hover_Boots) or can_hover",
             "Kak Windmill": "True",
             "Kak Bazaar": "is_adult or (is_child and can_jumpslash)",
             # The clip in is trivial
@@ -896,7 +1000,7 @@
             "Kak Potion Shop Front": "is_child or at_day",
             "Kak Redead Grotto": "can_blast_or_smash",
             "Graveyard": "True",
-            "Death Mountain": "Zeldas_Letter or is_adult or open_kakariko == 'open' or can_hover"
+            "Kak Behind Gate": "Zeldas_Letter or is_adult or open_kakariko == 'open' or can_hover"
         }
     },
     {
@@ -905,6 +1009,18 @@
         "hint": "Kakariko Village",
         "exits": {
             "Kak Impas House Back": "True",
+            "Kakariko Village": "True"
+        }
+    },
+    {
+        "region_name": "Kak Impas Rooftop",
+        "scene": "Kakariko Village",
+        "hint": "Kakariko Village",
+        "locations": {
+            "Kak GS Above Impas House": "is_adult and at_night"
+        },
+        "exits": {
+            "Kak Impas Ledge": "True",
             "Kakariko Village": "True"
         }
     },
@@ -1043,7 +1159,7 @@
                 ('Odd Mushroom Access' or (Odd_Mushroom and disable_trade_revert))"
         },
         "exits": {
-            "Kakariko Village": "True"
+            "Kak Backyard": "True"
         }
     },
     {
@@ -1144,6 +1260,15 @@
         }
     },
     {
+        "region_name": "Kak Behind Gate",
+        "scene": "Kakariko Village",
+        "hint": "Kakariko Village",
+        "exits": {
+            "Kakariko Village": "True",
+            "Death Mountain": "True"
+        }
+    },
+    {
         "region_name": "Death Mountain",
         "scene": "Death Mountain",
         "hint": "Death Mountain Trail",
@@ -1171,12 +1296,12 @@
             "Bean Plant Fairy": "'Plant DMT Bean' and can_play(Song_of_Storms) and has_bottle"
         },
         "exits": {
-            "Kakariko Village": "True",
+            "Kak Behind Gate": "True",
             "Goron City": "True",
             "Death Mountain Summit": "here(can_blast_or_smash) or ('Plant DMT Bean' and is_adult) or
                 (is_child and can_enemy_hover and glitch_insane) or (can_use(Hookshot) and glitch_hookshot_jump) or can_use(Hover_Boots)",
             # There's a damageless entry from the summit.
-            "Dodongos Cavern Entryway": "
+            "Dodongos Cavern Beginning": "
                 has_explosives or Progressive_Strength_Upgrade or is_adult or ((can_live_dmg(0.5) or can_use(Nayrus_Love) or Fairy) and glitch_dodongo_entry)",
             "DMT Storms Grotto": "can_play(Song_of_Storms)"
         }
@@ -1206,21 +1331,14 @@
             # Seamwalk or triple slash.
             "DMT Great Fairy Fountain": "here(can_blast_or_smash) or can_isg or is_adult or Kokiri_Sword",
             # UPDATE: The vid I saw on this did jumpslashes for it, but I'm not sure if that's due to it being a 2011 vid or due to actually being needed. I'll test later
-            "Dodongos Cavern Entryway": "can_jumpslash and glitch_dodongo_entry"
+            "Dodongos Cavern Beginning": "can_jumpslash and glitch_dodongo_entry"
         }
     },
     {
         "region_name": "DMT Owl Flight",
         "scene": "Death Mountain",
         "exits": {
-            "Kak Impas Ledge": "True"
-        }
-    },
-    {
-        "region_name": "Dodongos Cavern Entryway",
-        "exits": {
-            "Dodongos Cavern Beginning": "True",
-            "Death Mountain": "True"
+            "Kak Impas Rooftop": "True"
         }
     },
     {
@@ -1305,7 +1423,7 @@
             "Goron City": "True",
             # UPDATE: I vaguely remember something about a triple slash clip here...not sure if I'm wrong though.
             # Child can use heap fragmentation to unload the statue.
-            "DMC Lower Nearby": "is_adult or
+            "DMC Lower Local": "is_adult or
                 (glitch_stairs or can_bomb_slide or (Bombs and (can_live_dmg(0.5) or can_use(Nayrus_Love))))"
         }
     },
@@ -1397,7 +1515,9 @@
         "exits": {
             "DMC Lower Nearby": "True",
             "DMC Ladder Area Nearby": "True",
-            "DMC Central Nearby": "can_use(Hover_Boots) or can_use(Hookshot) or can_mega"
+            "DMC Central Nearby": "can_use(Hover_Boots) or can_use(Hookshot) or can_mega",
+            # Megaflip to the volcano, then to the HP. Timer is very tight.
+            "DMC Fire Temple Entrance": "can_mega and can_live_dmg(0.5)"
         }
     },
     {
@@ -1428,12 +1548,11 @@
                 (can_use(Hover_Boots) or can_use(Hookshot) or here(can_plant_bean) or (can_use(Goron_Tunic) and can_hover))",
             "DMC Upper Nearby": "is_adult and here(can_plant_bean)",
             # Child takes 30+ seconds to get around this with an optimal hover from pad. Needs 4 hearts or a way to save at least 7 seconds
-            # UPDATE: dotzo is looking into this tomorrow.
-            "Fire Temple Entrance": "is_adult or (is_child and (shuffle_dungeon_entrances or can_mega))"
+            "DMC Fire Temple Entrance": "is_adult or shuffle_dungeon_entrances or can_damage_boost"
         }
     },
     {
-        "region_name": "Fire Temple Entrance",
+        "region_name": "DMC Fire Temple Entrance",
         "scene": "Death Mountain Crater",
         "hint": "Death Mountain Crater",
         "exits": {
@@ -1517,6 +1636,14 @@
         }
     },
     {
+        "region_name": "ZR Top of Waterfall",
+        "scene": "Zora River",
+        "hint": "Zora's River",
+        "exits": {
+            "Zora River": "True"
+        }
+    },
+    {
         "region_name": "Zoras Domain",
         "scene": "Zoras Domain",
         "hint": "Zora's Domain",
@@ -1548,6 +1675,14 @@
             "ZD Behind King Zora": "True",
             "ZD Shop": "True",
             "ZD Storms Grotto": "can_play(Song_of_Storms)"
+        }
+    },
+    {
+        "region_name": "ZD Eyeball Frog Timeout",
+        "scene": "Zoras Domain",
+        "hint": "Zora's Domain",
+        "exits": {
+            "Zoras Domain": "True"
         }
     },
     {
@@ -1899,7 +2034,7 @@
             "Nut Pot": "can_blast_or_smash or Blue_Fire"
         },
         "exits": {
-            "Hyrule Castle Grounds": "True"
+            "Castle Grounds": "True"
         }
     },
     {
@@ -1956,7 +2091,7 @@
             "GC Deku Scrub Grotto Center": "can_stun_deku"
         },
         "exits": {
-            "Goron City": "True"
+            "GC Grotto Platform": "True"
         }
     },
     {

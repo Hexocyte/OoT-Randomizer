@@ -3,7 +3,7 @@
         "region_name": "Spirit Temple Lobby",
         "dungeon": "Spirit Temple",
         "exits": {
-            "Desert Colossus": "True",
+            "Desert Colossus From Spirit Lobby": "True",
             "Child Spirit Temple": "is_child or (is_adult and (can_mega or Hover_Boots))",
             "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or can_use(Hover_Boots) or (is_adult and can_shield)"
         }

@@ -22,7 +22,7 @@
             "Jabu Jabus Belly Beginning": "True",
             "Jabu Jabus Belly Depths": "True",
             # Biri hover here isn't too bad. Just mash backflip. You can also megaflip off the biri.
-            # The 2nd part is for skipping the door. Setups I saw required sword for positioning or backflipping and dumping bugs/fish. Like OI, but no other item.
+            # The 2nd part is for skipping the box before the door. Setups I saw required sword for positioning or backflipping and dumping bugs/fish. Like OI, but no other item.
             "Jabu Jabus Belly Boss Area": "(can_use(Hover_Boots) or can_damage_boost or can_enemy_hover or can_enemy_mega) and
                 (can_jumpslash or Fish or Bugs)"
         }
@@ -46,8 +46,9 @@
         "dungeon": "Jabu Jabus Belly",
         "locations": {
             # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
-            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or glitch_hard_bosses)",
-            "Barinade": "can_use(Boomerang) and (can_jumpslash or glitch_hard_bosses)",
+            # He can also be killed with default damage crouch stabs from the hammer. Not actual hammer damage though unfortunately.
+            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
+            "Barinade": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
             "Jabu Jabus Belly GS Near Boss": "True"
         },
         "exits": {

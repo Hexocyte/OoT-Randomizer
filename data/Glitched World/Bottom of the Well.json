@@ -25,9 +25,8 @@
                 ((Small_Key_Bottom_of_the_Well, 3) and glitch_actor)",
             "Bottom of the Well Underwater Front Chest": "can_play(Zeldas_Lullaby)",
             "Bottom of the Well Underwater Left Chest": "can_play(Zeldas_Lullaby)",
-            # Technically requires a fire source w/torch or 3 keys, but there's a stick pot.
-            "Bottom of the Well Map Chest": "has_explosives or
-                Progressive_Strength_Upgrade",
+            # Use WWT from the face sign near the crawlspace
+            "Bottom of the Well Map Chest": "True",
             "Bottom of the Well Fire Keese Chest": "
                 (Small_Key_Bottom_of_the_Well, 3)",
             "Bottom of the Well Like Like Chest": "

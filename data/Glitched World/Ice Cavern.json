@@ -1,9 +1,11 @@
 [
-    {   ##Child must be able to hover to get in here so can_hover is always true as child
+    {   # UPDATE: THIS IS NOT TRUE ANYMORE
+        ##Child must be able to hover to get in here so can_hover is always true as child
         "region_name": "Ice Cavern Beginning",
         "dungeon": "Ice Cavern",
         "exits": {
-            "Ice Cavern": "is_adult or Sticks or can_use(Dins_Fire)"
+            "Ice Cavern": "is_adult or Sticks or can_use(Dins_Fire)",
+            "ZF Ice Ledge": "True"
         }
     },
     {

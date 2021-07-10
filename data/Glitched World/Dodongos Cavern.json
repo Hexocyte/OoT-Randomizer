@@ -3,9 +3,9 @@
         "region_name": "Dodongos Cavern Beginning",
         "dungeon": "Dodongos Cavern",
         "exits": {
-            "Dodongos Cavern Entryway": "True",
             "Dodongos Cavern Lobby": "
-                here(can_blast_or_smash) or Blue_Fire or Progressive_Strength_Upgrade"
+                here(can_blast_or_smash) or Blue_Fire or Progressive_Strength_Upgrade",
+            "Death Mountain": "True"
         }
     },
     {
