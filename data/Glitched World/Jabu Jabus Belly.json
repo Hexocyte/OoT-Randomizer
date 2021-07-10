@@ -46,7 +46,7 @@
         "dungeon": "Jabu Jabus Belly",
         "locations": {
             # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
-			# He can also be killed with default damage crouch stabs from the hammer. Not actual hammer damage though unfortunately.
+            # He can also be killed with default damage crouch stabs from the hammer. Not actual hammer damage though unfortunately.
             "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
             "Barinade": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
             "Jabu Jabus Belly GS Near Boss": "True"
