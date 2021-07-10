@@ -16,7 +16,8 @@
             "Fire Temple Big Lava Room":"(Small_Key_Fire_Temple, 2)",
             # Once boss shuffle is implemented, child can damage boost from the pillar after adult knocks it down.
             "Fire Temple Boss Room": "(is_adult or (can_mega or can_hover)) and
-                (Boss_Key_Fire_Temple or (glitch_bk_skip_fire and can_hover and glitch_insane and can_use(Goron_Tunic)))"
+                (Boss_Key_Fire_Temple or (glitch_bk_skip_fire and can_hover and glitch_insane and can_use(Goron_Tunic)))",
+            "DMC Fire Temple Entrance": "True"
         }
     },
     {
