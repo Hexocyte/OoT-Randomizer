@@ -554,7 +554,7 @@
         # Use antigrav from the HBA area for both of these. It unloads both gates.
             "GV Fortress Side": "True",
             "GF Outside Gate": "True",
-            "Gerudo Training Grounds Lobby": "True",
+            "Gerudo Training Ground Lobby": "True",
             "GF Storms Grotto": "is_adult and can_play(Song_of_Storms)"
         }
     },
