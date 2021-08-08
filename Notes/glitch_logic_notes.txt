@@ -1,0 +1,62 @@
+We cannot expect anything that would either lock the player out of checks or be un-repeatable if the player failed it.
+    This means that we cannot consider skipping waking talon with weird egg.
+        For this reason, all glitches that allow skipping waking talon MUST be tricks, even non-glitches like damage boosting.
+    We cannot expect superslide teleport.
+    We cannot expect duping.
+
+We CAN allow glitches that could lead to a softlock if they are done wrong in a way that we can easily tell the player not to do and which cannot be lead to a softlock through simple execution failure.
+    To ensure the player knows how to do these properly, we only allow these as tricks, no matter how easy they are.
+    This allows us to include OI (putaway OI is always safe).
+    This allows equipswap (the only way to get it wrong is to equipswap a bottle, which there is no reason to ever do).
+    This allows DoT skip (As long as you have hoverboots+shield, or either 2h sword, adult can return).
+    
+As a design choice, we never expect the following glitches:
+    (R)BA, GIM, WW, and SRM
+        These are universally banned accoss all rando rulesets and are generally seen as violating the point of rando.
+            Additionally, you can be locked out of doing all of these but SRM.
+    Collection delay
+        Parts of rando do not play nicely with this glitch, you can be locked out of doing it, and some applications violate the spirit of rando by allowing you to get a static item from a normally shuffled check.
+    Text transfer glitch
+        This is banned for similar reasons as collection delay
+    Anything heavily RNG-dependent
+        Most notably, this includes anything that involves enemies, with the exception of static or near-static enemies that are easy to predict, such as small skultulas or deku babas.
+            The only exception is for a couple of tektite hovers that were in glitch logic 1.0 which have been pushed to insane mode.
+    Bomb hovers with more than 20 bombs or 50 chus.
+        While we could make bomb bags progressive to allow up to 40 bombs, this would lead to issues with modified item pools.
+    Console exclusive glitches
+        Everything should be compatible with all supported ways of playing OoTR. This is a global design decision.
+            One unfortunate exception is that we must exclude keyboard players. The degree of precision required for many setups and some basic techniques (such as ESS turns) make it unfortunately
+            impossible to support keyboard usage without severely gutting the glitches we can use.
+
+We use the following criteria for determining what should be a trick:
+    As a design decision, I have made the base level of logic fully compatible with the DDR ruleset. If it is banned in DDR, it is a trick here, no matter how easy it would otherwise be.
+        We do this primarily because the DDR ruleset and glitch logic 2.0 were created with the same goal in mind - to create a more accessible glitched experience for players.
+        While it is not expected that DDR will regularly race on glitch logic 2.0, it still functions well as a guideline.
+    If there is any required reading to prevent softlocks, it must be a trick.
+    Difficulty of the glitch matters for obvious reasons.
+        If a particular application of a glitch is significantly more difficult than the rest, we tie that usage to "All Uses Enabled" (also referred to as insane mode or glitch_insane).
+            One noteworthy example is itemless forest escape. By default, we do not expect any escape. The trick expects all possible escapes EXCEPT for itemless. With the trick and insane enabled, we expect itemless escape.
+            We also do not expect hovers longer than 10 explosives without this setting enabled.
+            There are other uses for this setting, please review the wiki page (once it's done) or the logic files for further details.
+    Exceptionally obscure or tedious glitches may be made into tricks.
+    
+
+The following glitches are always part of logic:
+    All glitchless tricks
+        Exception may be made if the trick itself ends up being significantly harder than the glitches that currently exist or if some part of the trick becomes significantly more difficult in the context of glitch logic.
+    ISG
+        It unlocks very little on its own, is a fundamental part of multiple glitches, and is trivially easy.
+    Acute angle clips
+        These are generally trivially easy.
+    Cutscene dives
+    Flame storage
+        A minor, easy glitch with only a couple of logical uses.
+    Ground jumps with bomb (flowers).
+        Chus are quite a bit harder to work with.
+    Hammerslide and other hoverslides using recoil
+        Easy to do and not very punishing to mess up.
+    Slimy thing skip
+        You're just dying at a static enemy.
+    Hookshot/bow extension
+    Shadow boat clip
+        It's fairly easy and vastly improves logic.
