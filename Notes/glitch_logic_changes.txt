@@ -1,0 +1,58 @@
+Records of changes prior to 8/7/2021 are missing as I didn't really keep great notes of that, sorry.
+
+TO DO
+------------------------------------
+Dungeons:
+    Vanilla dungeons:
+        Forest
+        Water
+        Spirit
+        GTG
+        Ice
+        Ganon's
+     MQ Dungeons:
+        Deku
+        Dodongo
+        Jabu
+        Well
+        Forest
+        Fire
+        Water
+        Shadow
+        Spirit
+        GTG
+        Ice
+        Ganon's
+        
+UPDATED:
+----------------------
+Prior to 8/7/2021:
+    Brought up to 2.0 standards:
+        Vanilla:
+            Overworld
+            Deku
+            Dodongo
+            Jabu
+            Well
+            Fire
+            Shadow
+    Logic:
+        logichelpers.json has a new section for glitch logic tricks.
+    Settings:
+        Tricks added.
+        ER enabled.
+            This has resulted in minor logic changes to all vanilla files, even ones not up to standards yet.
+    New glitches:
+        QPA
+        Equipswap
+            There is a warning to not equipswap bottles.
+        OI
+            We only consider putaway OI.
+    other changed files:
+        entranceshuffle.py
+            Adds a new bit of code to restricts both sides of impa's house to the same region when glitch logic is enabled.
+            Allows child to exit through the carpenter tent.
+        main.py
+            Adds support for the new tricks.
+        settings_mapping,json
+            Adds support for the new tricks.
