@@ -542,11 +542,11 @@
                 Gerudo_Membership_Card and can_ride_epona and Bow and is_adult",
             # This is technically doable with Dins or bombs, but Dins requires double magic and bombs may require more than possible after various hovers
             # Also the ability to stun for chus isn't strictly necessary, but the only alternatives are shield-dropping chus, a lot of waiting/rng, or holding the bomb while it blows up
-            "GF North F1 Carpenter": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
-            "GF North F2 Carpenter": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
-            "GF South F1 Carpenter": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
-            "GF South F2 Carpenter": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
-            "GF Gerudo Membership Card": "can_finish_GerudoFortress",
+            "Hideout Jail Guard (1 Torch)": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
+            "Hideout Jail Guard (2 Torches)": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
+            "Hideout Jail Guard (3 Torches)": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
+            "Hideout Jail Guard (4 Torches)": "is_adult or (is_child and (Kokiri_Sword or Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))",
+            "Hideout Gerudo Membership Card": "can_finish_GerudoFortress",
             "GF GS Archery Range": "(can_use(Hookshot) or can_hover or can_use(Boomerang)) and is_adult and at_night",
             "GF GS Top Floor": "at_night and is_adult"
         },
@@ -1180,7 +1180,7 @@
             # Although there are shadow temple entry methods from here, they all also allow you to access the warp pad, so all shadow temple entry is handled from pad.
             # Methods to enter graves by unloading them are handled from warp pad
             "Graveyard Shield Grave": "is_adult or at_night",
-            "Graveyard Composers Grave": "can_play(Zeldas_Lullaby)",
+            "Graveyard Royal Familys Tomb": "can_play(Zeldas_Lullaby)",
             "Graveyard Heart Piece Grave": "is_adult or at_night",
             "Graveyard Dampes Grave": "is_adult",
             "Graveyard Dampes House": "is_adult or at_dampe_time",
@@ -1209,11 +1209,11 @@
         }
     },
     {
-        "region_name": "Graveyard Composers Grave",
+        "region_name": "Graveyard Royal Familys Tomb",
         "locations": {
-            "Graveyard Composers Grave Chest": "has_fire_source or (glitch_qpa and can_use(Sticks) and can_shield) or
+            "Graveyard Royal Familys Tomb Chest": "has_fire_source or (glitch_qpa and can_use(Sticks) and can_shield) or
                 (can_use(Sticks) and (can_live_dmg(0.75) or can_use(Nayrus_Love)))",
-            "Song from Composers Grave": "is_adult or 
+            "Song from Royal Familys Tomb": "is_adult or 
                 (Slingshot or Boomerang or Sticks or has_explosives or Kokiri_Sword or can_use(Megaton_Hammer))"
         },
         "exits": {

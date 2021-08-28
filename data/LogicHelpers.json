@@ -95,8 +95,8 @@
     "has_adult_trade_item": "Pocket_Cucco or Cojiro or Odd_Mushroom or Odd_Potion or Poachers_Saw or Broken_Sword or Prescription or Eyeball_Frog or Eyedrops or Claim_Check",
 
     # Gerudo Fortress
-    "can_finish_GerudoFortress": "(gerudo_fortress == 'normal' and (Small_Key_Gerudo_Fortress, 4) and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang))))) and ((is_adult and (Bow or Hookshot or Hover_Boots) or Gerudo_Membership_Card or logic_gerudo_kitchen or is_glitched))))
-            or (gerudo_fortress == 'fast' and Small_Key_Gerudo_Fortress and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Megaton_Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))))
+    "can_finish_GerudoFortress": "(gerudo_fortress == 'normal' and (Small_Key_Thieves_Hideout, 4) and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang))))) and ((is_adult and (Bow or Hookshot or Hover_Boots) or Gerudo_Membership_Card or logic_gerudo_kitchen or is_glitched))))
+            or (gerudo_fortress == 'fast' and Small_Key_Thieves_Hideout and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Megaton_Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))))
             or (gerudo_fortress != 'normal' and gerudo_fortress != 'fast')",
     # Mirror shield does not count because it cannot reflect scrub attack.
     "has_shield": "(is_adult and Hylian_Shield) or (is_child and Deku_Shield)",
