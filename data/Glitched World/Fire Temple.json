@@ -97,8 +97,8 @@
             "Fire Temple Megaton Hammer Chest": "has_explosives or can_use(Megaton_Hammer)"
         },
         "exits": {
-            "Fire Temple Boss Room": "glitch_bk_skip_fire and
-                ((can_use(Megaton_Hammer) and can_use(Hover_Boots)) or can_bomb_slide)"
+            # Ledge clip from the flame maze room. If the pillar was knocked down then you have the means to ledge clip from the highest goron room.
+            "Fire Temple Boss Room": "glitch_bk_skip_fire"
         }
     }
 ]
