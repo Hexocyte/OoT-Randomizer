@@ -26,6 +26,9 @@ Dungeons:
         
 UPDATED:
 ----------------------
+9/11/2021:
+    Small change to fire temple BK skip logic. It should be logically equivalent to the previous version.
+
 Prior to 8/7/2021:
     Brought up to 2.0 standards:
         Vanilla:
