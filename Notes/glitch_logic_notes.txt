@@ -17,7 +17,7 @@ As a design choice, we never expect the following glitches:
     Collection delay
         Parts of rando do not play nicely with this glitch, you can be locked out of doing it, and some applications violate the spirit of rando by allowing you to get a static item from a normally shuffled check.
     Text transfer glitch
-        This is banned for similar reasons as collection delay
+        This is banned as you can use it to downgrade items.
     Anything heavily RNG-dependent
         Most notably, this includes anything that involves enemies, with the exception of static or near-static enemies that are easy to predict, such as small skultulas or deku babas.
             The only exception is for a couple of tektite hovers that were in glitch logic 1.0 which have been pushed to insane mode.
