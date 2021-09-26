@@ -107,6 +107,9 @@ do that.
 * New separate setting `LACS Condition` to select what goal items are required for the Light Arrows Cutscene.
 * New option `Misc. Hints` controls whether the Temple of Time altar and Ganondorf give hints, defaulting on to preserve behavior. Hell Mode disables this setting.
 * New `Rainbow Bridge` option `Random` that will choose one of the other options at random (besides Skulltula Tokens), and require the maximum of that goal (if applicable).
+* New `goal` hint type for use in custom hint distributions. 
+  * Default goals are included for the rainbow bridge, Ganon's Castle Boss Key, and trials settings.
+  * Hints read as "They say that Kokiri Forest is on the path to Twinrova.", where the medallion or stone reward from defeating Twinrova can be used for the bridge or Ganon's Castle Boss Key. Twinrova is not necessarily required depending on other settings. For example, with 2 medallions for the bridge, all medallions accessible without entering Ganon's Castle, and Spirit Medallion on Twinrova, the hint only points to one possible path to building the rainbow bridge.
 
 #### Bug Fixes
 
@@ -122,6 +125,7 @@ do that.
 * Plandomizer
   * Correctly consider plando'ed prices in logic, and limit set prices to a range of -32768 to 999.
   * Fix duplicating placed shop items.
+  * Properly randomize starting age and time of day when plando sets it to random.
 * Fix some potential failures for placing junk.
 * Fix disabled song locations getting a general junk item instead of a junk song.
 * Prevent areas hinted as barren from having a location hint.
@@ -129,17 +133,21 @@ do that.
 * Show the actual result settings in the spoiler instead of originally chosen settings (in case some settings like Closed Forest were modified). The settings string remains the original so the seed can be easily reproduced.
 * Fix some spoiler entries for visible ice traps.
 * Fix error thrown on some operating systems for capitalized file extensions .N64/.Z64.
+* Cache chest sizes and colors in the actor to reduce some latency with Chest Size Matches Contents.
 
 #### Other Changes
 
-* Add ability to provide settings through stdin (useful for shell scripting).
+* Ganon's Boss Key is now awarded when meeting the goal (if not set to LACS).
 * Ruto now knows what kind of medallion or stone she gets in Jabu Jabu.
 * Added Nayru's Love back to the minimal item pool on high damage settings.
 * Allow special characters (such as the é in Dampé) to appear in in-game hints.
+* Allow settings with a 'Random' option to be different per-world. (This does not permit settings randomized only by Randomize Main Rules to be different per-world.)
 * Randomized songs' note patterns are included in the spoiler log.
 * Hint distribution changes for named-item hints, including a new `vague_named_items` option for `hint_dist_user` that will name the location but not the item.
 * Hint distributions can now filter areas from being hinted as foolish, via putting the area names in `remove_locations`.
 * Improved support for certain Unicode characters and control characters in hint texts.
+* Provide the dungeon name when hinting keys.
+* Updated sometimes hints.
 * Renamed some regions, locations, items, etc to make vanilla names. This will make Plandomizer files incompatible between versions.
   * Gerudo Training **Grounds** -> Gerudo Training **Ground**
   * Gerudo Fortress -> Thieves' Hideout (when referring to the interior areas or the carpenter rescue quest)
@@ -155,10 +163,16 @@ do that.
 * Entrance Randomizer: When warp songs are shuffled, the confirmation text now shows the actual destination.
 * Text Shuffle: Expanded the "Shuffled except Hints and Keys" to include some shop and scrub text, and renamed "Shuffled except Important Text".
 * Custom Music: Added a file `custom_music_exclusion` to specify which music files shouldn't be shuffled in with random custom music.
+* Hid the trick list on the GUI when it's disabled.
 * Changed internal names for the broken swords.
+* Added validation of settings for plandomizer before attempting generation.
+* Removed size check for the decompressor.
 * Updated presets.
+* Added ability to provide settings through stdin (useful for shell scripting).
 * Added a commandline flag to use a preset by name. This still allows supplying additional settings, e.g. to control cosmetics and ROM output.
 * Added internal tracking of what items were where in vanilla OoT.
+* Added settings validation for unittests.
+* Added unittests for settings presets.
 * Logic updates.
 * Use HTTPS for the version check to github.
 
