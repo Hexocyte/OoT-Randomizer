@@ -3941,7 +3941,6 @@ setting_infos = [
         '''
     ),
     Setting_Info(
-<<<<<<< HEAD
         name           = 'allowed_glitches',
         type           = list,
         gui_text       = "Enable Glitches",
@@ -3962,7 +3961,8 @@ setting_infos = [
             Tricks in the left column are NEVER required.
             These tricks are only relevant for Glitch logic.
         '''
-=======
+    ),
+    Setting_Info(
         name           = 'tricks_list_msg',
         type           = str,
         gui_text       = "Your current logic setting does not support the enabling of tricks.",
@@ -3972,7 +3972,6 @@ setting_infos = [
             "hide_when_disabled": True
         },
         choices        = {},
->>>>>>> upstream/Dev
     ),
     Combobox(
         name           = 'logic_earliest_adult_trade',
