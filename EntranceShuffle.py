@@ -710,7 +710,7 @@ def validate_world(world, worlds, entrance_placed, locations_to_ensure_reachable
     # Warp Songs and Overworld Spawns can also end up inside certain indoors so those need to be handled as well
     # Glitch logic needs to allow child into the carpenter tent because that's a valid entrance
     CHILD_FORBIDDEN = ['OGC Great Fairy Fountain -> Castle Grounds']
-    if (world.logic_rules == 'glitchless'):
+    if (world.settings.logic_rules == 'glitchless'):
         CHILD_FORBIDDEN.append('GV Carpenter Tent -> GV Fortress Side')
     ADULT_FORBIDDEN = ['HC Great Fairy Fountain -> Castle Grounds', 'HC Storms Grotto -> Castle Grounds']
 

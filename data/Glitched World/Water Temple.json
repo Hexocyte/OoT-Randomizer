@@ -165,11 +165,14 @@
         "region_name": "Boss Area",
         "dungeon": "Water Temple",
         "events": {
-            "Water Temple Clear": "can_jumpslash and (can_hover or Boss_Key_Water_Temple)"
+            "Water Temple Clear": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
+                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))"
         },
         "locations": {
-            "Morpha": "can_jumpslash and (can_hover or Boss_Key_Water_Temple)",
-            "Water Temple Morpha Heart": "can_jumpslash and (can_hover or Boss_Key_Water_Temple)"
+            "Morpha": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
+                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))",
+            "Water Temple Morpha Heart": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
+                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))"
         }
     }
 ]

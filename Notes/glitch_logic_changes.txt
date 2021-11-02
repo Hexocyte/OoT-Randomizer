@@ -4,7 +4,6 @@ TO DO
 ------------------------------------
 Dungeons:
     Vanilla dungeons:
-        Forest
         Water
         Spirit
         GTG
@@ -26,8 +25,30 @@ Dungeons:
         
 UPDATED:
 ----------------------
-9/11/2021:
-    Small change to fire temple BK skip logic. It should be logically equivalent to the previous version.
+11/02/21:
+    Brought up to 2.0:
+        Vanilla Forest Temple
+            This still needs some updates, but it's now in a much better state.
+    Logic:
+        Shadow Temple: Added hammerslide to cross the statue chasm before Bongo Bongo.
+        Water Temple: Made the BK skip trick relevant. Made the hard bosses trick relevant to Morpha.
+        Spirit Temple: Made the BK skip trick relevant. No other changes
+        
+    Settings:
+        Rearranged some tricks. Now the order should be as follows:
+            Tricks which are required for other tricks to function (e.g. damage boosts, which are required for one method of bypassing the shadow door and climbing the shadow boat, among others) will be at the top.
+            General-use tricks (those with several areas of application, e.g. megaflips) will be next.
+            Tricks that are extremely similar in function (e.g. the BK skips) will be grouped together.
+            Tricks will be kept in a general ascending difficulty within these groups, except those which have a more logical grouping (e.g. the BK skips are ordered based on their dungeon order, not based on difficulty).
+        I've also updated the tags on several tricks.
+            A notable new tag is the "Component" tag, which indicates tricks which must be in logic for certain other tricks to function.
+    New glitches:
+        None
+        
+    Other changes:
+        Updated world.py to make it so that SoA can be in barren areas when not used for hints.
+        Fixed a few bugs
+    
 
 Prior to 8/7/2021:
     Brought up to 2.0 standards:
@@ -59,3 +80,16 @@ Prior to 8/7/2021:
             Adds support for the new tricks.
         settings_mapping,json
             Adds support for the new tricks.
+            
+            
+Blank for copy-paste:
+    Brought up to 2.0 standards:
+        
+    Logic:
+        
+    Settings:
+        
+    New glitches:
+        
+    Other changes:
+        
