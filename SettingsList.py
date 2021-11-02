@@ -129,6 +129,35 @@ class Scale(Setting_Info):
         super().__init__(name, int, gui_text, 'Scale', shared, choices, default, disabled_default, disable, gui_tooltip, gui_params, cosmetic)
 
 logic_glitches = {
+    'All Uses Enabled': {
+        'name'    : 'glitch_insane',
+        'tags'    : ("General", "Component",),
+        'tooltip' : '''\
+                    When this option is enabled, all possible repeatable
+                    applications of enabled glitches are in logic.
+
+                    When disabled, only tamer applications of enabled glitches
+                    will be in logic. Check the glitched logic page on the
+                    wiki for exact details.
+            
+                    This will be a checkbox later, but I've made it a toggle
+                    for the time being, for testing purposes.
+                    '''},
+    'Damage Hovers': {
+        'name'    : 'glitch_hover',
+        'tags'    : ("General",),
+        'tooltip' : '''\
+                    By getting ISG, holding shield, and backflipping
+                    into a source of damage, you can get stuck in the
+                    air. Repeatedly doing this can allow you to gain
+                    significant height and distance.
+                    
+                    By default, only considers bomb hovers of 10 bombs or
+                    bombchus, or of stationary, predictable enemies
+                    are in logic. "All Uses Enabled" puts all bomb
+                    hovers up to 20 bombs and 50 chus into logic,
+                    as well as some tricky enemies such as Tektites.
+                    '''},
     'Putaway Ocarina Items': {
         'name'    : 'glitch_oi',
         'tags'    : ("General",),
@@ -145,7 +174,7 @@ logic_glitches = {
                     '''},
     'Equip Swap': {
         'name'    : 'glitch_equipswap',
-        'tags'    : ("General",),
+        'tags'    : ("General", "Component",),
         'tooltip' : '''\
                     By highlighting an item you want to equip, pressing
                     Z or R to switch to the next pause screen, then pressing
@@ -164,33 +193,18 @@ logic_glitches = {
                     overwrite your din's or sticks, potentially making
                     the seed unbeatable.
                     '''},
-    'Door of Time skip': {
-        'name'    : 'glitch_dot_skip',
-        'tags'    : ("General",),
+    'All Superslides': {
+        'name'    : 'glitch_slide',
+        'tags'    : ("General", "Component",),
         'tooltip' : '''\
-                    With careful movement, you can clip through the
-                    left side of the Door of Time. Child can do this
-                    completely itemlessly.
+                    Includes superslides, ESS, WESS, and HESS. While,
+                    in normal circumstances, these glitches are usually
+                    done to move quickly, they can also be used to bypass
+                    cylindrical collision (e.g. boulders) in some cases.
                     
-                    Adult requires hover boots, Giant's Knife, or
-                    Biggoron's Sword to do this, so it is expected
-                    that you will have at least one of those three
-                    items before doing this clip as EITHER age.
-                    '''},
-    'Damage Hovers': {
-        'name'    : 'glitch_hover',
-        'tags'    : ("General",),
-        'tooltip' : '''\
-                    By getting ISG, holding shield, and backflipping
-                    into a source of damage, you can get stuck in the
-                    air. Repeatedly doing this can allow you to gain
-                    significant height and distance.
-                    
-                    By default, only considers bomb hovers of 10 bombs or
-                    bombchus, or of stationary, predictable enemies
-                    are in logic. "All Uses Enabled" puts all bomb
-                    hovers up to 20 bombs and 50 chus into logic,
-                    as well as some tricky enemies such as Tektites.
+                    A-slides are never in logic due to the fact that they
+                    require a lot of consecutive frame-perfect inputs to be
+                    remotely useful.
                     '''},
     'Weirdshot and Weirdclip': {
         'name'    : 'glitch_weirdshot',
@@ -214,44 +228,8 @@ logic_glitches = {
                     weirdshot and weirdclip, it can crash if you execute
                     the glitch incorrectly.
                     '''},
-    'Forest Escape': {
-        'name'    : 'glitch_forest_escape',
-        'tags'    : ("Kokiri Forest", "Lost Woods",),
-        'tooltip' : '''\
-                    Puts all item-using methods of forest escape into
-                    logic, to bring glitched logic closed forest in line
-                    with the intent for the glitchless version. Itemless
-                    escape is only in logic with All Uses Enabled on.
-                    '''},
-    'All Superslides': {
-        'name'    : 'glitch_slide',
-        'tags'    : ("General",),
-        'tooltip' : '''\
-                    Includes superslides, ESS, WESS, and HESS. While,
-                    in normal circumstances, these glitches are usually
-                    done to move quickly, they can also be used to bypass
-                    cylindrical collision (e.g. boulders) in some cases.
-                    
-                    A-slides are never in logic due to the fact that they
-                    require a lot of consecutive frame-perfect inputs to be
-                    remotely useful.
-                    '''},
-    'All Uses Enabled': {
-        'name'    : 'glitch_insane',
-        'tags'    : ("General",),
-        'tooltip' : '''\
-                    When this option is enabled, all possible repeatable
-                    applications of enabled glitches are in logic.
-
-                    When disabled, only tamer applications of enabled glitches
-                    will be in logic. Check the glitched logic page on the
-                    wiki for exact details.
-            
-                    This will be a checkbox later, but I've made it a toggle
-                    for the time being, for testing purposes.
-                    '''},
     # UPDATE: Update this tooltip to include ledge QPA
-    'Quick Putaway': {
+     'Quick Putaway': {
         'name'    : 'glitch_qpa',
         'tags'    : ("General",),
         'tooltip' : '''\
@@ -265,6 +243,36 @@ logic_glitches = {
                     
                     The three damage values that are logically useful are
                     din's fire, ice arrow, and slingshot.
+                    
+                    For this to be in logic for adult, Equip Swap must also
+                    be in logic.
+                    '''},
+    'Door of Time skip': {
+        'name'    : 'glitch_dot_skip',
+        'tags'    : ("Temple of Time",),
+        'tooltip' : '''\
+                    With careful movement, you can clip through the
+                    left side of the Door of Time.
+                    
+                    Child can do this completely itemlessly.
+                    Adult requires hover boots, Giant's Knife, or
+                    Biggoron's Sword to do this, so it is expected
+                    that you will have at least one of those three
+                    items before doing this clip as EITHER age.
+                    Giant's Knife works even when broken.
+                    
+                    DO NOT DO DOT SKIP WITHOUT A WAY
+                    FOR ADULT TO RETURN.
+                    '''},
+    'Forest Escape': {
+        'name'    : 'glitch_forest_escape',
+        'tags'    : ("Kokiri Forest", "Lost Woods",),
+        'tooltip' : '''\
+                    Puts all item-using methods of forest escape into
+                    logic. If this is off you will always be expected to
+                    beat Deku Tree first.
+                    
+                    Itemless escape is only in logic with All Uses Enabled on.
                     '''},
     'Child Mido Skip': {
         'name'    : 'glitch_mido_skip',
@@ -382,7 +390,7 @@ logic_glitches = {
                     '''},
     'Damage Boost': {
         'name'    : 'not_a_glitch_damage_boost',
-        'tags'    : ("General",),
+        'tags'    : ("General", "Component",),
         'tooltip' : '''\
                     Not actually a glitch, but glitch-adjacent.
                     
@@ -390,8 +398,8 @@ logic_glitches = {
                     before it explodes. Shield-drop the explosive and jumpslash
                     a frame later.
                     
-                    DO NOT USE THIS TO REACH ZELDA AS CHILD EARLY, AS THIS
-                    CAN SOFTLOCK YOU!
+                    DO NOT USE THIS TO REACH ZELDA AS CHILD EARLY,
+                    AS THIS CAN SOFTLOCK YOU!
                     '''},
     'Unload Upland Zora': {
         'name'    : 'glitch_upper_zora',
@@ -413,7 +421,7 @@ logic_glitches = {
     # Please update this to include trial skip when sword shuffle is done
     'Heap Fragmentation': {
         'name'    : 'glitch_stairs',
-        'tags'    : ("General", "the Graveyard", "Ganon's Castle", "Goron City",),
+        'tags'    : ("General", "the Graveyard", "Ganon's Castle", "Goron City", "Component",),
         'tooltip' : '''\
                     By repeatedly crossing some loading triggers, you can cause
                     memory to "fragment" in such a way that certain objects cannot
@@ -427,7 +435,7 @@ logic_glitches = {
                     '''},
     'DMT GS Near Kak clip': {
         'name'    : 'glitch_dmt_gs_clip',
-        'tags'    : ("General",),
+        'tags'    : ("Death Mountain Trail",),
         'tooltip' : '''\
                     You can clip in to the alcove containing the Gold Skulltula
                     near Kakariko with a jumpslash from above. Frame-perfect,
@@ -478,7 +486,7 @@ logic_glitches = {
                     '''},
     'Forest Temple BK skip': {
         'name'    : 'glitch_bk_skip_forest',
-        'tags'    : ("General",),
+        'tags'    : ("BK Skip", "Forest Temple",),
         'tooltip' : '''\
                     UPDATE: add child vine clip
                     
@@ -491,7 +499,7 @@ logic_glitches = {
                     '''},
     'Fire Temple BK skip': {
         'name'    : 'glitch_bk_skip_fire',
-        'tags'    : ("Fire Temple",),
+        'tags'    : ("BK Skip", "Fire Temple",),
         'tooltip' : '''\
                     You can hammerslide or HESS from the hammer room to
                     fall into the loading zone for the boss room from above.
@@ -503,7 +511,7 @@ logic_glitches = {
                     '''},
     'Water Temple BK skip': {
         'name'    : 'glitch_bk_skip_water_vanilla',
-        'tags'    : ("General",),
+        'tags'    : ("BK Skip", "Water Temple",),
         'tooltip' : '''\
                     UPDATE: Add description here.
                     
@@ -512,7 +520,7 @@ logic_glitches = {
                     '''},
     'MQ Water Temple BK skip': {
         'name'    : 'glitch_bk_skip_water_mq',
-        'tags'    : ("General",),
+        'tags'    : ("BK Skip", "Water Temple",),
         'tooltip' : '''\
                     Climb on top of the right hookshot pillar, sidehop,
                     and jumpslash mid-air.
@@ -522,15 +530,16 @@ logic_glitches = {
                     '''},
     'Shadow Temple BK skip': {
         'name'    : 'glitch_bk_skip_shadow',
-        'tags'    : ("General",),
+        'tags'    : ("BK Skip", "Shadow Temple",),
         'tooltip' : '''\
-                    UPDATE: Add description here
+                    You can clip OoB in the Deadhand room and
+                    megaflip or 
                     
                     Applies to both vanilla and MQ.
                     '''},
     'Spirit Temple BK skip': {
         'name'    : 'glitch_bk_skip_spirit',
-        'tags'    : ("Spirit Temple",),
+        'tags'    : ("BK Skip", "Spirit Temple",),
         'tooltip' : '''\
                     UPDATE: Add description here
                     
@@ -574,9 +583,10 @@ logic_glitches = {
         'tags'    : ("General", "Dungeons",),
         'tooltip' : '''\
                     Puts various bosses into logic without items you would
-                    normally have. Included bosses are: King Dodongo with chus,
-                    Barinade with pots, Volvagia without tunic, Morpha without
-                    hookshot, and Bongo Bongo without projectiles.
+                    normally have. Included bosses are: Gohma without nuts,
+                    slingshot, or bow; King Dodongo with chus; Barinade with
+                    pots; Volvagia without tunic; Morpha without ookshot; and
+                    Bongo Bongo without projectiles.
                     
                     If All Uses Enabled is on and bomb hovers are in logic, then
                     this also puts Phantom Ganon without projectiles in logic.
