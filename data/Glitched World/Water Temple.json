@@ -1,178 +1,171 @@
-[    
+[
     {
-        "region_name": "Water Temple Lobby",
-        "dungeon": "Water Temple",
-        "locations": {},
+        "region_name": "Spirit Temple Lobby",
+        "dungeon": "Spirit Temple",
         "exits": {
-            "High Alcove": "is_adult or can_hover",
-            "Boss Area": "can_use(Longshot) or can_hover or (can_use(Hover_Boots) and (can_mega or Megaton_Hammer))",
-            "Dark Link Area": "(at('High Alcove', can_play(Zeldas_Lullaby)) or 
-                    (can_use(Hover_Boots) and (can_mega or Megaton_Hammer)))
-                and (Small_Key_Water_Temple, 4)",
-            "Under Entrance Block": "can_use(Hookshot) and Iron_Boots",
-            "Central Pillar from Lobby": "can_use(Hookshot) and Iron_Boots and
-                (Small_Key_Water_Temple, 4)",
-            "Compass Room": "can_use(Iron_Boots) and can_use(Hookshot)",
-            "Ruto Column": "can_use(Iron_Boots) or can_use(Longshot) or can_jumpslash",
-            "Lake Hylia": "True"
+            "Desert Colossus From Spirit Lobby": "True",
+            "Child Spirit Temple": "is_child or (is_adult and (can_mega or Hover_Boots))",
+            "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or can_use(Hover_Boots) or (is_adult and can_shield)"
         }
     },
     {
-        "region_name": "High Alcove",
-        "dungeon":  "Water Temple",
-        "locations": {},
-        "exits": {            
-            "Compass Room": "is_adult",
-            "Ruto Column": "is_adult",
-            "Under Entrance Block": "can_use(Iron_Boots) and can_use(Hookshot)",
-            "Caged Skulltula": "is_adult",
-            "Dragon Head Area": "is_adult",
-            "Boss Key Area": "is_adult and 
-                (Small_Key_Water_Temple, 4)
-                and (can_use(Longshot) or can_hover or Hover_Boots)",
-            "Boss Area": "can_play(Zeldas_Lullaby) and can_use(Longshot)",
-            "Water Temple Lobby": "can_play(Zeldas_Lullaby)"
-
-        }
-    },
-    {
-        "region_name": "Caged Skulltula",
-        "dungeon": "Water Temple",
+        "region_name": "Child Spirit Temple",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple GS Behind Gate": "(can_use(Hover_Boots) or can_hover or can_use(Hookshot)) and 
-                (can_jumpslash or has_explosives)"
-        }
-    },
-    {
-        "region_name": "Compass Room",
-        "dungeon": "Water Temple",
-        "locations": {
-            "Water Temple Compass Chest": "True"
-        }
-    },
-    {
-        "region_name": "Under Entrance Block",
-        "dungeon": "Water Temple",
-        "locations": {
-            "Water Temple Central Bow Target Chest": "True"
-        }
-    },
-    {
-        "region_name": "Ruto Column",
-        "dungeon": "Water Temple",
-        "locations": {
-            "Water Temple Map Chest": "is_adult or can_child_damage",
-            "Water Temple Cracked Wall Chest": "(can_use(Hookshot) and Iron_Boots) or
-                (can_play(Zeldas_Lullaby) and (can_use(Hookshot) or has_explosives)) ",
-            "Water Temple Torches Chest": "(here(is_child and can_use(Sticks)) or has_fire_source or can_use(Bow))
-                and can_play(Zeldas_Lullaby)"
+            "Spirit Temple Child Bridge Chest": "is_adult or
+                (
+                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
+                (Sticks or has_explosives or 
+                    ( (Nuts or can_use(Boomerang)) and 
+                        (can_use(Kokiri_Sword) or Slingshot) ) ))",
+            "Spirit Temple Child Early Torches Chest": "(is_adult and has_fire_source) or 
+                (has_fire_source_with_torch and (here(is_adult) or
+                (
+                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
+                (Sticks or has_explosives or 
+                    ( (Nuts or can_use(Boomerang)) and 
+                        (can_use(Kokiri_Sword) or Slingshot) ) ))))",
+            "Spirit Temple GS Metal Fence": "is_adult or
+                (
+                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
+                (Sticks or has_explosives or 
+                    ( (Nuts or can_use(Boomerang)) and 
+                        (can_use(Kokiri_Sword) or Slingshot) ) ))",
+            "Nut Crate": "True"
         },
         "exits": {
-            "Central Pillar": "can_play(Zeldas_Lullaby) and 
-                ((Small_Key_Water_Temple, 5)
-                or here(is_child and can_use(Sticks)) or has_fire_source or can_use(Bow))",
-            "Boss Key Area": "(Small_Key_Water_Temple, 4) and
-                (can_use(Longshot) or can_hover or can_use(Hover_Boots)) and can_play(Zeldas_Lullaby)",
-            "Dragon Head Area": "Progressive_Strength_Upgrade and (is_adult or can_child_attack) and can_play(Zeldas_Lullaby)",
-            "Caged Skulltula": "has_explosives and can_play(Zeldas_Lullaby)",
-            "Compass Room": "can_play(Zeldas_Lullaby) and can_use(Hookshot)",
-            "Under Entrance Block": "can_play(Zeldas_Lullaby) and 
-            ( (can_use(Hookshot) and can_mega) or (can_use(Bow) and (Hover_Boots or can_use(Longshot)) 
-                and (Progressive_Strength_Upgrade or (can_use(Hookshot) and can_mega))))",
-            "High Alcove": "(can_use(Hover_Boots) or can_use(Hookshot) or (is_adult and can_mega) or can_hover)
-                and can_play(Zeldas_Lullaby)"
+            "Child Spirit Temple Climb": "(Small_Key_Spirit_Temple, 2) and
+                (is_child or ((can_mega and can_use(Longshot)) or can_use(Hover_Boots))
+                )"
         }
     },
     {
-        "region_name": "Central Pillar from Lobby",
-        "dungeon": "Water Temple",
-        "exits": {
-            "Central Pillar": "True"
-        }
-    },
-    {
-        "region_name": "Central Pillar",
-        "dungeon": "Water Temple",
+        "region_name": "Child Spirit Temple Climb",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple Central Pillar Chest": "can_use(Iron_Boots) and can_use(Hookshot) and
-                (at('Central Pillar from Lobby', True) or can_play(Zeldas_Lullaby))",
-            "Water Temple GS Central Pillar": "at('Central Pillar from Lobby', True) or
-                can_use(Longshot) or
-                at('High Alcove',
-                    can_use(Farores_Wind) and can_play(Zeldas_Lullaby)
-                    and (can_use(Hookshot) or can_use(Boomerang)))"
+            "Spirit Temple Child Climb North Chest": "at('Spirit Temple Central Chamber', True)
+                or is_child or has_projectile(adult)",
+            "Spirit Temple Child Climb East Chest": "at('Spirit Temple Central Chamber', True)
+                or is_child or has_projectile(adult)",
+            "Spirit Temple GS Sun on Floor Room": "can_use(Boomerang) or can_use(Hookshot) or
+                (can_child_damage and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or 
+                (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love)))"
         },
         "exits": {
-            "High Alcove": "(can_use(Hover_Boots) or can_use(Hookshot) or (is_adult and can_mega) or can_hover
-                or has_projectile(either))
-            and can_play(Zeldas_Lullaby)",
-            "Compass Room": "can_play(Zeldas_Lullaby) and can_use(Hookshot)"
+            "Spirit Temple Central Chamber": "has_explosives"
         }
     },
     {
-        "region_name": "Boss Key Area",
-        "dungeon": "Water Temple",
+        "region_name": "Early Adult Spirit Temple",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple Boss Key Chest": "(Small_Key_Water_Temple, 5) and
-                (is_adult or can_hover)",
-            "Water Temple GS Near Boss Key Chest": "(is_adult or can_hover) and
-                (can_use(Hookshot) or can_use(Boomerang) or can_mega)"
-        }
-    },
-    {
-        "region_name": "Dark Link Area",
-        "dungeon": "Water Temple",
-        "locations": {
-            "Water Temple Longshot Chest": "can_use(Hookshot)",
-            "Water Temple GS Falling Platform Room": "can_use(Hookshot)"
+            "Spirit Temple Compass Chest": "can_play(Zeldas_Lullaby) and
+                (can_use(Hookshot) or can_hover) and has_projectile(either)",
+            "Spirit Temple Early Adult Right Chest": "has_projectile(either)",
+            "Spirit Temple First Mirror Left Chest": "(Small_Key_Spirit_Temple, 2)",
+            "Spirit Temple First Mirror Right Chest": "(Small_Key_Spirit_Temple, 2)",
+            "Spirit Temple GS Boulder Room": "has_projectile(either) and
+                (can_play(Song_of_Time) or can_use(Hover_Boots))"
         },
         "exits": {
-            "River": "can_play(Song_of_Time) or (can_use(Hookshot) and (Hover_Boots or (Bombs and can_live_dmg(0.5))))"
+            "Spirit Temple Central Chamber": "(Small_Key_Spirit_Temple, 2)"
         }
     },
     {
-        "region_name": "River",
-        "dungeon": "Water Temple",
+        "region_name": "Spirit Temple Central Chamber",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple GS River": "can_use(Longshot) or (Iron_Boots and can_use(Hookshot))"
+            "Spirit Temple Map Chest": "can_use(Bow) or has_fire_source_with_torch",
+            "Spirit Temple Sun Block Room Chest": "has_fire_source_with_torch or can_use(Bow)",
+            "Spirit Temple Statue Room Hand Chest": "can_play(Zeldas_Lullaby)
+                and can_jumpslash",
+            "Spirit Temple Statue Room Northeast Chest": "can_play(Zeldas_Lullaby) and can_jumpslash and
+                (can_use(Hookshot) or can_use(Hover_Boots) or can_mega)",
+            "Spirit Temple GS Hall After Sun Block Room": "can_use(Hookshot) or can_use(Boomerang) or can_hover",
+            "Spirit Temple GS Lobby": "can_use(Hookshot) or can_use(Boomerang) or can_hover
+                or can_use(Hover_Boots)"
         },
         "exits": {
-            "River Chest": "can_use(Bow) or (can_use(Longshot) and has_bottle and Iron_Boots)"
+            "Silver Gauntlets Hand": "True",
+            # access via Early Adult Spirit Temple requires 2 keys (+ jumpslash + explosives)
+            # access to Early Adult Spirit Temple guaranteed via can_jumpslash from here
+            "Spirit Temple Beyond Central Locked Door": "can_jumpslash and (
+                (Small_Key_Spirit_Temple, 2) or
+                can_hover or
+                can_use(Hookshot)) and has_explosives",
+            "Child Spirit Temple Climb": "True",
+            "Spirit Temple Boss": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit",
+            "Early Adult Spirit Temple": "can_jumpslash or can_hover or can_use(Hookshot)"
         }
     },
     {
-        "region_name": "River Chest",
-        "dungeon": "Water Temple",
+        "region_name": "Mirror Shield Hand",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple River Chest": "True"
+            "Spirit Temple Mirror Shield Chest": "True"
         },
         "exits": {
-            "Dragon Head Area": "True",
-            "River": "(can_use(Longshot) or can_use(Bow)) and can_mega"
+            "Desert Colossus": "True",
+            "Silver Gauntlets Hand": "
+                can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_mega)",
+            "Spirit Temple Beyond Central Locked Door": "True"
         }
     },
     {
-        "region_name": "Dragon Head Area",
-        "dungeon": "Water Temple",
+        "region_name": "Silver Gauntlets Hand",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Water Temple Dragon Chest": "at('River Chest', is_adult) or has_bombchus or (Iron_Boots and can_use(Hookshot))"
+            "Spirit Temple Silver Gauntlets Chest": "True"
         },
         "exits": {
-            "River Chest": "can_hover"
+            "Desert Colossus": "True",
+            "Mirror Shield Hand": "can_hover or (can_use(Hover_Boots) and can_mega)",
+            "Spirit Temple Central Chamber": "(Small_Key_Spirit_Temple, 2)"
         }
     },
     {
-        "region_name": "Boss Area",
-        "dungeon": "Water Temple",
-        "events": {
-            "Water Temple Clear": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
-                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))"
-        },
+        "region_name": "Spirit Temple Outdoor Hands",
+        "dungeon": "Spirit Temple",
+        "exits": {
+            "Silver Gauntlets Hand": "True",
+            "Mirror Shield Hand": "True"
+        }
+    },
+    {
+        "region_name": "Spirit Temple Beyond Central Locked Door",
+        "dungeon": "Spirit Temple",
         "locations": {
-            "Morpha": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
-                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))",
-            "Water Temple Morpha Heart": "(Boss_Key_Water_Temple or (can_hover and glitch_bk_skip_water_vanilla)) and
-                (can_jumpslash or can_use(Megaton_Hammer)) and (glitch_hard_bosses or can_use(Hookshot))"
+            "Spirit Temple Near Four Armos Chest": "can_use(Mirror_Shield)",
+            "Spirit Temple Hallway Right Invisible Chest": "True",
+            "Spirit Temple Hallway Left Invisible Chest": "True"
+        },
+        "exits": {
+            "Spirit Temple Beyond Final Locked Door": "(Small_Key_Spirit_Temple,5) and
+                (can_use(Hookshot) or has_explosives)",
+            "Mirror Shield Hand": "True",
+            "Spirit Temple Central Chamber": "has_explosives"
+        }
+    },
+    {
+        "region_name": "Spirit Temple Beyond Final Locked Door",
+        "dungeon": "Spirit Temple",
+        "locations": {
+            "Spirit Temple Boss Key Chest": "
+                can_play(Zeldas_Lullaby) and (can_live_dmg(1.0) or (Bow and 
+                Progressive_Hookshot))",
+            "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
+        },
+        "exits": {
+            "Spirit Temple Boss": "can_use(Mirror_Shield) and Boss_Key_Spirit_Temple",
+            "Spirit Temple Central Chamber": "can_use(Mirror_Shield) or can_use(Hookshot)"
+        }
+    },
+    {
+        "region_name": "Spirit Temple Boss",
+        "dungeon": "Spirit Temple",
+        "locations": {
+            "Spirit Temple Twinrova Heart": "True",
+            "Twinrova": "True"
         }
     }
 ]
