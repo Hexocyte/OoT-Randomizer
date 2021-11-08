@@ -681,6 +681,7 @@
         "hint": "the Market",
         "exits": {
             "Market Entrance": "True",
+            "Market Back Alley": "is_child",
             "ToT Entrance": "True",
             "Castle Grounds": "True",
             "Market Bazaar": "is_child",
@@ -746,7 +747,7 @@
         "region_name": "Castle Grounds",
         "scene": "Castle Grounds",
         "exits": {
-            "Market": "True",
+            "Market": "is_child or at_dampe_time",
             "Hyrule Castle Grounds": "is_child",
             "Ganons Castle Grounds": "is_adult"
         }
@@ -811,13 +812,13 @@
             "OGC GS": "True"
         },
         "exits": {
-            # at_night is for ER purposes, to make sure you're not expected to do a day-only thing somewhere time doesn't pass.
-            "Castle Grounds": "at_night",
+            # at_dampe_time is for ER purposes, to make sure you're not expected to do a day-only thing somewhere time doesn't pass.
+            "Castle Grounds": "True",
             # glitch_insane refers to the seamwalk around, which is very hard. Otherwise, hoverboots recoil or damage clip
-            "OGC Great Fairy Fountain": "at_night and (can_use(Golden_Gauntlets) or
+            "OGC Great Fairy Fountain": "at_dampe_time and (can_use(Golden_Gauntlets) or
                 (has_explosives and (can_live_dmg(0.5) or can_use(Nayrus_Love))) or (can_use(Hover_Boots) and (can_shield or can_use(Megaton_Hammer))) or glitch_insane)",
             # Bomb hover or hoverboots hess across
-            "Ganons Castle Lobby": "can_build_rainbow_bridge or
+            "Ganons Castle Lobby": "at_dampe_time and can_build_rainbow_bridge or
                 (glitch_bridge_skip and (can_hover or (can_bomb_slide and can_use(Hover_Boots))))"
         }
     },
