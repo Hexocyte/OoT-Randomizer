@@ -25,6 +25,13 @@ Dungeons:
         
 UPDATED:
 ----------------------
+11/07/21:
+    Logic:
+        Minor changes to OGC TOD logic, to change at_night to at_dampe_time.
+    Bugfixes:
+        Added market>market back alley, fixing the logic for those three locations and fixing shopsanity.
+
+
 11/02/21:
     Brought up to 2.0:
         Vanilla Forest Temple
