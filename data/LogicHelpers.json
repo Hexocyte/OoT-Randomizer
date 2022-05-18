@@ -102,6 +102,9 @@
     "has_shield": "(is_adult and Hylian_Shield) or (is_child and Deku_Shield)",
     "can_shield": "(is_adult and (Hylian_Shield or Mirror_Shield)) or (is_child and Deku_Shield)",
     "can_jumpslash": "is_adult or Sticks or Kokiri_Sword",
+    # Use the first one when how it's held matters, use the second when the length matters
+    "has_2h_sword": "Biggoron_Sword or Giants_Knife",
+    "has_big_sword": "Biggoron_Sword or (Giants_Knife and not shuffle_medigoron_carpet_salesman)",
     
     # Glitch logic exclusive
     "can_enemy_mega": "can_shield and glitch_megaflip",
