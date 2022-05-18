@@ -729,7 +729,7 @@
             "ToT Entrance": "True",
             # Child can do this itemless, but to prevent softlocks he needs an item for adult to return. Check for the item BEFORE crossing the door.
             "Beyond Door of Time": "can_play(Song_of_Time) or open_door_of_time or
-                (((Hover_Boots and (Hylian_Shield or Mirror_Shield)) or Biggoron_Sword or Giants_Knife) and glitch_dot_skip)"
+                (((Hover_Boots and (Hylian_Shield or Mirror_Shield)) or has_2h_sword) and glitch_dot_skip)"
         }
     },
     {

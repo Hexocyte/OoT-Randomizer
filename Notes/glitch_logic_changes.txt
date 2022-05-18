@@ -6,7 +6,6 @@ Dungeons:
     Vanilla dungeons:
         Water
         Spirit
-        GTG
         Ice
         Ganon's
      MQ Dungeons:
@@ -25,6 +24,30 @@ Dungeons:
         
 UPDATED:
 ----------------------
+05/18/2022
+    Brought up to 2.0 standards:
+       GTG
+    Logic:
+        PG changed to allow hammer ISG, as default damage works for the balls.
+            RIP WotH bottles for fighting PG
+        
+    Settings:
+        Unchanged outside of new tricks.
+        
+    New glitches:
+        Fire Temple Crouch Stab w/BGS to activate switch
+            Default if you can reach the chest
+        Skip Strength 2 blocks w/hovers
+            Applies to GTG and Spirit (When I finally update spirit that is)
+            Trick
+        
+    Other changes:
+        New helpers of has_2h_sword and has_big_sword
+            The former checks for GK, BGK, or BGS. The latter uses checks to make sure that you either have BGS or a renewable source of GS.
+            OW file updated to use 2h for DoT skip
+        
+
+
 11/07/21:
     Logic:
         Minor changes to OGC TOD logic, to change at_night to at_dampe_time.

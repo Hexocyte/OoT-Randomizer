@@ -627,6 +627,14 @@ logic_glitches = {
                     You will still need hookshot, boomerang, or to ground jump
                     to actually grab the skull.
                     '''},
+    'Bypass Strength 2 Blocks': {
+        'name'    : 'glitch_strength2_blocks',
+        'tags'    : ("Spirit Temple", "Gerudo Training Ground",),
+        'tooltip' : '''\
+                    By using hoverboots, you can skip using strength 2
+                    to push the silver blocks before the likelike room in GTG
+                    and before adult climb in Spirit Temple.
+                    '''},
 }
 
 logic_tricks = {

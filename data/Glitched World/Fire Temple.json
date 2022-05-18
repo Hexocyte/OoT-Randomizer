@@ -4,16 +4,19 @@
         "dungeon": "Fire Temple",
         "locations": {
             "Fire Temple Near Boss Chest" : "True",
-            "Fire Temple Flare Dancer Chest": "((Small_Key_Fire_Temple, 8) or not keysanity) and
+            "Fire Temple Flare Dancer Chest": "(((Small_Key_Fire_Temple, 8) or not keysanity) or
+                (can_weirdshot and can_use(Hookshot) and has_big_sword and can_use(Megaton_Hammer) and can_shield)) and
                 (can_use(Megaton_Hammer) or can_use(Hookshot) or (has_explosives and is_adult)) and (is_adult or can_groundjump)",
             "Fire Temple Boss Key Chest": "(((Small_Key_Fire_Temple, 8) or not keysanity) and can_use(Megaton_Hammer)) or
                 (can_weirdshot and Hookshot) or
                 (glitch_actor and can_use(Dins_Fire) and has_explosives and can_live_dmg(1.5))",
-            "Fire Temple GS Boss Key Loop": "((Small_Key_Fire_Temple, 8) or not keysanity) and (is_adult or can_use(Megaton_Hammer))",
+            "Fire Temple GS Boss Key Loop": "((Small_Key_Fire_Temple, 8) or not keysanity or
+                (can_weirdshot and can_use(Hookshot) and has_big_sword and can_use(Megaton_Hammer) and can_shield)) and
+                (is_adult or can_use(Megaton_Hammer))",
             "Fairy Pot": "has_bottle and (can_use(Hover_Boots) or can_use(Hookshot) or can_mega or can_hover)"
         },
         "exits": {
-            "Fire Temple Big Lava Room":"(Small_Key_Fire_Temple, 2)",
+            "Fire Temple Big Lava Room": "(Small_Key_Fire_Temple, 2)",
             # Once boss shuffle is implemented, child can damage boost from the pillar after adult knocks it down.
             "Fire Temple Boss Room": "(is_adult or (can_mega or can_hover)) and
                 (Boss_Key_Fire_Temple or (glitch_bk_skip_fire and can_hover and glitch_insane and can_use(Goron_Tunic)))",
