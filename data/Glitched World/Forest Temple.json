@@ -161,10 +161,10 @@
         "dungeon": "Forest Temple",
         "locations": {
             "Forest Temple Phantom Ganon Heart": "
-                (can_jumpslash or (can_use(Megaton_Hammer) and (has_bottle or can_use(Boomerang)))) and
+                (can_jumpslash or can_isg) and
                 (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or (can_hover and glitch_hard_bosses and glitch_insane))",
             "Phantom Ganon": "
-                (can_jumpslash or (can_use(Megaton_Hammer) and (has_bottle or can_use(Boomerang)))) and
+                (can_jumpslash or can_isg) and
                 (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or (can_hover and glitch_hard_bosses and glitch_insane))"
         }
     }
