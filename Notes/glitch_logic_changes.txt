@@ -24,6 +24,13 @@ Dungeons:
         
 UPDATED:
 ----------------------
+05/19/2022
+    Updated from main.
+    MQ dungeons have been enabled, but are NOT functional.
+        The reason for this is that main dev changed various settings related to MQ dungeons, and honestly at this point it's just a pain to keep it up to         date.
+        Enabling MQ for glitch logic is planned for 2.0 anyway, so this isn't too much of a problem.
+        Just, ya know...don't use it yet.
+
 05/18/2022
     Brought up to 2.0 standards:
        GTG
