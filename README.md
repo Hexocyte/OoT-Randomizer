@@ -8,6 +8,8 @@ This is a randomizer for _The Legend of Zelda: Ocarina of Time_ for the Nintendo
   * [Settings](#settings)
   * [Known Issues](#known-issues)
 * [Changelog](#changelog)
+  * [6.2](#62)
+  * [6.1](#61)
   * [6.0](#60)
   * [5.2](#52)
   * [5.1](#51)
@@ -23,7 +25,7 @@ https://ootrandomizer.com
 If you wish to run the script raw, clone this repository and either run ```Gui.py``` for a
 graphical interface or ```OoTRandomizer.py``` for the command line version. They both require Python 3.6+. This will be fully featured,
 but the seeds you generate will have different random factors than the bundled release.
-To use the GUI, [NodeJS](https://nodejs.org/en/download/) (v12, with npm) will additionally need to be installed.
+To use the GUI, [NodeJS](https://nodejs.org/download/release/v14.15.1/) (v14, with npm) will additionally need to be installed. NodeJS v16+ is currently not supported.
 The first time ```Gui.py``` is run it will need to install necessary components, which could take a few minutes. Subsequent instances will run much quicker.
 Built-in WAD injection is only supported on the website. To create a WAD from a seed created locally, either use 
 [gzinject](https://github.com/krimtonz/gzinject/tree/0.2.0) or output a patch file and run that through the website.
@@ -102,6 +104,77 @@ do that.
 
 #### New Features
 
+* **Settings**
+  * New setting `Dungeon Shortcuts` opens shortcuts in blue warp dungeons to the boss room. This is toggleable per-dungeon, and affects glitchless logic.
+  * New setting `Shopsanity Prices` adds additional price range options when Shopsanity is enabled, including "Affordable" which sets all prices to 10 rupees (to match the same option in Scrub Shuffle).
+  * `Chest Size Matches Content` has been replaced with `Chest Appearance Matches Content`. Unique textures are applied to chests containing major items, small keys, boss keys, skulltula tokens, and remaining items. An additional option also changes chest sizes like the previous setting.
+  * New cosmetic setting `Disable Battle Music` turns off the battle music from being near enemies, allowing the background music to continue uninterrupted.
+  * New setting `Plant Magic Beans` automatically plants all the Magic Beans from the start.
+  * New setting `Key Rings` which can be enabled per-dungeon to replace all of its individual Small Keys into a singular Small Key Ring containing all the small keys for that dungeon.
+  * Setting `Randomize Ocarina Song Notes` can now be set to either "row" of songs individually, i.e. "Frog Songs" or "Warp Songs", in additional to the "Off" and "All Songs" options.
+  * MQ Dungeon settings have been replaced with `MQ Dungeons Mode` which allows finer selection of which dungeons are MQ, or how many are at random.
+  * New setting `Shuffle Boss Entrances` allows boss rooms to be shuffled between dungeons. This is only available in glitchless logic.
+  * `Misc. Hints` has been expanded to a multiple select setting allowing you to fine-tune which set of misc hints to enable or disable.
+
+* **Gameplay**
+  * Shortened the animation for equipping magic arrows.
+  * You can now use the child trade item (Zelda's Letter, masks, etc) as child using D-Pad Right.
+
+
+#### Bug fixes
+* Return the color of the "OK" and "No" options of the warp song prompts to their correct colors in Warp Song Shuffle.
+* Horseback Archery will no longer delay ending based on the fanfare.
+* Prevent Dead Hand from spawning outside the room collision.
+* Magic arrows equipped as adult no longer revert to the Bow after traveling through time to child and back.
+* Rainbow Bridge set to vanilla no longer spawns without Light Arrows.
+* Fix MQ Shadow Temple making use of shared flags.
+* Fix MQ Fire Temple missing the Hammer chest from the map and minimap.
+* Add correct default Goals for Ganon's Boss Key when Light Arrow Cutscene is non-vanilla.
+* Fix a softlock caused by 8-note Sun's Songs when using `Randomize Ocarina Song Notes`.
+* Fix slow text when acquiring certain items (Hookshot, Bombchus, etc.)
+* Using Farore's Wind as both ages should no longer result in the wrong temporary flags being loaded.
+* Fixed issues where `Skip Child Zelda` could give a weapon with no ammo or overwrite starting Triforce Pieces.
+* Fixed an issue where `Plentiful` item pool combined with `Starting Hearts` would result in more Heart Containers being in the item pool than intended.
+* The Like Like in Master Quest Fire Temple will now return the player's shield when defeated.
+
+#### Other changes
+* Added an auto-tracker context area to memory, so auto-trackers can find certain symbols much easier.
+* Improve some error messages when running the generator.
+* Fix logic parser shortcuts not working right in newer Python versions.
+* `Goron Bracelet` is no longer greyed out as adult on the Equipment subscreen of the pause menu.
+* Plandomizer
+  * You can now specify an arbitrary 4-character hexadecimal text ID as a "Gossip Stone" to overwrite text in the game.
+  * Adjusted how `starting_items` works in order to remove some redundancy. Spoiler output now includes a section `:skipped_locations` instead which is not used by Plandomizer.
+  * Gold Skulltula Token requirements can be increased above 100 (the pool must also have at least that many).
+* Triforce Hunt changes
+  * The number of Triforce pieces available per world, which was previously tied to the item pool setting, is now a separate setting.
+* Replaced old output option `compress_rom` with four separate options for outputting a patch file, compressed ROM, uncompressed ROM, and a WAD file.
+* Patch files from the web version of OoT Randomizer version 3.0 can now be used in the offline build. A `.zpf` patch file will be output in addition to the selected output types.
+* On the randomizer dungeon info screen, a Gold Skulltula icon appears for dungeons where you have collected all the Gold Skulltulas.
+* Maximum heart containers is now capped at 20. Pieces of Heart and Heart Containers collected after 20 will still restore your health but will not add to your hearts.
+* Many more "Junk" hints have been added.
+* `Song from Impa` is no longer restricted to a smaller set of items when `Skip Child Zelda` is enabled.
+* On the File Select screen, trade items that will be reverted on load now show as the item they will revert to.
+* Ganondorf will now say that the Light Arrows are in your pocket if they are an effective starting item (e.g. the item given from `Skip Child Zelda`).
+* The "WINNER!" Piece of Heart will now show the proper player name in Multiworld.
+
+### 6.2
+
+#### Bug fixes
+
+* Fix seed generation for multiworld with random trials.
+* Fix seed generation for All Goals Reachable.
+* Fix a minor optimization for counting needed Skulltula Tokens.
+* Fix some erroneous category tags for locations.
+
+#### Other changes
+* Allow foolish hints to apply even if an area has an Always hint (but no other types).
+* Renamed setting `Enable Useful Cutscenes` to `Enable Specific Glitch-Useful Cutscenes` for clarity.
+
+### 6.1
+
+#### New Features
+
 * **Objective Settings**
   * New setting `Reachable Locations` replaces `All Locations Reachable` and adds a new option "All Goals" which ensures that all goal items for Ganon's Boss Key and the Rainbow Bridge are reachable, regardless of how many are required by the setting.
     * For example, if the Rainbow Bridge requires 4 medallions, all 6 medallions will be guaranteed reachable.
@@ -121,7 +194,7 @@ do that.
   * Certain Unicode characters and control characters like 'Ⓐ' and '⯅' can now be used in hint texts to refer to the corresponding in-game symbols.
 
 * **Plandomizer**
-  * New `#MajorItem` item category for Plandomizer allows placing a random major item.
+  * New `#MajorItem` item category for Plandomizer allows placing a random major item. This won't include songs unless Song Shuffle is Anywhere.
   * New `#Vanilla` item category for Plandomizer allows placing the item normally at the location.
   * New Plandomizer support for defining custom item groups.
   * New Plandomizer support for defining custom song note patterns (rhythm is still random).
@@ -176,7 +249,7 @@ do that.
 * Added Nayru's Love back to the minimal item pool on high damage settings.
 * Allow settings with a 'Random' option to be different per-world. (This does not permit settings randomized only by Randomize Main Rules to be different per-world.)
 * Updated sometimes hints.
-* Renamed some regions, locations, items, etc to make vanilla names. This will make Plandomizer files incompatible between versions.
+* Renamed some regions, locations, items, etc to match vanilla names. This will make Plandomizer files incompatible between versions.
   * Gerudo Training **Grounds** -> Gerudo Training **Ground**
   * Gerudo Fortress -> Thieves' Hideout (when referring to the interior areas or the carpenter rescue quest)
   * Graveyard Composers' Grave -> Royal Family's Tomb

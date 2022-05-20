@@ -13,25 +13,26 @@ typedef struct {
         uint8_t has_card : 1;
         uint8_t has_map : 1;
     };
+    uint8_t skulltulas;
     char name[10];
 } dungeon_entry_t;
 
 dungeon_entry_t dungeons[] = {
-    {  0, 0, 0, 0, 1, "Deku"    },
-    {  1, 0, 0, 0, 1, "Dodongo" },
-    {  2, 0, 0, 0, 1, "Jabu"    },
+    {  0, 0, 0, 0, 1, 0x0F, "Deku"    },
+    {  1, 0, 0, 0, 1, 0x1F, "Dodongo" },
+    {  2, 0, 0, 0, 1, 0x0F, "Jabu"    },
 
-    {  3, 1, 1, 0, 1, "Forest"  },
-    {  4, 1, 1, 0, 1, "Fire"    },
-    {  5, 1, 1, 0, 1, "Water"   },
-    {  7, 1, 1, 0, 1, "Shadow"  },
-    {  6, 1, 1, 0, 1, "Spirit"  },
+    {  3, 1, 1, 0, 1, 0x1F, "Forest"  },
+    {  4, 1, 1, 0, 1, 0x1F, "Fire"    },
+    {  5, 1, 1, 0, 1, 0x1F, "Water"   },
+    {  7, 1, 1, 0, 1, 0x1F, "Shadow"  },
+    {  6, 1, 1, 0, 1, 0x1F, "Spirit"  },
 
-    {  8, 1, 0, 0, 1, "BotW"    },
-    {  9, 0, 0, 0, 1, "Ice"     },
-    { 12, 1, 0, 1, 0, "Hideout" },
-    { 11, 1, 0, 0, 0, "GTG"     },
-    { 13, 1, 1, 0, 0, "Ganon"   },
+    {  8, 1, 0, 0, 1, 0x07, "BotW"    },
+    {  9, 0, 0, 0, 1, 0x07, "Ice"     },
+    { 12, 1, 0, 1, 0, 0x00, "Hideout" },
+    { 11, 1, 0, 0, 0, 0x00, "GTG"     },
+    { 13, 1, 1, 0, 0, 0x00, "Ganon"   },
 };
 
 int dungeon_count = array_size(dungeons);
@@ -51,18 +52,17 @@ medal_color_t medal_colors[] = {
     { 0xC8, 0xC8, 0x00 }, // Light
 };
 
-uint32_t cfg_dungeon_info_enable = 1;
-uint32_t cfg_dungeon_info_mq_enable = 0;
-uint32_t cfg_dungeon_info_mq_need_map = 0;
-uint32_t cfg_dungeon_info_reward_enable = 1;
-uint32_t cfg_dungeon_info_reward_need_compass = 0;
-uint32_t cfg_dungeon_info_reward_need_altar = 0;
+extern uint32_t CFG_DUNGEON_INFO_ENABLE;
+extern uint32_t CFG_DUNGEON_INFO_MQ_ENABLE;
+extern uint32_t CFG_DUNGEON_INFO_MQ_NEED_MAP;
+extern uint32_t CFG_DUNGEON_INFO_REWARD_ENABLE;
+extern uint32_t CFG_DUNGEON_INFO_REWARD_NEED_COMPASS;
+extern uint32_t CFG_DUNGEON_INFO_REWARD_NEED_ALTAR;
 
-int8_t cfg_dungeon_rewards[] = { 0, 1, 2, 3, 4, 5, 6, 7, -1, -1, -1, -1, -1, -1 };
-uint8_t cfg_dungeon_is_mq[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+extern int8_t CFG_DUNGEON_REWARDS[14];
 
 void draw_dungeon_info(z64_disp_buf_t *db) {
-    int draw = cfg_dungeon_info_enable &&
+    int draw = CFG_DUNGEON_INFO_ENABLE &&
         z64_game.pause_ctxt.state == 6 &&
         z64_game.pause_ctxt.screen_idx == 0 &&
         !z64_game.pause_ctxt.changing &&
@@ -77,11 +77,12 @@ void draw_dungeon_info(z64_disp_buf_t *db) {
     gSPDisplayList(db->p++, &setup_db);
 
     uint16_t altar_flags = z64_file.inf_table[27];
-    int show_medals = cfg_dungeon_info_reward_enable && (!cfg_dungeon_info_reward_need_altar || (altar_flags & 1));
-    int show_stones = cfg_dungeon_info_reward_enable && (!cfg_dungeon_info_reward_need_altar || (altar_flags & 2));
+    int show_medals = CFG_DUNGEON_INFO_REWARD_ENABLE && (!CFG_DUNGEON_INFO_REWARD_NEED_ALTAR || (altar_flags & 1));
+    int show_stones = CFG_DUNGEON_INFO_REWARD_ENABLE && (!CFG_DUNGEON_INFO_REWARD_NEED_ALTAR || (altar_flags & 2));
     int show_keys = 1;
     int show_map_compass = 1;
-    int show_mq = cfg_dungeon_info_mq_enable;
+    int show_skulls = 1;
+    int show_mq = CFG_DUNGEON_INFO_MQ_ENABLE;
 
     // Set up dimensions
 
@@ -92,9 +93,9 @@ void draw_dungeon_info(z64_disp_buf_t *db) {
         ((6 * font_sprite.tile_w) + padding) :
         0;
     int bg_width =
-        (5 * icon_size) +
+        (6 * icon_size) +
         (8 * font_sprite.tile_w) +
-        (7 * padding) +
+        (8 * padding) +
         mq_width;
     int bg_height = (rows * icon_size) + ((rows + 1) * padding);
     int bg_left = (Z64_SCREEN_WIDTH - bg_width) / 2;
@@ -124,11 +125,11 @@ void draw_dungeon_info(z64_disp_buf_t *db) {
 
         for (int i = 0; i < dungeon_count; i++) {
             dungeon_entry_t *d = &(dungeons[i]);
-            if (cfg_dungeon_info_reward_need_compass &&
+            if (CFG_DUNGEON_INFO_REWARD_NEED_COMPASS &&
                     !z64_file.dungeon_items[d->index].compass) {
                 continue;
             }
-            int reward = cfg_dungeon_rewards[d->index];
+            int reward = CFG_DUNGEON_REWARDS[d->index];
             if (reward < 3) continue;
             reward -= 3;
 
@@ -150,11 +151,11 @@ void draw_dungeon_info(z64_disp_buf_t *db) {
 
         for (int i = 0; i < dungeon_count; i++) {
             dungeon_entry_t *d = &(dungeons[i]);
-            if (cfg_dungeon_info_reward_need_compass &&
+            if (CFG_DUNGEON_INFO_REWARD_NEED_COMPASS &&
                     !z64_file.dungeon_items[d->index].compass) {
                 continue;
             }
-            int reward = cfg_dungeon_rewards[d->index];
+            int reward = CFG_DUNGEON_REWARDS[d->index];
             if (reward < 0 || reward >= 3) continue;
 
             int top = start_top + ((icon_size + padding) * i);
@@ -264,16 +265,33 @@ void draw_dungeon_info(z64_disp_buf_t *db) {
         left += icon_size + padding;
     }
 
+    if (show_skulls) {
+        // Draw skulltula icon
+
+        sprite_load(db, &quest_items_sprite, 11, 1);
+
+        for (int i = 0; i < dungeon_count; i++) {
+            dungeon_entry_t *d = &(dungeons[i]);
+            if (d->skulltulas && z64_file.gs_flags[d->index ^ 0x03] == d->skulltulas) {
+                int top = start_top + ((icon_size + padding) * i);
+                sprite_draw(db, &quest_items_sprite, 0,
+                        left, top, icon_size, icon_size);
+            }
+        }
+
+        left += icon_size + padding;
+    }
+
     // Draw master quest dungeons
 
     if (show_mq) {
         for (int i = 0; i < dungeon_count; i++) {
             dungeon_entry_t *d = &(dungeons[i]);
-            if (cfg_dungeon_info_mq_need_map && d->has_map &&
+            if (CFG_DUNGEON_INFO_MQ_NEED_MAP && d->has_map &&
                     !z64_file.dungeon_items[d->index].map) {
                 continue;
             }
-            char *str = cfg_dungeon_is_mq[d->index] ? "MQ" : "Normal";
+            char *str = CFG_DUNGEON_IS_MQ[d->index] ? "MQ" : "Normal";
             int top = start_top + ((icon_size + padding) * i) + 1;
             text_print(str, left, top);
         }

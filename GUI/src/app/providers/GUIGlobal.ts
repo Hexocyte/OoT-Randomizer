@@ -515,7 +515,7 @@ export class GUIGlobal {
 
         this.globalEmitter.emit({ name: "local_version_checked", version: res });
 
-        let branch = res.includes("Release") ? "master" : "Dev";
+        let branch = res.includes("Release") ? "release" : "Dev";
         var remoteFile = await this.http.get("https://raw.githubusercontent.com/TestRunnerSRL/OoT-Randomizer/" + branch + "/version.py", { responseType: "text" }).toPromise();
 
         let remoteVersion = remoteFile.substr(remoteFile.indexOf("'") + 1);
@@ -714,6 +714,10 @@ export class GUIGlobal {
             else if (setting.type == "Scale" || setting.type == "Numberinput") { //Validate numberic values again before applying them
               this.verifyNumericSetting(settingsObj, setting, false);
               this.generator_settingsMap[setting.name] = settingsObj[setting.name];
+            }
+            else if (setting.type == "MultipleSelect") { //Validate list types before applying them
+              if (Array.isArray(settingsObj[setting.name]))
+                this.generator_settingsMap[setting.name] = settingsObj[setting.name];
             }
             else { //Everything else
               this.generator_settingsMap[setting.name] = settingsObj[setting.name];

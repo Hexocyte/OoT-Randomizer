@@ -108,6 +108,14 @@ class State(object):
         return self.prog_items[item_goal['name']] >= per_world_max_quantity
 
 
+    def has_all_item_goals(self):
+        for category in self.world.goal_categories.values():
+            for goal in category.goals:
+                if not all(map(lambda i: self.has_full_item_goal(category, goal, i), goal.items)):
+                    return False
+        return True
+
+
     def had_night_start(self):
         stod = self.world.settings.starting_tod
         # These are all not between 6:30 and 18:00
@@ -139,6 +147,8 @@ class State(object):
     # Be careful using this function. It will not collect any
     # items that may be locked behind the item, only the item itself.
     def collect(self, item):
+        if item.alias:
+            self.prog_items[item.alias[0]] += item.alias[1]
         if item.advancement:
             self.prog_items[item.name] += 1
 
@@ -146,10 +156,22 @@ class State(object):
     # Be careful using this function. It will not uncollect any
     # items that may be locked behind the item, only the item itself.
     def remove(self, item):
+        if item.alias and self.prog_items[item.alias[0]] > 0:
+            self.prog_items[item.alias[0]] -= item.alias[1]
+            if self.prog_items[item.alias[0]] <= 0:
+                del self.prog_items[item.alias[0]]
         if self.prog_items[item.name] > 0:
             self.prog_items[item.name] -= 1
             if self.prog_items[item.name] <= 0:
                 del self.prog_items[item.name]
+
+
+    def region_has_shortcuts(self, region_name, fallback_dungeon):
+        region = self.world.get_region(region_name)
+        dungeon_name = (region.dungeon and region.dungeon.name) or fallback_dungeon
+        if not dungeon_name:
+            return False
+        return dungeon_name in self.world.settings.dungeon_shortcuts
 
 
     def __getstate__(self):

@@ -3,12 +3,9 @@ import logging
 from State import State
 from Rules import set_shop_rules
 from Location import DisableType
-from LocationList import location_groups
-from ItemPool import songlist, get_junk_item, item_groups, remove_junk_items, remove_junk_set
-from ItemList import item_table
-from Item import ItemFactory
+from ItemPool import IGNORE_LOCATION, remove_junk_items
+from Item import ItemFactory, ItemInfo
 from Search import Search
-from functools import reduce
 
 logger = logging.getLogger('')
 
@@ -98,7 +95,7 @@ def distribute_items_restrictive(window, worlds, fill_locations=None):
             and location.item.looks_like_item is None))
     junk_items = remove_junk_items.copy()
     junk_items.remove('Ice Trap')
-    major_items = [item for (item, data) in item_table.items() if data[0] == 'Item' and data[1] and data[2] is not None]
+    major_items = [name for name, item in ItemInfo.items.items() if item.type == 'Item' and item.advancement and item.index is not None]
     fake_items = []
     if worlds[0].settings.ice_trap_appearance == 'major_only':
         model_items = [item for item in itempool if item.majoritem]
@@ -333,6 +330,7 @@ def fill_ownworld_restrictive(window, worlds, search, locations, ownpool, itempo
                 logger.info("Failed to place %s items for world %s. Will retry %s more times.", description, (world.id+1), world_attempts)
                 for location in prize_locs_dict[world.id]:
                     location.item = None
+                    location.price = None
                     if location.disabled == DisableType.DISABLED:
                         location.disabled = DisableType.PENDING
                 logger.info('\t%s' % str(e))
@@ -388,29 +386,24 @@ def fill_restrictive(window, worlds, base_search, locations, itempool, count=-1)
         max_search.collect_locations()
 
         # perform_access_check checks location reachability
-        if worlds[0].settings.reachable_locations == 'all':
-            perform_access_check = True
-            extra_location_checks = []
-        elif worlds[0].settings.reachable_locations == 'goals':
-            # for All Goals Reachable, we have to track whether any goal items have been placed,
-            # since we then have to start checking their reachability.
-            perform_access_check = item_to_place.goalitem or not max_search.can_beat_game(scan_for_items=False)
-            extra_location_checks = [location for world in worlds for location in world.get_filled_locations() if location.item.goalitem]
+        if worlds[0].check_beatable_only:
+            if worlds[0].settings.reachable_locations == 'goals':
+                # If this item is required for a goal, it must be placed somewhere reachable.
+                # We also need to check to make sure the game is beatable, since custom goals might not imply that.
+                predicate = lambda state: state.won() and state.has_all_item_goals()
+            else:
+                # If the game is not beatable without this item, it must be placed somewhere reachable.
+                predicate = State.won
+            perform_access_check = not max_search.can_beat_game(scan_for_items=False, predicate=predicate)
         else:
-            # if any world can not longer be beatable with the remaining items
-            # then we must check for reachability no matter what.
-            # This way the reachability test is monotonic. If we were to later
-            # stop checking, then we could place an item needed in one world
-            # in an unreachable place in another world.
-            # scan_for_items would cause an unnecessary copy+collect
-            perform_access_check = not max_search.can_beat_game(scan_for_items=False)
-            extra_location_checks = []
+            # All items must be placed somewhere reachable.
+            perform_access_check = True
 
         # find a location that the item can be placed. It must be a valid location
         # in the world we are placing it (possibly checking for reachability)
         spot_to_fill = None
         for location in l2cations:
-            if location.can_fill(max_search.state_list[location.world.id], item_to_place, perform_access_check, extra_location_checks):
+            if location.can_fill(max_search.state_list[location.world.id], item_to_place, perform_access_check):
                 # for multiworld, make it so that the location is also reachable
                 # in the world the item is for. This is to prevent early restrictions
                 # in one world being placed late in another world. If this is not
@@ -418,7 +411,7 @@ def fill_restrictive(window, worlds, base_search, locations, itempool, count=-1)
                 if location.world.id != item_to_place.world.id:
                     try:
                         source_location = item_to_place.world.get_location(location.name)
-                        if not source_location.can_fill(max_search.state_list[item_to_place.world.id], item_to_place, perform_access_check, extra_location_checks):
+                        if not source_location.can_fill(max_search.state_list[item_to_place.world.id], item_to_place, perform_access_check):
                             # location wasn't reachable in item's world, so skip it
                             continue
                     except KeyError:
@@ -513,10 +506,9 @@ def fast_fill(window, locations, itempool):
     while itempool and locations:
         spot_to_fill = locations.pop()
         item_to_place = itempool.pop()
-        # Impa can't presently hand out refills at the start of the game.
-        # Only replace her item with a rupee if it's junk.
-        if spot_to_fill.world.settings.skip_child_zelda and spot_to_fill.name == 'Song from Impa' and item_to_place.name in remove_junk_set:
-            item_to_place = ItemFactory('Rupee (1)', spot_to_fill.world)
+        # Ice traps are currently unsupported as starting items, but forbidding them on Song from Impa would noticeably increase the chance of a major item there in Ice Trap Onslaught.
+        if spot_to_fill.world.settings.skip_child_zelda and spot_to_fill.name == 'Song from Impa' and item_to_place.name == 'Ice Trap':
+            item_to_place = ItemFactory(IGNORE_LOCATION, spot_to_fill.world)
         spot_to_fill.world.push_item(spot_to_fill, item_to_place)
         window.fillcount += 1
         window.update_progress(5 + ((window.fillcount / window.locationcount) * 30))

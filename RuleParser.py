@@ -4,8 +4,7 @@ from inspect import signature, _ParameterKind
 import logging
 import re
 
-from Item import MakeEventItem
-from ItemList import item_table
+from Item import ItemInfo, MakeEventItem
 from Location import Location
 from Region import TimeOfDay
 from State import State
@@ -13,7 +12,7 @@ from Utils import data_path, read_json
 
 
 escaped_items = {}
-for item in item_table:
+for item in ItemInfo.items:
     escaped_items[re.sub(r'[\'()[\]]', '', item.replace(' ', '_'))] = item
 
 event_name = re.compile(r'\w+')
@@ -140,7 +139,7 @@ class Rule_AST_Transformer(ast.NodeTransformer):
         if iname in escaped_items:
             iname = escaped_items[iname]
 
-        if iname not in item_table:
+        if iname not in ItemInfo.items:
             self.events.add(iname)
 
         return ast.Call(
@@ -381,12 +380,12 @@ class Rule_AST_Transformer(ast.NodeTransformer):
             self.current_spot = event
             # This could, in theory, create further subrules.
             access_rule = self.make_access_rule(self.visit(node))
-            if access_rule is self.rule_cache.get('NameConstant(False)'):
+            if access_rule is self.rule_cache.get('NameConstant(False)') or access_rule is self.rule_cache.get('Constant(False)'):
                 event.access_rule = None
                 event.never = True
                 logging.getLogger('').debug('Dropping unreachable delayed event: %s', event.name)
             else:
-                if access_rule is self.rule_cache.get('NameConstant(True)'):
+                if access_rule is self.rule_cache.get('NameConstant(True)') or access_rule is self.rule_cache.get('Constant(True)'):
                     event.always = True
                 event.set_rule(access_rule)
                 region.locations.append(event)
@@ -479,7 +478,7 @@ class Rule_AST_Transformer(ast.NodeTransformer):
 
         access_rule = self.parse_rule(rule, spot)
         spot.set_rule(access_rule)
-        if access_rule is self.rule_cache.get('NameConstant(False)'):
+        if access_rule is self.rule_cache.get('NameConstant(False)') or access_rule is self.rule_cache.get('Constant(False)'):
             spot.never = True
-        elif access_rule is self.rule_cache.get('NameConstant(True)'):
+        elif access_rule is self.rule_cache.get('NameConstant(True)') or access_rule is self.rule_cache.get('Constant(True)'):
             spot.always = True

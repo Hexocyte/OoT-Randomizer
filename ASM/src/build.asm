@@ -43,6 +43,7 @@ RANDO_CONTEXT:
 .word COOP_CONTEXT
 .word COSMETIC_CONTEXT
 .word extern_ctxt
+.word AUTO_TRACKER_CONTEXT
 .endarea
 
 .include "coop_state.asm" ; This should always come first
@@ -99,6 +100,7 @@ RANDO_CONTEXT:
 .include "medigoron.asm"
 .include "misc_colors.asm"
 .include "door_of_time_col_fix.asm"
+.include "mask_deequip.asm"
 
 .align 0x10
 .importobj "../build/bundle.o"
@@ -109,6 +111,18 @@ DPAD_TEXTURE:
 .incbin("../resources/dpad.bin")
 TRIFORCE_ICON_TEXTURE:
 .incbin("../resources/triforce_sprite.bin")
+GILDED_CHEST_FRONT_TEXTURE:
+.incbin("../resources/gilded_chest_front.bin")
+GILDED_CHEST_BASE_TEXTURE:
+.incbin("../resources/gilded_chest_base.bin")
+SILVER_CHEST_FRONT_TEXTURE:
+.incbin("../resources/silver_chest_front.bin")
+SILVER_CHEST_BASE_TEXTURE:
+.incbin("../resources/silver_chest_base.bin")
+SKULL_CHEST_FRONT_TEXTURE:
+.incbin("../resources/skull_chest_front.bin")
+SKULL_CHEST_BASE_TEXTURE:
+.incbin("../resources/skull_chest_base.bin")
 
 .align 0x10
 PAYLOAD_END:

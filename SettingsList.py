@@ -11,13 +11,12 @@ from Colors import get_tunic_color_options, get_navi_color_options, get_sword_tr
     get_magic_color_options, get_heart_color_options, get_shield_frame_color_options, get_a_button_color_options,\
     get_b_button_color_options, get_c_button_color_options, get_start_button_color_options
 from Hints import HintDistList, HintDistTips, gossipLocations
-from Item import item_table
+from Item import ItemInfo
 from Location import LocationIterator
 from LocationList import location_table
 import Sounds as sfx
 import StartingItems
 from Utils import data_path
-from ItemList import item_table
 
 # holds the info for a single setting
 class Setting_Info():
@@ -108,10 +107,12 @@ class Checkbutton(Setting_Info):
 
 class Combobox(Setting_Info):
 
-    def __init__(self, name, gui_text, choices, default, gui_tooltip=None,
-            disable=None, disabled_default=None, shared=False, gui_params=None, cosmetic=False):
+    def __init__(self, name, gui_text, choices, default, gui_tooltip=None, disable=None,
+            disabled_default=None, shared=False, gui_params=None, cosmetic=False, multiple_select=False):
 
-        super().__init__(name, str, gui_text, 'Combobox', shared, choices, default, disabled_default, disable, gui_tooltip, gui_params, cosmetic)
+        gui_type = 'Combobox' if not multiple_select else 'MultipleSelect'
+        type = str if not multiple_select else list
+        super().__init__(name, type, gui_text, gui_type, shared, choices, default, disabled_default, disable, gui_tooltip, gui_params, cosmetic)
 
 
 class Scale(Setting_Info):
@@ -669,7 +670,7 @@ logic_tricks = {
                     going through the Kakariko Village Gate as child
                     when coming from the Mountain Trail side.
                     '''},
-    'Child Deadhand without Kokiri Sword': {
+    'Child Dead Hand without Kokiri Sword': {
         'name'    : 'logic_child_deadhand',
         'tags'    : ("Bottom of the Well",),
         'tooltip' : '''\
@@ -944,6 +945,16 @@ logic_tricks = {
                     - Spirit Temple Statue Room Northeast Chest
                     - Spirit Temple GS Lobby
                     '''},
+    'Spirit Temple Main Room Hookshot to Boss Platform': {
+        'name'    : 'logic_spirit_platform_hookshot',
+        'tags'    : ("Spirit Temple",),
+        'tooltip' : '''\
+                    Precise hookshot aiming at the platform chains can be
+                    used to reach the boss platform from the middle landings.
+                    Using a jumpslash immediately after reaching a chain
+                    makes aiming more lenient. Relevant only when Spirit
+                    Temple boss shortcuts are on.
+                    '''},
     'Spirit Temple MQ Sun Block Room GS with Boomerang': {
         'name'    : 'logic_spirit_mq_sun_block_gs',
         'tags'    : ("Spirit Temple", "Skulltulas",),
@@ -952,13 +963,25 @@ logic_tricks = {
                     curves through the side of the glass block
                     to hit the Gold Skulltula.
                     '''},
-    'Jabu Scrub as Adult with Jump Dive': {
-        'name'    : 'logic_jabu_scrub_jump_dive',
+    'Jabu Underwater Alcove as Adult with Jump Dive': {
+        'name'    : 'logic_jabu_alcove_jump_dive',
         'tags'    : ("Jabu Jabu's Belly", "Entrance",),
         'tooltip' : '''\
                     Standing above the underwater tunnel leading to the scrub,
                     jump down and swim through the tunnel. This allows adult to
-                    access the scrub with no Scale or Iron Boots.
+                    access the alcove with no Scale or Iron Boots. In vanilla Jabu,
+                    this alcove has a business scrub. In MQ Jabu, it has the compass
+                    chest and a door switch for the main floor.
+                    '''},
+    'Jabu MQ Compass Chest with Boomerang': {
+        'name'    : 'logic_jabu_mq_rang_jump',
+        'tags'    : ("Jabu Jabu's Belly",),
+        'tooltip' : '''\
+                    Boomerang can reach the cow switch to spawn the chest by
+                    targeting the cow, jumping off of the ledge where the
+                    chest spawns, and throwing the Boomerang in midair. This
+                    is only relevant with Jabu Jabu's Belly dungeon shortcuts
+                    enabled.
                     '''},
     'Jabu MQ Song of Time Block GS with Boomerang': {
         'name'    : 'logic_jabu_mq_sot_gs',
@@ -1090,6 +1113,26 @@ logic_tricks = {
                     that you can use to climb down, but there's actually
                     a small piece of ground that you can stand on that
                     you can just jump down to.
+                    '''},
+    'Shadow Temple MQ Windy Walkway Reverse without Hover Boots': {
+        'name'    : 'logic_shadow_mq_windy_walkway',
+        'tags'    : ("Shadow Temple",),
+        'tooltip' : '''\
+                    With shadow dungeon shortcuts enabled, it is possible
+                    to jump from the alcove in the windy hallway to the
+                    middle platform. There are two methods: wait out the fan
+                    opposite the door and hold forward, or jump to the right
+                    to be pushed by the fan there towards the platform ledge.
+                    Note that jumps of this distance are inconsistent, but
+                    still possible.
+                    '''},
+    'Shadow Temple MQ After Wind Gold Skulltula with Nothing': {
+        'name'    : 'logic_shadow_mq_after_wind_gs',
+        'tags'    : ("Shadow Temple","Skulltulas",),
+        'tooltip' : '''\
+                    The Gold Skulltula in the rubble pile can be killed
+                    with a sword slash without blowing up the rubble. The
+                    reward will appear above the rubble pile.
                     '''},
     'Backflip over Mido as Adult': {
         'name'    : 'logic_mido_backflip',
@@ -1385,6 +1428,23 @@ logic_tricks = {
                     needing a Bow.
                     Applies in both vanilla and MQ Shadow.
                     '''},
+    'Shadow Temple Bongo Bongo without projectiles': {
+        'name'    : 'logic_shadow_bongo',
+        'tags'    : ("Shadow Temple",),
+        'tooltip' : '''\
+                    Using precise sword slashes, Bongo Bongo can be
+                    defeated without using projectiles.  This is
+                    only relevant in conjunction with Shadow Temple
+                    dungeon shortcuts or shuffled dungeon bosses.
+                    '''},
+    'Shadow Temple Bongo Bongo without Lens of Truth': {
+        'name'    : 'logic_lens_bongo',
+        'tags'    : ("Shadow Temple", "Entrance"),
+        'tooltip' : '''\
+                    Bongo Bongo can be defeated without the use of
+                    Lens of Truth, as the hands give a pretty good
+                    idea of where the eye is.
+                    '''},
     'Stop Link the Goron with Din\'s Fire': {
         'name'    : 'logic_link_goron_dins',
         'tags'    : ("Goron City",),
@@ -1498,8 +1558,8 @@ logic_tricks = {
                     Skulltula somehow first. It can be killed
                     using Longshot, Bow, Bombchus or Din's Fire.
                     '''},
-    'Jabu Near Boss GS without Boomerang as Adult': {
-        'name'    : 'logic_jabu_boss_gs_adult',
+    'Jabu Near Boss Room with Hover Boots': {
+        'name'    : 'logic_jabu_boss_hover',
         'tags'    : ("Jabu Jabu's Belly", "Skulltulas", "Entrance",),
         'tooltip' : '''\
                     You can easily get over to the door to the
@@ -1509,6 +1569,28 @@ logic_tricks = {
                     switch pressed. One way is to quickly roll
                     from the switch and open the door before it
                     closes.
+                    '''},
+    'Jabu Boss Door Switch with Bombchus': {
+        'name'    : 'logic_jabu_boss_door_chus',
+        'tags'    : ("Jabu Jabu's Belly", "Entrance",),
+        'tooltip' : '''\
+                    You can trigger the switch that opens the 
+                    final door before the Jabu boss room with
+                    a precisely aimed bombchu. 
+                    Since a boomerang is still required to
+                    defeat Barinade, this trick is only useful
+                    in conjunction with shuffled dungeon bosses.
+                    '''},
+    'Jabu Boss Door Switch with Slingshot or Bow': {
+        'name'    : 'logic_jabu_boss_door_bow',
+        'tags'    : ("Jabu Jabu's Belly", "Entrance",),
+        'tooltip' : '''\
+                    You can trigger the switch that opens the 
+                    final door before the Jabu boss room with
+                    a precisely aimed slingshot or bow shot.
+                    Since a boomerang is still required to
+                    defeat Barinade, this trick is only useful
+                    in conjunction with shuffled dungeon bosses.
                     '''},
     'Kakariko Rooftop GS with Hover Boots': {
         'name'    : 'logic_kakariko_rooftop_gs',
@@ -1781,31 +1863,35 @@ logic_tricks = {
                     you also enable the Adult variant: "Dodongo's
                     Cavern Spike Trap Room Jump without Hover Boots".
                     '''},
-    'Dodongo\'s Cavern MQ Light the Eyes with Strength': {
-        'name'    : 'logic_dc_mq_eyes',
+    'Dodongo\'s Cavern Smash the Boss Lobby Floor': {
+        'name'    : 'logic_dc_hammer_floor',
+        'tags'    : ("Dodongo's Cavern" "Entrance",),
+        'tooltip' : '''\
+                    The bombable floor before King Dodongo can be destroyed
+                    with Hammer if hit in the very center. This is only
+                    relevant with Shuffle Boss Entrances or if Dodongo's Cavern
+                    is MQ and either variant of "Dodongo's Cavern MQ Light the
+                    Eyes with Strength" is on.
+                    '''},
+    'Dodongo\'s Cavern MQ Light the Eyes with Strength as Adult': {
+        'name'    : 'logic_dc_mq_eyes_adult',
+        'tags'    : ("Dodongo's Cavern",),
+        'tooltip' : '''\
+                    If you move very quickly, it is possible to use
+                    the bomb flower at the top of the room to light
+                    the eyes.
+                    '''},
+    'Dodongo\'s Cavern MQ Light the Eyes with Strength as Child': {
+        'name'    : 'logic_dc_mq_eyes_child',
         'tags'    : ("Dodongo's Cavern",),
         'tooltip' : '''\
                     If you move very quickly, it is possible to use
                     the bomb flower at the top of the room to light
                     the eyes. To perform this trick as child is
-                    significantly more difficult, but child will never
-                    be expected to do so unless "Dodongo's Cavern MQ
-                    Back Areas as Child without Explosives" is enabled.
-                    Also, the bombable floor before King Dodongo can be
-                    destroyed with Hammer if hit in the very center.
-                    '''},
-    'Dodongo\'s Cavern MQ Back Areas as Child without Explosives': {
-        'name'    : 'logic_dc_mq_child_back',
-        'tags'    : ("Dodongo's Cavern",),
-        'tooltip' : '''\
-                    Child can progress through the back areas without
-                    explosives by throwing a pot at a switch to lower a
-                    fire wall, and by defeating Armos to detonate bomb
-                    flowers (among other methods). While these techniques
-                    themselves are relatively simple, they're not
-                    relevant unless "Dodongo's Cavern MQ Light the Eyes
-                    with Strength" is enabled, which is a trick that
-                    is particularly difficult for child to perform.
+                    significantly more difficult than adult. The
+                    player is also expected to complete the DC back
+                    area without explosives, including getting past
+                    the Armos wall to the switch for the boss door.
                     '''},
     'Rolling Goron (Hot Rodder Goron) as Child with Strength': {
         'name'    : 'logic_child_rolling_with_strength',
@@ -1961,33 +2047,59 @@ logic_tricks = {
                     Removes the requirements for the Lens of Truth
                     in Jabu MQ.
                     '''},
-    'Shadow Temple MQ before Invisible Moving Platform without Lens of Truth': {
+    'Shadow Temple MQ Stationary Objects without Lens of Truth': {
         'name'    : 'logic_lens_shadow_mq',
         'tags'    : ("Lens of Truth","Shadow Temple",),
         'tooltip' : '''\
                     Removes the requirements for the Lens of Truth
-                    in Shadow Temple MQ before the invisible moving platform.
+                    in Shadow Temple MQ for most areas in the dungeon.
+                    See "Shadow Temple MQ Invisible Moving Platform
+                    without Lens of Truth", "Shadow Temple MQ Invisible
+                    Blades Silver Rupees without Lens of Truth", and
+                    "Shadow Temple MQ 2nd Dead Hand without Lens of Truth"
+                    for exceptions.
                     '''},
-    'Shadow Temple MQ beyond Invisible Moving Platform without Lens of Truth': {
-        'name'    : 'logic_lens_shadow_mq_back',
+    'Shadow Temple MQ Invisible Moving Platform without Lens of Truth': {
+        'name'    : 'logic_lens_shadow_mq_platform',
         'tags'    : ("Lens of Truth","Shadow Temple",),
         'tooltip' : '''\
                     Removes the requirements for the Lens of Truth
-                    in Shadow Temple MQ beyond the invisible moving platform.
+                    in Shadow Temple MQ to cross the invisible moving
+                    platform in the huge pit room in either direction.
                     '''},
-    'Shadow Temple before Invisible Moving Platform without Lens of Truth': {
+    'Shadow Temple MQ Invisible Blades Silver Rupees without Lens of Truth': {
+        'name'    : 'logic_lens_shadow_mq_invisible_blades',
+        'tags'    : ("Lens of Truth","Shadow Temple",),
+        'tooltip' : '''\
+                    Removes the requirement for the Lens of Truth or
+                    Nayru's Love in Shadow Temple MQ for the Invisible
+                    Blades room silver rupee collection.
+                    '''},
+    'Shadow Temple MQ 2nd Dead Hand without Lens of Truth': {
+        'name'    : 'logic_lens_shadow_mq_dead_hand',
+        'tags'    : ("Lens of Truth","Shadow Temple",),
+        'tooltip' : '''\
+                    Dead Hand can spawn out of bounds in the back room of
+                    Shadow Temple, making him unreachable until the room
+                    is reloaded. The only way to tell if this happened is
+                    with Lens of Truth. This trick removes that safety net.
+                    '''},
+    'Shadow Temple Stationary Objects without Lens of Truth': {
         'name'    : 'logic_lens_shadow',
         'tags'    : ("Lens of Truth","Shadow Temple",),
         'tooltip' : '''\
                     Removes the requirements for the Lens of Truth
-                    in Shadow Temple before the invisible moving platform.
+                    in Shadow Temple for most areas in the dungeon
+                    except for crossing the moving platform in the huge
+                    pit room.
                     '''},
-    'Shadow Temple beyond Invisible Moving Platform without Lens of Truth': {
-        'name'    : 'logic_lens_shadow_back',
+    'Shadow Temple Invisible Moving Platform without Lens of Truth': {
+        'name'    : 'logic_lens_shadow_platform',
         'tags'    : ("Lens of Truth","Shadow Temple",),
         'tooltip' : '''\
                     Removes the requirements for the Lens of Truth
-                    in Shadow Temple beyond the invisible moving platform.
+                    in Shadow Temple to cross the invisible moving
+                    platform in the huge pit room in either direction.
                     '''},
     'Spirit Temple MQ without Lens of Truth': {
         'name'    : 'logic_lens_spirit_mq',
@@ -2142,6 +2254,8 @@ setting_infos = [
     Checkbutton('cosmetics_only', None),
     Checkbutton('check_version', None),
     Checkbutton('output_settings', None),
+    Checkbutton('patch_without_output', None),
+    Checkbutton('disable_custom_music', None),
     Checkbutton(
         name           = 'generate_from_file',
         gui_text       = 'Generate From Patch File',
@@ -2150,7 +2264,7 @@ setting_infos = [
             True : {
                 'tabs' : ['main_tab', 'detailed_tab', 'starting_tab', 'other_tab'],
                 'sections' : ['preset_section'],
-                'settings' : ['count', 'create_spoiler', 'world_count', 'enable_distribution_file', 'distribution_file'],
+                'settings' : ['count', 'create_spoiler', 'world_count', 'enable_distribution_file', 'distribution_file', 'create_patch_file'],
             },
             False : {
                 'settings' : ['repatch_cosmetics'],
@@ -2257,7 +2371,7 @@ setting_infos = [
             "file_types": [
                 {
                   "name": "Patch File Archive",
-                  "extensions": [ "zpfz", "zpf" ]
+                  "extensions": [ "zpfz", "zpf", "patch" ]
                 },
                 {
                   "name": "All Files",
@@ -2292,7 +2406,27 @@ setting_infos = [
     # GUI Settings
     Setting_Info('presets',           str, "", "Presetinput", False, {},
         default        = "[New Preset]",
-        gui_tooltip    = 'Select a setting preset to apply.',
+        gui_tooltip    = '''\
+            Select a setting preset to apply.
+
+            Default/Beginner is aimed at those familiar with vanilla who desire a similar progression.
+            Uses base glitchless logic. No timesavers (See the tab "Other") are enabled in this preset 
+            and the world begins closed. Expect a long playthrough.
+
+            Easy Mode is aimed and those who have perhaps seen a few randomizer runs previously and/or 
+            wish to dive right in. Uses base glitchless logic. Most timesavers (See the tab "Other") 
+            are enabled and the world is more open after leaving Kokiri Forest.
+
+            Hell Mode enables every setting to provide maximum randomness, but still uses glitchless
+            logic to ensure a beatable seed. However, be aware that all glitchless "tricks" are enabled
+            which have the potential to require the player to perform difficult techniques. 
+            Expect a long playthrough, even with good note-taking.
+
+            The other presets are for racing and/or touranments. 
+
+            After a preset is loaded, the settings can be viewed/changed in the other tabs before
+            generating a seed.
+            ''',
     ),
     Setting_Info('open_output_dir',   str, "Open Output Directory", "Button", False, {},
         gui_params = {
@@ -2334,38 +2468,125 @@ setting_infos = [
     Checkbutton(
         name           = 'create_cosmetics_log',
         gui_text       = 'Create Cosmetics Log',
+        gui_tooltip='''\
+                 Cosmetics Logs are only output if one of the output types below are enabled.
+                 ''',
         default        = True,
         disabled_default = False,
     ),
     Setting_Info(
-        name           = 'compress_rom',
+        name           = 'output_types',
         type           = str,
-        gui_text       = "Output Type",
-        gui_type       = "Radiobutton",
+        gui_text       = "Output Types",
+        gui_type       = "Textbox",
         shared         = False,
-        choices        = {
-            'True':  'Compressed [Stable]',
-            'False': 'Uncompressed [Crashes]',
-            'Patch': 'Patch File',
-            'None':  'No Output',
-        },
-        default        = 'True',
-        disable        = {
-            'None'  : {'settings' : ['player_num', 'create_cosmetics_log', 'enable_cosmetic_file', 'cosmetic_file', 'rom']},
-            'Patch' : {'settings' : ['player_num']}
-        },
-        gui_tooltip = '''\
-            The first time compressed generation will take a while,
-            but subsequent generations will be quick. It is highly
-            recommended to compress or the game will crash
-            frequently except on real N64 hardware.
-
+        choices        = {},
+    ),
+    Checkbutton(
+        name           = 'create_patch_file',
+        gui_text       = '.zpf (Patch File)',
+        gui_tooltip    = '''\
             Patch files are used to send the patched data to other
             people without sending the ROM file.
         ''',
-        gui_params={
-            'horizontal': True
+        shared         = False,
+        gui_params     = {
+            "no_line_break": True,
         },
+    ),
+    Checkbutton(
+        name           = 'create_compressed_rom',
+        gui_text       = '.z64 (N64/Emulator)',
+        default        = True,
+        gui_tooltip    = '''\
+            A "compressed" .z64 ROM file for use on
+            N64 emulators or with an N64 flash cart.
+        ''',
+        shared         = False,
+        gui_params     = {
+            "no_line_break": True,
+        },
+    ),
+    Checkbutton(
+        name           = 'create_wad_file',
+        gui_text       = '.wad (Wii VC)',
+        gui_tooltip    = '''\
+            .wad files are used to play on Wii Virtual Console or Dolphin Emulator.
+        ''',
+        shared         = False,
+        disable        = {
+            False: {'settings' : ['wad_file', 'wad_channel_title', 'wad_channel_id']},
+        },
+        gui_params     = {
+            "no_line_break": True,
+        },
+    ),
+    Checkbutton(
+        name           = 'create_uncompressed_rom',
+        gui_text       = 'Uncompressed ROM (Development)',
+        gui_tooltip    = '''\
+            Uncompressed ROMs may be helpful for developers
+            but should not be used to play through a seed
+            normally as it will very likely cause crashes.
+            Use a compressed ROM instead.
+        ''',
+        shared         = False,
+    ),
+    Setting_Info(
+        name        = 'wad_file',
+        type        = str,
+        gui_text    = "Base WAD File",
+        gui_type    = "Fileinput",
+        shared      = False,
+        choices     = {},
+        gui_tooltip = "Your original OoT 1.2 NTSC-U / NTSC-J WAD file (.wad)",
+        gui_params  = {
+            "file_types": [
+                {
+                  "name": "WAD Files",
+                  "extensions": [ "wad" ]
+                },
+                {
+                  "name": "All Files",
+                  "extensions": [ "*" ]
+                }
+            ],
+            "hide_when_disabled": True,
+        }
+    ),
+    Setting_Info(
+        name        = 'wad_channel_id',
+        type        = str,
+        gui_text    = "WAD Channel ID",
+        gui_type    = "Textinput",
+        shared      = False,
+        choices     = {},
+        default     = "NICE",
+        gui_tooltip = """\
+            4 characters, should end with E to ensure Dolphin compatibility.
+            Note: If you have multiple OoTR WAD files with different Channel IDs installed, the game can crash on a soft reset. Use a Title Deleter to remove old WADs.
+        """,
+        gui_params  = {
+            "size"               : "small",
+            "max_length"         : 4,
+            "no_line_break": True,
+            "hide_when_disabled" : True,
+        }
+    ),
+    Setting_Info(
+        name        = 'wad_channel_title',
+        type        = str,
+        gui_text    = "WAD Channel Title",
+        gui_type    = "Textinput",
+        shared      = False,
+        choices     = {},
+        default     = "OoTRandomizer",
+        gui_tooltip = "20 characters max",
+        gui_params  = {
+            "size"               : "medium",
+            "max_length"         : 20,
+            "hide_when_disabled" : True,
+        }
     ),
     Checkbutton(
         name           = 'randomize_settings',
@@ -2386,8 +2607,8 @@ setting_infos = [
             True : {
                 'sections' : ['open_section', 'shuffle_section', 'shuffle_dungeon_section'],
                 'settings': ['starting_age', 'shuffle_interior_entrances', 'shuffle_grotto_entrances', 'shuffle_dungeon_entrances',
-                             'shuffle_overworld_entrances', 'owl_drops', 'warp_songs', 'spawn_positions',
-                             'triforce_hunt', 'triforce_goal_per_world', 'bombchus_in_logic', 'one_item_per_dungeon'],
+                             'shuffle_bosses', 'shuffle_overworld_entrances', 'owl_drops', 'warp_songs', 'spawn_positions',
+                             'triforce_hunt', 'triforce_count_per_world', 'triforce_goal_per_world', 'bombchus_in_logic', 'one_item_per_dungeon'],
             }
         },
         shared         = True,
@@ -2559,14 +2780,11 @@ setting_infos = [
             'Random': A random Rainbow Bridge requirement excluding Gold Skulltula Tokens.
         ''',
         shared         = True,
-        disable={
-            'open':       {'settings': ['bridge_medallions', 'bridge_stones', 'bridge_rewards', 'bridge_tokens']},
-            'vanilla':    {'settings': ['bridge_medallions', 'bridge_stones', 'bridge_rewards', 'bridge_tokens']},
-            'stones':     {'settings': ['bridge_medallions', 'bridge_rewards', 'bridge_tokens']},
-            'medallions': {'settings': ['bridge_stones', 'bridge_rewards', 'bridge_tokens']},
-            'dungeons':   {'settings': ['bridge_medallions', 'bridge_stones', 'bridge_tokens']},
-            'tokens':     {'settings': ['bridge_medallions', 'bridge_stones', 'bridge_rewards']},
-            'random':     {'settings': ['bridge_medallions', 'bridge_stones', 'bridge_rewards', 'bridge_tokens']}
+        disable        = {
+            '!stones':     {'settings': ['bridge_stones']},
+            '!medallions': {'settings': ['bridge_medallions']},
+            '!dungeons':   {'settings': ['bridge_rewards']},
+            '!tokens':     {'settings': ['bridge_tokens']},
         },
         gui_params     = {
             'randomize_key': 'randomize_settings',
@@ -2636,14 +2854,16 @@ setting_infos = [
         gui_text       = "Skulltulas Required for Bridge",
         default        = 100,
         min            = 1,
-        max            = 100,
+        max            = 999,
         gui_tooltip    = '''\
             Select the amount of Gold Skulltula Tokens required to spawn the rainbow bridge.
         ''',
         shared         = True,
         disabled_default = 0,
         gui_params     = {
-            "hide_when_disabled": True,
+            'hide_when_disabled': True,
+            'web:max': 100,
+            'electron:max': 100,
         },
     ),
     Checkbutton(
@@ -2662,7 +2882,30 @@ setting_infos = [
         },
         disable        = {
             True  : {'settings' : ['shuffle_ganon_bosskey', 'ganon_bosskey_stones', 'ganon_bosskey_medallions', 'ganon_bosskey_rewards', 'ganon_bosskey_tokens']},
-            False : {'settings' : ['triforce_goal_per_world']}
+            False : {'settings' : ['triforce_count_per_world', 'triforce_goal_per_world']}
+        },
+    ),
+    Scale(
+        name           = 'triforce_count_per_world',
+        gui_text       = 'Triforces Per World',
+        default        = 30,
+        min            = 1,
+        max            = 999,
+        shared         = True,
+        gui_tooltip    = '''\
+            Select the amount of Triforce Pieces placed in each world.
+            Each world will have the same number of triforces.
+
+            A good number to choose is 1.5 times the amount of
+            Triforce Pieces required per world, for example 30
+            Triforces placed with a goal of 20. Higher ratios will
+            result in easier and shorter seeds, while a ratio closer
+            to 1 will generally be longer and more difficult.
+        ''',
+        gui_params     = {
+            "hide_when_disabled": True,
+            'web:max': 200,
+            'electron:max': 200,
         },
     ),
     Scale(
@@ -2670,24 +2913,19 @@ setting_infos = [
         gui_text       = 'Required Triforces Per World',
         default        = 20,
         min            = 1,
-        max            = 100,
+        max            = 999,
         shared         = True,
         gui_tooltip    = '''\
             Select the amount of Triforce Pieces required to beat the game.
 
-            In multiworld, each world will have the same number of triforces 
-            in them. The required amount will be per world collectively. 
+            In multiworld, the required amount will be per world collectively. 
             For example, if this is set to 20 in a 2 player multiworld, players 
             need 40 total, but one player could obtain 30 and the other 10. 
-
-            Extra pieces are determined by the the Item Pool setting:
-            'Plentiful': 100% Extra
-            'Balanced': 50% Extra
-            'Scarce': 25% Extra
-            'Minimal: No Extra
         ''',
         gui_params     = {
             "hide_when_disabled": True,
+            'web:max': 100,
+            'electron:max': 100,
         },
     ),
     Combobox(
@@ -2739,7 +2977,7 @@ setting_infos = [
             to beat the game, but otherwise behaves like 'Required Only'.
             Goal items are the items required for the rainbow bridge and/or Ganon's Boss Key, so for example if the bridge is
             set to 1 Medallion and Ganon's Boss Key to 1 Gold Skulltula Token, all 6 Medallions and all 100 Tokens will
-            be obtainable. In Triforce Hunt, this will also guarantee that all Triforce Pieces can be obtained.
+            be obtainable. In Triforce Hunt, this will instead guarantee that all Triforce Pieces can be obtained.
 
             'Required Only': Only items and locations required to beat the game will be guaranteed reachable.
         ''',
@@ -2854,6 +3092,72 @@ setting_infos = [
             True: {'settings': ['shuffle_weird_egg']},
         },
     ),
+    Combobox(
+        name           = 'dungeon_shortcuts_choice',
+        gui_text       = 'Dungeon Boss Shortcuts Mode',
+        default        = 'off',
+        choices        = {
+            'off':       'Off',
+            'choice':    'Specific Dungeons',
+            'all':       'All Dungeons',
+            'random':    'Random Dungeons'
+        },
+        gui_tooltip    = '''\
+            Shortcuts to dungeon bosses are available
+            without any requirements.
+            Incompatible with glitched logic.
+
+            Changes include (vanilla shown, MQ similar):
+            <b>Deku Tree</b>: webs burned, block in the
+            basement moved, 231 scrubs defeated
+            <b>Dodongo's Cavern</b>: mud wall bombed,
+            mouth opened and boss lobby floor bombed
+            <b>Jabu Jabu</b>: pathway lowered
+            <b>Forest Temple</b>: elevator raised and
+            basement gates open
+            <b>Fire Temple</b>: pillar knocked down
+            <b>Shadow Temple</b>: Truthspinner solved, boat
+            block moved, and statue bridge moved. You start
+            with 2 small keys if Shuffle Small Keys is set
+            to Vanilla.
+            <b>Spirit Temple</b>: lobby elevator activated,
+            shortcut silver blocks moved, central room
+            platform lowered, and statue face melted
+
+            Choose: Select dungeons with shortcuts
+            All: Enable all dungeons shortcuts
+            Random: Random dungeon shortcuts
+        ''',
+        shared         = True,
+        disable={
+            'off': {'settings' : ['dungeon_shortcuts']},
+            'all': {'settings' : ['dungeon_shortcuts']},
+            'random': {'settings' : ['dungeon_shortcuts']},
+        },
+    ),
+    Combobox(
+        name            = 'dungeon_shortcuts',
+        multiple_select = True,
+        gui_text        = 'Dungeon Boss Shortcuts',
+        choices         = {
+            'deku_tree':        "Deku Tree",
+            'dodongos_cavern':  "Dodongo's Cavern",
+            'jabu_jabus_belly': "Jabu Jabu's Belly",
+            'forest_temple':    "Forest Temple",
+            'fire_temple':      "Fire Temple",
+            'water_temple':     "Water Temple",  # doesn't do anything, but added to prevent confusion
+            'shadow_temple':    "Shadow Temple",
+            'spirit_temple':    "Spirit Temple",
+        },
+        default        = [],
+        gui_params     = {
+            "hide_when_disabled": True,
+        },
+        gui_tooltip    = '''\
+            Select dungeons with shortcuts
+        ''',
+        shared          = True,
+    ),
     Checkbutton(
         name           = 'no_escape_sequence',
         gui_text       = 'Skip Tower Escape Sequence',
@@ -2902,11 +3206,12 @@ setting_infos = [
     ),
     Checkbutton(
         name           = 'useful_cutscenes',
-        gui_text       = 'Enable Useful Cutscenes',
+        gui_text       = 'Enable Specific Glitch-Useful Cutscenes',
         gui_tooltip    = '''\
-            The cutscenes of the Poes in Forest Temple,
-            Darunia in Fire Temple, and the introduction
-            to Twinrova will not be skipped.
+            The cutscenes of the Poes in Forest Temple and Darunia in
+            Fire Temple will not be skipped. These cutscenes are useful
+            in glitched gameplay only and do not provide any timesave
+            for glitchless playthroughs.
         ''',
         shared         = True,
     ),
@@ -2992,6 +3297,20 @@ setting_infos = [
         ''',
         disabled_default = 1,
         shared         = True,
+    ),
+    Checkbutton(
+        name           = 'plant_beans',
+        gui_text       = 'Plant Magic Beans',
+        gui_tooltip    = '''\
+            Enabling this plants all 10 magic beans in soft soil
+            causing the bean plants to be available as adult. You
+            can still get beans normally.
+        ''',
+        default        = False,
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+        },
     ),
     Checkbutton(
         name           = 'chicken_count_random',
@@ -3251,6 +3570,29 @@ setting_infos = [
             'randomize_key': 'randomize_settings',
         },
     ),
+    Combobox(
+        name           = 'shuffle_bosses',
+        gui_text       = 'Shuffle Boss Entrances',
+        gui_tooltip    = '''\
+            Shuffle dungeon boss rooms.  This affects the boss rooms of all stone and medallion dungeons.
+
+            'Age-Restricted':
+            Shuffle the locations of child boss rooms and adult boss rooms separately.
+
+            'Full':
+            Shuffle the locations of all boss rooms together.  Child may be expected to defeat Phantom Ganon and/or Bongo Bongo.
+        ''',
+        default        = 'off',
+        choices        = {
+            'off':       'Off',
+            'limited':   'Age-Restricted',
+            'full':      'Full',
+        },
+        shared         = True,
+        gui_params     = {
+            'randomize_key': 'randomize_settings',
+        },
+    ),
     Checkbutton(
         name           = 'shuffle_overworld_entrances',
         gui_text       = 'Shuffle Overworld Entrances',
@@ -3364,6 +3706,9 @@ setting_infos = [
             '4':      '4 Items Per Shop',
             'random': 'Random # of Items Per Shop',
         },
+        disable        = {
+            'off':  {'settings': ['shopsanity_prices']},
+        },
         gui_tooltip    = '''\
             Randomizes Shop contents.
             
@@ -3400,6 +3745,42 @@ setting_infos = [
                 ('4',      1),
                 ('random', 1),
             ],
+        },
+    ),
+    Combobox(
+        name           = 'shopsanity_prices',
+        gui_text       = 'Shopsanity Prices',
+        default        = 'random',
+        choices        = {
+            'random':          'Random',
+            'random_starting':    'Starting Wallet',
+            'random_adult':   'Adult\'s Wallet',
+            'random_giant':    'Giant\'s Wallet',
+            'random_tycoon':   'Tycoon\'s Wallet',
+            'affordable':      'Affordable',
+        },
+        disable        = {
+        },
+        gui_tooltip    = '''\
+            Controls the randomization of prices for shopsanity items.
+            For more control, utilize the plandomizer.
+
+            'Random': The default randomization. Shop prices for
+            shopsanity items will range between 0 to 300 rupees,
+            with a bias towards values slightly below the middle of the
+            range, in multiples of 5.
+
+            'X Wallet': Shop prices for shopsanity items will range
+            between 0 and the specified wallet's maximum capacity,
+            in multiples of 5.
+
+            'Affordable': Shop prices for shopsanity items will be
+            fixed to 10 rupees.
+        ''',
+        disabled_default =  'random',
+        shared         = True,
+        gui_params     = {
+            "hide_when_disabled": True,
         },
     ),
     Combobox(
@@ -3501,7 +3882,9 @@ setting_infos = [
             'Vanilla': Small Keys will appear in their 
             vanilla locations. You start with 3 keys in 
             Spirit Temple MQ because the vanilla key 
-            layout is not beatable in logic.
+            layout is not beatable in logic. You start with
+            2 keys in Vanilla/MQ Shadow Temple with its
+            dungeon shortcut enabled to prevent softlocks.
 
             'Own Dungeon': Small Keys can only appear in their
             respective dungeon. If Fire Temple is not a
@@ -3529,7 +3912,7 @@ setting_infos = [
             for a milder Keysanity experience.
         ''',
         disable        = {
-            'any_dungeon': {'settings': ['one_item_per_dungeon']},
+            'any_dungeon': {'settings': ['one_item_per_dungeon']}
         },
         shared         = True,
         gui_params     = {
@@ -3565,6 +3948,40 @@ setting_infos = [
         gui_params     = {
             'randomize_key': 'randomize_settings',
         },
+    ),
+    Combobox(
+        name            = 'key_rings',
+        multiple_select = True,
+        gui_text        = 'Key Rings',
+        choices         = {
+            'Thieves Hideout':        "Thieves' Hideout",
+            'Forest Temple':          "Forest Temple",
+            'Fire Temple':            "Fire Temple",
+            'Water Temple':           "Water Temple",
+            'Shadow Temple':          "Shadow Temple",
+            'Spirit Temple':          "Spirit Temple",
+            'Bottom of the Well':     "Bottom of the Well",
+            'Gerudo Training Ground': "Gerudo Training Ground",
+            'Ganons Castle':          "Ganon's Castle"
+        },
+        default         = [],
+        gui_tooltip     = '''\
+            Selected dungeons will have all of their keys found 
+            at once in a ring rather than individually. 
+
+            For example, instead of shuffling 5 Forest Temple 
+            small keys into the pool, you will find a single
+            key ring which will give you all 5 keys at once.
+
+            Selecting key ring for dungeons will have no effect
+            if Small Keys are set to Remove or Vanilla.
+
+            Selecting key ring for Thieves' Hideout will have 
+            no effect if Thieves' Hideout keys are in vanilla 
+            locations or Gerudo's Fortress is set to Rescue
+            One Carpenter.
+        ''',
+        shared          = True,
     ),
     Combobox(
         name           = 'shuffle_bosskeys',
@@ -3741,7 +4158,7 @@ setting_infos = [
         gui_text       = "Gold Skulltula Tokens Required for Ganon's BK",
         default        = 100,
         min            = 1,
-        max            = 100,
+        max            = 999,
         gui_tooltip    = '''\
             Select the amount of Gold Skulltula Tokens
             required to receive Ganon's Castle Boss Key.
@@ -3750,6 +4167,8 @@ setting_infos = [
         disabled_default = 0,
         gui_params     = {
             "hide_when_disabled": True,
+            'web:max': 100,
+            'electron:max': 100,
         },
     ),
     Combobox(
@@ -3847,7 +4266,7 @@ setting_infos = [
         gui_text       = "Gold Skulltula Tokens Required for LACS",
         default        = 100,
         min            = 1,
-        max            = 100,
+        max            = 999,
         gui_tooltip    = '''\
             Select the amount of Gold Skulltula Tokens
             required to trigger the Light Arrow Cutscene.
@@ -3857,6 +4276,8 @@ setting_infos = [
         gui_params     = {
             'optional': True,
             "hide_when_disabled": True,
+            'web:max': 100,
+            'electron:max': 100,
         },
     ),
     Checkbutton(
@@ -3881,20 +4302,70 @@ setting_infos = [
             'randomize_key': 'randomize_settings',
         },
     ),
-    Checkbutton(
-        name           = 'mq_dungeons_random',
-        gui_text       = 'Random Number of MQ Dungeons',
+    Combobox(
+        name           = 'mq_dungeons_mode',
+        gui_text       = 'MQ Dungeon Mode',
+        default        = 'vanilla',
+        choices        = {
+            'vanilla':    "Vanilla",
+            'mq':         "Master Quest",
+            'specific':   "Specific Dungeons",
+            'count':      "Count",
+            'random':     "Completely Random",
+        },
         gui_tooltip    = '''\
-            If set, a random number of dungeons
-            will have Master Quest designs.
+            'Vanilla': All dungeons will be the original versions.
+            'Master Quest': All dungeons will be the MQ versions.
+            'Specific Dungeons': Choose which specific dungeons will be MQ versions.
+            'Count': Choose how many MQ dungeons will be randomly chosen.
+            'Completely Random': Each dungeon will vanilla or MQ at random.
         ''',
         shared         = True,
         disable        = {
-            True : {'settings' : ['mq_dungeons']}
+            'vanilla':  {'settings': ['mq_dungeons_count', 'mq_dungeons_specific']},
+            'mq':       {'settings': ['mq_dungeons_count', 'mq_dungeons_specific']},
+            'specific': {'settings': ['mq_dungeons_count']},
+            'count':    {'settings': ['mq_dungeons_specific']},
+            'random':   {'settings': ['mq_dungeons_count', 'mq_dungeons_specific']},
+        },
+        gui_params     = {
+            'distribution': [
+                ('random', 1),
+            ],
+        },
+    ),
+    Combobox(
+        name            = 'mq_dungeons_specific',
+        multiple_select = True,
+        gui_text        = 'MQ Dungeons',
+        choices         = {
+            'Deku Tree':              "Deku Tree",
+            'Dodongos Cavern':        "Dodongo's Cavern",
+            'Jabu Jabus Belly':       "Jabu Jabu's Belly",
+            'Forest Temple':          "Forest Temple",
+            'Fire Temple':            "Fire Temple",
+            'Water Temple':           "Water Temple",
+            'Shadow Temple':          "Shadow Temple",
+            'Spirit Temple':          "Spirit Temple",
+            'Bottom of the Well':     "Bottom of the Well",
+            'Ice Cavern':             "Ice Cavern",
+            'Gerudo Training Ground': "Gerudo Training Ground",
+            'Ganons Castle':          "Ganon's Castle",
+        },
+        default         = [],
+        gui_tooltip     = '''\
+            Select the specific dungeons you would
+            like the Master Quest version of.
+            The unselected dungeons will be
+            the original version.
+        ''',
+        shared          = True,
+        gui_params     = {
+            "hide_when_disabled": True,
         },
     ),
     Scale(
-        name           = 'mq_dungeons',
+        name           = 'mq_dungeons_count',
         gui_text       = "MQ Dungeon Count",
         default        = 0,
         min            = 0,
@@ -3902,17 +4373,11 @@ setting_infos = [
         gui_tooltip    = '''\
             Specify the number of Master Quest
             dungeons to appear in the game.
-
-            0: All dungeon will have their
-            original designs. (default)
-
-            6: Half of all dungeons will
-            be from Master Quest.
-
-            12: All dungeons will have
-            Master Quest redesigns.
         ''',
         shared         = True,
+        gui_params     = {
+            "hide_when_disabled": True,
+        },
     ),
     Setting_Info(
         name           = 'disabled_locations',
@@ -4085,27 +4550,54 @@ setting_infos = [
             Begin the game with the selected songs already learnt.
         ''',
     ),
-    Checkbutton(
+    Combobox(
         name           = 'ocarina_songs',
         gui_text       = 'Randomize Ocarina Song Notes',
+        default        = 'off',
+        choices        = {
+            'off': 'Off',
+            'frog': 'Frog Songs Only',
+            'warp': 'Warp Songs Only',
+            'all':  'All Songs',
+        },
         gui_tooltip    = '''\
-                         Will need to memorize a new set of songs.
-                         Can be silly, but difficult. Songs are
-                         generally sensible, and warp songs are
-                         typically more difficult.
-                         ''',
+            Will need to memorize a new set of songs.
+            Can be silly, but difficult. All songs are
+            generally sensible, but warp songs are
+            typically more difficult than frog songs.
+            ''',
         shared         = True,
     ),
-    Checkbutton(
-        name           = 'correct_chest_sizes',
-        gui_text       = 'Chest Size Matches Contents',
+    Combobox(
+        name           = 'correct_chest_appearances',
+        gui_text       = 'Chest Appearance Matches Contents',
+        default        = 'off',
+        choices        = {
+            'off': 'Off',
+            'textures': 'Texture',
+            'both':  'Both Size and Texture',
+            'classic': 'Classic'
+        },
         gui_tooltip    = '''\
-            Chests will be large if they contain a major
-            item and small if they don't. Boss keys will
-            be in gold chests. This allows skipping
-            chests if they are small. However, skipping
-            small chests will mean having low health,
-            ammo, and rupees, so doing so is a risk.
+            
+			
+            If "Texture" is enabled, chest texture will reflect its contents
+            regardless of size.  Fancy chests will contain keys,
+            Gilded chests will contain major items, shuffled
+            tokens will be in Webbed chests, and Wooden chests
+            will contain the rest.
+            This allows skipping chests if they are wooden. 
+            However, skipping wooden chests will mean having 
+            low health, ammo, and rupees, so doing so is a risk.
+            
+            "Size and Texture" will change chests with major
+            items and boss keys into big chests, and everything
+            else into small chests.
+            
+            "Classic" is the behavior of CSMC in previous versions of the randomizer.
+            This will change chests with major items and boss keys into big chests.
+            Boss keys will remain in their fancy chest, while small key will be in a
+            smaller version of the fancy chest.
         ''',
         shared         = True,
     ),
@@ -4204,7 +4696,7 @@ setting_infos = [
         gui_type       = None,
         gui_text       = None,
         shared         = True,
-        choices        = [i for i in item_table if item_table[i][0] == 'Item']
+        choices        = [name for name, item in ItemInfo.items.items() if item.type == 'Item']
     ),
     Setting_Info('hint_dist_user',    dict, None, None, True, {}),
     Combobox(
@@ -4228,9 +4720,15 @@ setting_infos = [
         ''',
         shared         = True,
     ),
-    Checkbutton(
-        name           = 'misc_hints',
-        gui_text       = 'Misc. Hints',
+    Combobox(
+        name            = 'misc_hints',
+        multiple_select = True,
+        gui_text        = 'Misc. Hints',
+        choices         = {
+            'altar':      'Temple of Time Altar',
+            'ganondorf':  'Ganondorf',
+            'warp_songs': 'Warp Songs',
+        },
         gui_tooltip    = '''\
             This setting adds some hints at locations
             other than Gossip Stones:
@@ -4249,13 +4747,16 @@ setting_infos = [
 
             Talking to Ganondorf in his boss room will
             tell you the location of the Light Arrows.
-
-            If this setting is enabled and Ganondorf
+            If this option is enabled and Ganondorf
             is reachable without Light Arrows, Gossip
             Stones will never hint the Light Arrows.
+
+            Playing a warp song will tell you where
+            it leads. (If warp song destinations
+            are vanilla, the vanilla text is used.)
         ''',
         shared         = True,
-        default        = True,
+        default        = ['altar', 'ganondorf', 'warp_songs'],
     ),
     Combobox(
         name           = 'ice_trap_appearance',
@@ -4446,6 +4947,19 @@ setting_infos = [
             ],
             'web:option_remove': ['random_custom_only'],
         },
+    ),
+    Checkbutton(
+        name           = 'disable_battle_music',
+        gui_text       = 'Disable Battle Music',
+        shared         = False,
+        cosmetic       = True,
+        gui_tooltip    = '''\
+            Disable standard battle music.
+	        This prevents background music from being
+	        interrupted by the battle theme when being
+	        near enemies.
+        ''',
+        default        = False,
     ),
     Combobox(
         name           = 'fanfares',
@@ -5382,7 +5896,7 @@ def is_mapped(setting_name):
 def build_close_match(name, value_type, source_list=None):
     source = []
     if value_type == 'item':
-        source = item_table.keys()
+        source = ItemInfo.items.keys()
     elif value_type == 'location':
         source = location_table.keys()
     elif value_type == 'entrance':
@@ -5410,7 +5924,8 @@ def validate_settings(settings_dict):
         info = get_setting_info(setting)
         # Ensure the type of the supplied choice is correct
         if type(choice) != info.type:
-            raise TypeError('Supplied choice %r for setting %r is of type %r, expecting %r' % (choice, setting, type(choice).__name__, info.type.__name__))
+            if setting != 'starting_items' or type(choice) != dict: # allow dict (plando syntax) for starting items in addition to the list syntax used by the GUI
+                raise TypeError('Supplied choice %r for setting %r is of type %r, expecting %r' % (choice, setting, type(choice).__name__, info.type.__name__))
         # If setting is a list, must check each element
         if isinstance(choice, list):
             for element in choice:
@@ -5421,8 +5936,6 @@ def validate_settings(settings_dict):
             continue
         # Ensure that the given choice is a valid choice for the setting
         elif info.choice_list and choice not in info.choice_list:
-            if setting == 'compress_rom' and choice == 'Temp':
-                continue
             raise ValueError('%r is not a valid choice for setting %r. %s' % (choice, setting, build_close_match(choice, 'choice', info.choice_list)))
 
 class UnmappedSettingError(Exception):
