@@ -23,7 +23,7 @@
             "Jabu Jabus Belly Depths": "True",
             # Biri hover here isn't too bad. Just mash backflip. You can also megaflip off the biri.
             # The 2nd part is for skipping the box before the door. Setups I saw required sword for positioning or backflipping and dumping bugs/fish. Like OI, but no other item.
-            "Jabu Jabus Belly Boss Area": "(can_use(Hover_Boots) or can_damage_boost or can_enemy_hover or can_enemy_mega) and
+            "Jabu Jabus Belly Before Boss": "jabu_shortcuts or (can_use(Hover_Boots) or can_damage_boost or can_enemy_hover or can_enemy_mega) and
                 (can_jumpslash or Fish or Bugs)"
         }
     },
@@ -38,21 +38,19 @@
         "exits": {
             "Jabu Jabus Belly Main": "True",
             # Coming from here means you've killed big octo, no need for setups for door.
-            "Jabu Jabus Belly Boss Area": "can_use(Boomerang) or can_use(Hover_Boots) or can_mega or can_hover"
+            "Jabu Jabus Belly Before Boss": "can_use(Boomerang) or can_use(Hover_Boots) or can_mega or can_hover"
         }
     },
     {
-        "region_name": "Jabu Jabus Belly Boss Area",
+        "region_name": "Jabu Jabus Belly Before Boss",
         "dungeon": "Jabu Jabus Belly",
         "locations": {
-            # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
-            # He can also be killed with default damage crouch stabs from the hammer. Not actual hammer damage though unfortunately.
-            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
-            "Barinade": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)",
             "Jabu Jabus Belly GS Near Boss": "True"
         },
         "exits": {
-            "Jabu Jabus Belly Main": "True"
+            "Jabu Jabus Belly Main": "True",
+            # Biri hover up to the web, then do some backflip shenanigans to reach the switch. It can be jumpslashed
+            "Jabu Jabus Belly Boss Door": "can_use(Boomerang) or can_use(Bow) or can_use(Slingshot) or has_bombchus or can_enemy_hover"
         }
     }
 ]

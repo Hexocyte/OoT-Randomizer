@@ -19,7 +19,7 @@
             "Shadow Temple Entryway": "True",
             "Shadow Temple First Beamos": "can_use(Hover_Boots) or can_mega or can_hover",
             # The megaflip clip won't work because it needs the hovers chest to be big and CSMC exists
-            "Shadow Boss": "glitch_bk_skip_shadow and is_adult and
+            "Shadow Temple Boss Door": "glitch_bk_skip_shadow and is_adult and
                 ((can_hover and glitch_actor and can_use(Hover_Boots) and can_live_dmg(2.0) and glitch_insane) or
                 (can_bomb_slide and can_use(Hover_Boots)))"
         }
@@ -37,7 +37,7 @@
         # The central shadow doors (between here and boat) only need 4 since one of the doors never needs to be opened for anything.
         # Of course, we still need to check for 5 at Bongo.
             "Shadow Temple Huge Pit": "has_explosives and (Small_Key_Shadow_Temple, 4)",
-            "Shadow Temple Boat": "can_jumpslash or can_use(Megaton_Hammer)"
+            "Shadow Temple Boat": "can_jumpslash or can_use(Megaton_Hammer) or shadow_temple_shortcuts"
         }
     },
     {
@@ -123,21 +123,10 @@
             "Shadow Temple GS Triple Giant Pot": "True"
         },
         "exits": {
-            "Shadow Boss": "
+            "Shadow Temple Boss Door": "
                 (has_bombchus or can_use(Distant_Scarecrow) or Bow or (can_use(Hover_Boots) and can_shield and (can_bomb_slide or Megaton_Hammer) or can_hover)) and
                 (Small_Key_Shadow_Temple, 5) and (can_mega or can_hover or can_use(Hover_Boots)) and
                 (Boss_Key_Shadow_Temple or (is_adult and glitch_bk_skip_shadow and (can_hover or (has_explosives and can_live_dmg(0.5)))))"
-        }
-    },
-    {
-        "region_name": "Shadow Boss",
-        "dungeon": "Shadow Temple",
-        "locations": {
-            # Hammer damage can't kill.
-            "Shadow Temple Bongo Bongo Heart": "(can_jumpslash or can_isg) and
-                (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or glitch_hard_bosses)",
-            "Bongo Bongo": "(can_jumpslash or can_isg) and
-                (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or glitch_hard_bosses)"
         }
     }
 ]

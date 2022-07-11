@@ -1,3 +1,217 @@
-{
-    # This is a placeholder until Glitch 2.0 logic happens and boss shuffle is supported by it.
-}
+[
+    # These are the glitchless notes:
+    #
+    # Boss and boss door logic.
+    # This is separated from individual dungeons because region names must match between normal/MQ
+    # And there are no differences in boss rooms between normal/MQ as they are separate areas.
+    #
+    # Key requirements (i.e. the only requirements for actually opening the boss door)
+    # belong on the door->boss connection.  Any other requirements for reaching the boss door
+    # belong in the respective dungeon's logic json
+    #
+    # 8-10 need to be ignored - because of BK skips, we need to put the BK requirement on the dungeon exits.
+    # ER/logic shuffle the boss door<>boss room connections. It's fine to target the boss door as the destination for BK skips.
+    # "Boss door" represents the dungeon side of the loading zone. "Boss Room" represents the boss side of it.
+    {
+        "region_name": "Deku Tree Boss Door",
+        "scene": "Deku Tree",
+        "dungeon": "Deku Tree",
+        "exits": {
+            "Gohma Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Gohma Boss Room",
+        "scene": "Deku Tree Boss",
+        "dungeon": "Deku Tree",
+        "events": {
+            "Deku Tree Clear": "(can_qpa and can_isg) or
+                ((can_jumpslash or can_use(Megaton_Hammer)) and
+                (Nuts or can_use(Slingshot) or has_bombchus or can_use(Hookshot) or can_use(Bow) or can_use(Boomerang)))"
+        },
+        "locations": {
+            "Deku Tree Queen Gohma Heart": "'Deku Tree Clear'",
+            "Queen Gohma": "'Deku Tree Clear'"
+        },
+        "exits": {
+            "Deku Tree Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Dodongos Cavern Boss Door",
+        "scene": "Dodongos Cavern",
+        "dungeon": "Dodongos Cavern",
+        "exits": {
+            "King Dodongo Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "King Dodongo Boss Room",
+        "scene": "Dodongos Cavern Boss",
+        "dungeon": "Dodongos Cavern",
+        "events": {
+            "Dodongos Cavern Clear": "(has_explosives or can_use(Megaton_Hammer) or king_dodongo_shortcuts) and
+                (can_jumpslash or can_use(Megaton_Hammer)) and
+                (Bombs or Progressive_Strength_Upgrade or (glitch_hard_bosses and has_bombchus and (is_adult or can_hover)))"
+        },
+        "locations": {
+            "Dodongos Cavern Boss Room Chest": "True",
+            "Dodongos Cavern King Dodongo Heart": "'Dodongos Cavern Clear'",
+            "King Dodongo": "'Dodongos Cavern Clear'",
+            "Fairy Pot": "has_bottle"
+        },
+        "exits": {
+            "Dodongos Cavern Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Jabu Jabus Belly Boss Door",
+        "scene": "Jabu Jabus Belly",
+        "dungeon": "Jabu Jabus Belly",
+        "exits": {
+            "Barinade Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Barinade Boss Room",
+        "dungeon": "Jabu Jabus Belly",
+        "scene": "Jabu Jabus Belly Boss",
+            # Barinade can be killed using 5 pots. Tricky, since pots are scarce and getting hit drops and destroys the pot.
+            # And if you're too slow he'll unstun and you'll lose the pot
+            # Not too bad if you're just finishing him off, but killing him while only missing a single pot is a bit much for base logic.
+            # He can also be killed with default damage crouch stabs from the hammer. Not actual hammer damage though unfortunately.
+            # At least one phase of him uses the wonderitem thing, and checks specifcally for the boomerang actor, which means boomerang cannot be bypassed.
+            "events": {
+                "Jabu Jabus Belly Clear": "can_use(Boomerang) and (can_jumpslash or can_isg or glitch_hard_bosses)"
+            },
+        "locations": {
+            "Jabu Jabus Belly Barinade Heart": "'Jabu Jabus Belly Clear'",
+            "Barinade": "'Jabu Jabus Belly Clear'"
+        },
+        "exits": {
+            "Jabu Jabus Belly Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Forest Temple Boss Door",
+        "scene": "Forest Temple",
+        "dungeon": "Forest Temple",
+        "exits": {
+            "Phantom Ganon Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Phantom Ganon Boss Room",
+        "dungeon": "Forest Temple",
+        "scene": "Forest Temple Boss",
+        "events": {
+            "Forest Temple Clear": "(can_jumpslash or can_isg) and
+                (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or (can_hover and glitch_hard_bosses and glitch_insane))"
+        },
+        "locations": {
+            "Forest Temple Phantom Ganon Heart": "'Forest Temple Clear'",
+            "Phantom Ganon": "'Forest Temple Clear'"
+        },
+        "exits": {
+            "Forest Temple Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Fire Temple Boss Door",
+        "scene": "Fire Temple",
+        "dungeon": "Fire Temple",
+        "exits": {
+            "Volvagia Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Volvagia Boss Room",
+        "dungeon": "Fire Temple",
+        "events": {
+            "Fire Temple Clear": "can_use(Megaton_Hammer) and (can_use(Goron_Tunic) or
+                (glitch_hard_bosses and Fairy and has_explosives))"
+        },
+        "locations": {
+            "Fire Temple Volvagia Heart": "'Fire Temple Clear'",
+            "Volvagia": "'Fire Temple Clear'"
+        },
+        "exits": {
+            "Fire Temple Boss Door": "True"
+        }
+    },
+    {
+        "region_name": "Water Temple Boss Door",
+        "scene": "Water Temple",
+        "dungeon": "Water Temple",
+        "exits": {
+            "Morpha Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Morpha Boss Room",
+        "scene": "Water Temple Boss",
+        "dungeon":  "Water Temple",
+        "events": {
+            "Water Temple Clear": "(can_jumpslash or can_use(Megaton_Hammer)) and
+                (glitch_hard_bosses or can_use(Hookshot))"
+        },
+        "locations": {
+            "Morpha": "'Water Temple Clear'",
+            "Water Temple Morpha Heart": "'Water Temple Clear'"
+        },
+        "exits": {
+            "Water Temple Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Shadow Temple Boss Door",
+        "scene": "Shadow Temple",
+        "dungeon": "Shadow Temple",
+        "exits": {
+            "Bongo Bongo Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Bongo Bongo Boss Room",
+        "dungeon": "Shadow Temple",
+        "scene": "Shadow Temple Boss",
+        "events": {
+        # Hammer damage can't kill
+            "Shadow Temple Clear": "(can_jumpslash or can_isg) and
+                (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or glitch_hard_bosses)"
+        },
+        "locations": {
+            "Shadow Temple Bongo Bongo Heart": "'Shadow Temple Clear'",
+            "Bongo Bongo": "'Shadow Temple Clear'"
+        },
+        "exits": {
+            "Shadow Temple Boss Door": "True"
+        }
+    },
+
+    {
+        "region_name": "Spirit Temple Boss Door",
+        "scene": "Spirit Temple",
+        "dungeon": "Spirit Temple",
+        "exits": {
+            "Twinrova Boss Room": "Boss_Key_Spirit_Temple"
+        }
+    },
+    {
+        "region_name": "Twinrova Boss Room",
+        "dungeon": "Spirit Temple",
+        "scene": "Spirit Temple Boss",
+        "locations": {
+            "Spirit Temple Twinrova Heart": "can_use(Mirror_Shield)",
+            "Twinrova": "can_use(Mirror_Shield)"
+        },
+        "exits": {
+            "Spirit Temple Boss Door": "True"
+        }
+    }
+]

@@ -1,4 +1,7 @@
 [    
+# When keysanity is off, logic adds a fake key for this dungeon to the player.
+# This key does not actually exist in game, but the logic pretends it does
+# Effectively, this means all key requirements are reduced by 1 when keysanity is off
     {
         "region_name": "Fire Temple Lower",
         "dungeon": "Fire Temple",
@@ -17,20 +20,9 @@
         },
         "exits": {
             "Fire Temple Big Lava Room": "(Small_Key_Fire_Temple, 2)",
-            # Once boss shuffle is implemented, child can damage boost from the pillar after adult knocks it down.
-            "Fire Temple Boss Room": "(is_adult or (can_mega or can_hover)) and
+            "Fire Temple Boss Door": "(is_adult or can_mega or can_hover or (can_damage_boost and 'Fire Temple Pillar')) and
                 (Boss_Key_Fire_Temple or (glitch_bk_skip_fire and can_hover and glitch_insane and can_use(Goron_Tunic)))",
             "DMC Fire Temple Entrance": "True"
-        }
-    },
-    {
-        "region_name": "Fire Temple Boss Room",
-        "dungeon": "Fire Temple",
-        "locations": {
-            "Fire Temple Volvagia Heart": "can_use(Megaton_Hammer) and (can_use(Goron_Tunic) or
-                (glitch_hard_bosses and Fairy and has_explosives))",
-            "Volvagia": "can_use(Megaton_Hammer) and (can_use(Goron_Tunic) or
-                (glitch_hard_bosses and Fairy and has_explosives))"
         }
     },
     {
@@ -93,6 +85,9 @@
     {
         "region_name": "Fire Temple Upper",
         "dungeon": "Fire Temple",
+        "events": {
+            "Fire Temple Pillar": "can_use(Megaton_Hammer)"
+        },
         "locations": {
             # Weirdshot, or sidehop from the hammer chest (can jumpslash to avoid damage in OHKO), or ledge clip using the SoT block
             "Fire Temple Highest Goron Chest": "(can_weirdshot and Hookshot) or can_use(Megaton_Hammer) or
@@ -101,7 +96,7 @@
         },
         "exits": {
             # Ledge clip from the flame maze room. If the pillar was knocked down then you have the means to ledge clip from the highest goron room.
-            "Fire Temple Boss Room": "glitch_bk_skip_fire"
+            "Fire Temple Boss Door": "glitch_bk_skip_fire"
         }
     }
 ]

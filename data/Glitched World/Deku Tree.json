@@ -19,7 +19,7 @@
             "Deku Tree Basement Backroom": "is_child or (here(can_use(Slingshot) or can_use(Bow)) and here(has_fire_source_with_torch or can_use(Bow))) or
                 (glitch_deku_crawlspace and can_hover and can_use(Hookshot))",
             "Deku Tree Before Boss": "here(has_fire_source_with_torch or can_use(Bow)) or (can_weirdshot and can_use(Hookshot))",
-            "Deku Tree Boss Room": "is_adult and glitch_gohma_skip",
+            "Deku Tree Boss Door": "is_adult and glitch_gohma_skip",
             "KF Outside Deku Tree": "True"
         }
     },
@@ -49,27 +49,7 @@
         "dungeon": "Deku Tree",
         "exits": {
             "Deku Tree Lobby": "True",
-            "Deku Tree Boss Room": "here(has_shield or can_use(Megaton_Hammer))"
-        }
-    },
-    {
-        "region_name": "Deku Tree Boss Room",
-        "dungeon": "Deku Tree",
-        "events": {
-            "Deku Tree Clear": "(can_qpa and can_isg) or
-                ((can_jumpslash or can_use(Megaton_Hammer)) and
-                (Nuts or can_use(Slingshot) or has_bombchus or can_use(Hookshot) or can_use(Bow) or can_use(Boomerang)))"
-        },
-        "locations": {
-            "Deku Tree Queen Gohma Heart": "(can_qpa and can_isg) or
-                ((can_jumpslash or can_use(Megaton_Hammer)) and
-                (Nuts or can_use(Slingshot) or has_bombchus or can_use(Hookshot) or can_use(Bow) or can_use(Boomerang)))",
-            "Queen Gohma": "(can_qpa and can_isg) or
-                ((can_jumpslash or can_use(Megaton_Hammer)) and
-                (Nuts or can_use(Slingshot) or has_bombchus or can_use(Hookshot) or can_use(Bow) or can_use(Boomerang)))"
-        },
-        "exits": {
-            "Deku Tree Lobby": "True"
+            "Deku Tree Boss Door": "here(has_shield or can_use(Megaton_Hammer))"
         }
     }
 ]
