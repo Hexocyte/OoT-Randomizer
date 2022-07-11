@@ -636,6 +636,15 @@ logic_glitches = {
                     to push the silver blocks before the likelike room in GTG
                     and before adult climb in Spirit Temple.
                     '''},
+    'Clip Into Child Spirit as Adult': {
+        'name'      : 'glitch_spirit_crawlspace',
+        'tags'      : ("Spirit Temple",),
+        'tooltip'   : '''\
+                        By using TSC with a first person item,
+                        you can clip out of bounds in spirit lobby.
+                        With precise movement, you can then reach
+                        the lower level of child spirit as adult.
+                        '''},
 }
 
 logic_tricks = {
@@ -4580,7 +4589,7 @@ setting_infos = [
         },
         gui_tooltip    = '''\
             
-			
+            
             If "Texture" is enabled, chest texture will reflect its contents
             regardless of size.  Fancy chests will contain keys,
             Gilded chests will contain major items, shuffled
@@ -4955,9 +4964,9 @@ setting_infos = [
         cosmetic       = True,
         gui_tooltip    = '''\
             Disable standard battle music.
-	        This prevents background music from being
-	        interrupted by the battle theme when being
-	        near enemies.
+            This prevents background music from being
+            interrupted by the battle theme when being
+            near enemies.
         ''',
         default        = False,
     ),
