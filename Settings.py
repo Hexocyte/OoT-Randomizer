@@ -319,13 +319,16 @@ class Settings:
         self.settings_string = self.get_settings_string()
         self.distribution = Distribution(self)
         self.update_seed(self.seed)
+        self.custom_seed = False
 
 
     def to_json(self):
         return {setting.name: self.__dict__[setting.name] for setting in setting_infos
                 if setting.shared and (setting.name not in self._disabled or
                 # We want to still include settings disabled by randomized settings options if they're specified in distribution
-                ('_settings' in self.distribution.src_dict and setting.name in self.distribution.src_dict['_settings'].keys()))}
+                ('_settings' in self.distribution.src_dict and setting.name in self.distribution.src_dict['_settings'].keys()))
+                # Don't want to include list starting equipment and songs, these are consolidated into starting_items
+                and not (setting.name == "starting_equipment" or setting.name == "starting_songs")}
 
 
     def to_json_cosmetics(self):
@@ -382,6 +385,7 @@ def get_settings_from_command_line_args():
 
     if args.seed is not None:
         settings.update_seed(args.seed)
+        settings.custom_seed = True
 
     if args.convert_settings:
         if args.settings_string is not None:
@@ -389,5 +393,5 @@ def get_settings_from_command_line_args():
         else:
             print(settings.get_settings_string())
         sys.exit(0)
-        
+
     return settings, args.gui, args.loglevel, args.no_log, args.diff_rom

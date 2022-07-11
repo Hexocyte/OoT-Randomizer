@@ -1,6 +1,6 @@
 import itertools
 import json
-import logging
+import math
 import re
 import random
 
@@ -85,10 +85,14 @@ class DungeonRecord(SimpleRecord({'mq': None})):
         return 'mq' if self.mq else 'vanilla'
 
 
-class GossipRecord(SimpleRecord({'text': None, 'colors': None})):
+class GossipRecord(SimpleRecord({'text': None, 'colors': None, 'hinted_locations': None, 'hinted_items': None})):
     def to_json(self):
         if self.colors is not None:
             self.colors = CollapseList(self.colors)
+        if self.hinted_locations is not None:
+            self.hinted_locations = CollapseList(self.hinted_locations)
+        if self.hinted_locations is not None:
+            self.hinted_items = CollapseList(self.hinted_items)
         return CollapseDict(super().to_json())
 
 
@@ -233,9 +237,6 @@ class WorldDistribution(object):
 
 
     def update(self, src_dict, update_all=False):
-        if 'starting_items' in src_dict:
-            raise ValueError('"starting_items" at the top level is no longer supported, please move it into "settings"')
-
         update_dict = {
             'randomized_settings': {name: record for (name, record) in src_dict.get('randomized_settings', {}).items()},
             'dungeons': {name: DungeonRecord(record) for (name, record) in src_dict.get('dungeons', {}).items()},
@@ -313,6 +314,11 @@ class WorldDistribution(object):
                             self.distribution.settings.shuffle_ganon_bosskey == 'tokens' or self.distribution.settings.bridge == 'tokens')
                     if self.distribution.settings.tokensanity == 'all' and major_tokens:
                         self.major_group.append('Gold Skulltula Token')
+                    major_hearts = ((self.distribution.settings.shuffle_ganon_bosskey == 'on_lacs' and
+                            self.distribution.settings.lacs_condition == 'hearts') or
+                            self.distribution.settings.shuffle_ganon_bosskey == 'hearts' or self.distribution.settings.bridge == 'hearts')
+                    if major_hearts:
+                        self.major_group += ['Heart Container', 'Piece of Heart', 'Piece of Heart (Treasure Chest Game)']
                     if self.distribution.settings.shuffle_smallkeys == 'keysanity':
                         for dungeon in ['Bottom of the Well', 'Forest Temple', 'Fire Temple', 'Water Temple',
                                         'Shadow Temple', 'Spirit Temple', 'Gerudo Training Ground', 'Ganons Castle']:
@@ -795,7 +801,7 @@ class WorldDistribution(object):
             if record.item in item_groups['DungeonReward']:
                 raise RuntimeError('Cannot place dungeon reward %s in world %d in location %s.' % (record.item, self.id + 1, location_name))
 
-            if record.item == '#Junk' and location.type == 'Song' and world.settings.shuffle_song_items == 'song':
+            if record.item == '#Junk' and location.type == 'Song' and world.settings.shuffle_song_items == 'song' and not world.settings.starting_songs:
                 record.item = '#JunkSong'
 
             ignore_pools = None
@@ -807,6 +813,12 @@ class WorldDistribution(object):
             # location.price will be None for Shop Buy items
             if location.type == 'Shop' and location.price is None:
                 ignore_pools = [i for i in range(len(item_pools)) if i != 0]
+            else:
+                # Prevent assigning Shop Buy items to non-Shop locations
+                if ignore_pools is None:
+                    ignore_pools = [0]
+                else:
+                    ignore_pools.append(0)
 
             item = self.get_item(ignore_pools, item_pools, location, player_id, record, worlds)
 
@@ -914,7 +926,7 @@ class WorldDistribution(object):
             if location.type == 'Boss':
                 continue
 
-            location = self.pull_item_or_location(location_pools, world, name, remove=False)
+            location = self.pull_item_or_location(location_pools, worlds[self.id], name, remove=False)
             if location is None:
                 raise RuntimeError('Location already cloaked in world %d: %s' % (self.id + 1, name))
             model = self.pull_item_or_location(model_pools, world, record.model, remove=False)
@@ -968,6 +980,11 @@ class WorldDistribution(object):
     def configure_effective_starting_items(self, worlds, world):
         items = {item_name: record.copy() for item_name, record in self.starting_items.items()}
 
+        # Add ammo for each starting item that needs it
+        item_names = [x for x in items.keys()]
+        for item_name in item_names:
+            add_starting_ammo(items, item_name)
+
         if world.settings.start_with_rupees:
             add_starting_item_with_ammo(items, 'Rupees', 999)
         if world.settings.start_with_consumables:
@@ -996,10 +1013,13 @@ class Distribution(object):
         self.search_groups = {
             **location_groups,
             **item_groups,
-        } 
-        if self.src_dict and 'custom_groups' in self.src_dict:
-            self.search_groups.update(self.src_dict['custom_groups'])
-        
+        }
+        if self.src_dict:
+            if 'custom_groups' in self.src_dict:
+                self.search_groups.update(self.src_dict['custom_groups'])
+            if 'starting_items' in self.src_dict:
+                raise ValueError('"starting_items" at the top level is no longer supported, please move it into "settings"')
+
         self.world_dists = [WorldDistribution(self, id) for id in range(settings.world_count)]
         # One-time init
         update_dict = {
@@ -1016,6 +1036,9 @@ class Distribution(object):
             del self.src_dict['settings']
 
         self.__dict__.update(update_dict)
+
+        # Combine all starting lists into one dict, if necessary
+        startingListsToDict(self.settings)
 
         # Init we have to do every time we retry
         self.reset()
@@ -1095,9 +1118,9 @@ class Distribution(object):
     def starting_items_from_settings(self, world_id):
         data = defaultdict(lambda: StarterRecord(0))
         if isinstance(self.settings.starting_items, dict):
-            if self.settings.starting_equipment:
+            if "starting_equipment" in self.settings.distribution._settings:
                 raise ValueError('Incompatible starting item settings. Either move starting_equipment into starting_items or make starting_items a list')
-            if self.settings.starting_songs:
+            if "starting_songs" in self.settings.distribution._settings:
                 raise ValueError('Incompatible starting item settings. Either move starting_songs into starting_items or make starting_items a list')
 
             world_names = ['World %d' % (i + 1) for i in range(len(self.world_dists))]
@@ -1132,18 +1155,16 @@ class Distribution(object):
         # add hearts
         if self.settings.starting_hearts > 3:
             num_hearts_to_collect = self.settings.starting_hearts - 3
-            if num_hearts_to_collect % 2 == 1:
-                data['Piece of Heart'].count += 4
-                num_hearts_to_collect -= 1
-            for i in range(0, num_hearts_to_collect, 2):
-                data['Piece of Heart'].count += 4
-                data['Heart Container'].count += 1
-            if self.settings.starting_hearts >= 20:
-                data['Piece of Heart'].count -= 1
-                data['Piece of Heart (Treasure Chest Game)'].count += 1
             if self.settings.item_pool_value == 'plentiful':
-                data['Heart Container'].count += data['Piece of Heart'].count // 4
-                data['Piece of Heart'].count = data['Piece of Heart'].count % 4
+                if self.settings.starting_hearts >= 20:
+                    num_hearts_to_collect -= 1
+                    data['Piece of Heart'].count += 4
+                data['Heart Container'].count += num_hearts_to_collect
+            else:
+                # evenly split the difference between heart pieces and heart containers removed from the pool,
+                # removing an extra 4 pieces in case of an odd number since there's 9*4 of them but only 8 containers
+                data['Piece of Heart'].count += 4 * math.ceil(num_hearts_to_collect / 2)
+                data['Heart Container'].count += math.floor(num_hearts_to_collect / 2)
 
         return data
 
@@ -1224,18 +1245,20 @@ class Distribution(object):
                         goal = spoiler.goal_categories[world.id][cat_name].get_goal(goal_name)
                         goal_text = goal.hint_text.replace('#', '')
                         goal_text = goal_text[0].upper() + goal_text[1:]
-                        # Add Token/Triforce Piece reachability data
+                        # Add Token/Triforce Piece/heart reachability data
                         if goal.items[0]['name'] == 'Triforce Piece':
                             goal_text +=  ' (' + str(goal.items[0]['quantity']) + '/' + str(world.triforce_count) + ' reachable)'
                         if goal.items[0]['name'] == 'Gold Skulltula Token':
                             goal_text +=  ' (' + str(goal.items[0]['quantity']) + '/100 reachable)'
+                        if goal.items[0]['name'] == 'Piece of Heart':
+                            goal_text +=  ' (' + str(goal.items[0]['quantity']) + '/68 reachable)' #TODO adjust total based on starting_hearts?
                         world_dist.goal_locations[cat_name][goal_text] = {}
                         for location_world, locations in location_worlds.items():
                             if len(self.world_dists) == 1:
                                 world_dist.goal_locations[cat_name][goal_text] = {loc.name: LocationRecord.from_item(loc.item).to_json() for loc in locations}
                             else:
                                 world_dist.goal_locations[cat_name][goal_text]['from World ' + str(location_world + 1)] = {loc.name: LocationRecord.from_item(loc.item).to_json() for loc in locations}
-            world_dist.barren_regions = [*world.empty_areas]
+            world_dist.barren_regions = list(map(str, world.empty_areas))
             world_dist.gossip_stones = {}
             for loc in spoiler.hints[world.id]:
                 hint = GossipRecord(spoiler.hints[world.id][loc].to_json())
@@ -1288,6 +1311,50 @@ class Distribution(object):
         with open(filename, 'w', encoding='utf-8') as outfile:
             outfile.write(json)
 
+
+def startingListsToDict(settings):
+    starting_dict = {}
+    # If starting items is a list, convert it to a dictionary
+    if not isinstance(settings.starting_items, dict):
+        for list_item in settings.starting_items:
+            list_item = "".join([x for x in list_item if not x.isdigit()])
+            item = StartingItems.inventory[list_item].itemname
+            if item == "Rutos Letter" and settings.zora_fountain == "open":
+                item = "Bottle"
+            if item in starting_dict:
+                starting_dict[item] += 1
+            else:
+                starting_dict[item] = 1
+    else:
+        # Otherwise, use the existing dictionary as the initial value
+        starting_dict = settings.starting_items
+    # Add starting equipment and song lists to the dictionary
+    for list_equipment in settings.starting_equipment:
+        list_equipment = "".join([x for x in list_equipment if not x.isdigit()])
+        item = StartingItems.equipment[list_equipment].itemname
+        if item in starting_dict:
+            starting_dict[item] += 1
+        else:
+            starting_dict[item] = 1
+    for list_song in settings.starting_songs:
+        item = StartingItems.songs[list_song].itemname
+        if item in starting_dict:
+            starting_dict[item] += 1
+        else:
+            starting_dict[item] = 1
+    # Set the full dictionary to be starting items
+    settings.starting_items = starting_dict
+
+
+def add_starting_ammo(starting_items, item_name):
+    for item in StartingItems.inventory.values():
+        if item.itemname == item_name and item.ammo:
+            for ammo, qty in item.ammo.items():
+                # Add ammo to starter record, but not overriding existing count if present
+                if ammo not in starting_items:
+                    starting_items[ammo] = StarterRecord(0)
+                    starting_items[ammo].count = qty[starting_items[item_name].count - 1]
+            break
 
 def add_starting_item_with_ammo(starting_items, item_name, count=1):
     if item_name not in starting_items:
