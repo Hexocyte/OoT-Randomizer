@@ -2,7 +2,6 @@ Records of changes prior to 8/7/2021 are missing as I didn't really keep great n
 
 TO DO
 ------------------------------------
-Bosses - Working
 Dungeons:
     Vanilla dungeons:
         Water
