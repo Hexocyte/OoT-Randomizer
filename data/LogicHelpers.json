@@ -98,6 +98,8 @@
     "can_finish_GerudoFortress": "(gerudo_fortress == 'normal' and (Small_Key_Thieves_Hideout, 4) and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang))))) and ((is_adult and (Bow or Hookshot or Hover_Boots) or Gerudo_Membership_Card or logic_gerudo_kitchen or is_glitched))))
             or (gerudo_fortress == 'fast' and Small_Key_Thieves_Hideout and (is_adult or Kokiri_Sword or (is_glitched and (Sticks or can_use(Megaton_Hammer) or can_use(Slingshot) or (has_bombchus and (Nuts or can_use(Boomerang)))))))
             or (gerudo_fortress != 'normal' and gerudo_fortress != 'fast')",
+    
+    # Misc. item checks
     # Mirror shield does not count because it cannot reflect scrub attack.
     "has_shield": "(is_adult and Hylian_Shield) or (is_child and Deku_Shield)",
     "can_shield": "(is_adult and (Hylian_Shield or Mirror_Shield)) or (is_child and Deku_Shield)",
@@ -105,6 +107,13 @@
     # Use the first one when how it's held matters, use the second when the length matters
     "has_2h_sword": "Biggoron_Sword or Giants_Knife",
     "has_big_sword": "Biggoron_Sword or (Giants_Knife and not shuffle_medigoron_carpet_salesman)",
+    # Only checks that the item can be equipped, not that it'll actually function.
+    # We need to do this primarily for magic arrows without magic or bow. Also bow or sling as wrong age without the required ammo.
+    # We hardcode adult for hookshot because it softlocks otherwise, and we don't look for boomerang because it's not actually a first person item.
+    # Also, yes, this means ice arrows can be WotH anywhere this helper is used.
+    "has_first_person_item": "can_use(Hookshot) or 
+        ((is_adult or can_equipswap) and (Ice_Arrows or Fire_Arrows or Light_Arrows or Bow)) or
+        ((is_child or can_equipswap) and (Slingshot))",
     
     # Glitch logic exclusive
     "can_enemy_mega": "can_shield and glitch_megaflip",
@@ -115,8 +124,7 @@
     # Make sure to specify WHICH item you're expecting a weirdshot with.
     # Logically requires being adult as child crashes often while weirdshotting/weirdclipping
     "can_weirdshot": "is_adult and (has_explosives and can_shield and glitch_weirdshot)",
-    # Elemental arrows and slingshot only need to be equippable, not necessarily usable. Also potential WotH ice arrows lol
-    "can_weirdclip": "is_adult and can_weirdshot and (can_use(Bow) or (Slingshot and can_equipswap) or can_use(Hookshot) or Ice_Arrows or Fire_Arrows or Light_Arrows)",
+    "can_weirdclip": "is_adult and can_weirdshot and has_first_person_item",
     "can_oi": "(Fish or Bugs) and glitch_oi",
     "can_groundjump": "can_shield and Bombs",
     "can_equipswap": "(Dins_Fire or (is_child and Sticks)) and glitch_equipswap",
