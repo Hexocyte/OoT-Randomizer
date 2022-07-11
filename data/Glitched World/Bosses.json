@@ -199,7 +199,7 @@
         "scene": "Spirit Temple",
         "dungeon": "Spirit Temple",
         "exits": {
-            "Twinrova Boss Room": "Boss_Key_Spirit_Temple"
+            "Twinrova Boss Room": "True"
         }
     },
     {
