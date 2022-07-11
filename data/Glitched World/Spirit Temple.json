@@ -4,39 +4,41 @@
         "dungeon": "Spirit Temple",
         "exits": {
             "Desert Colossus From Spirit Lobby": "True",
-            "Child Spirit Temple": "is_child or (is_adult and (can_mega or Hover_Boots))",
-            "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or can_use(Hover_Boots) or (is_adult and can_shield)"
+            "Early Child Spirit Temple": "is_child or can_mega or Hover_Boots or (glitch_spirit_crawlspace and has_first_person_item)",
+            "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or
+                (glitch_strength2_blocks and (can_use(Hover_Boots) or (is_adult and can_bomb_slide))) or
+                (is_adult and has_first_person_item)",
+            "Spirit Temple Central Chamber": "is_adult and spirit_temple_shortcuts"
         }
     },
+    # UPDATE: I've done what I can for the logic, but I simply can't parse the key logic well enough to tell if there's softlocks.
+    # Softlock potential will need to be evaluated either by someone better at this nonsense than me, or by playtesting.
+    # 2.0's going to go through a few months of beta testing before I PR it anyway, so we have time to catch any bugs.+
     {
-        "region_name": "Child Spirit Temple",
+        "region_name": "Early Child Spirit Temple",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Child Bridge Chest": "is_adult or
-                (
-                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
-                (Sticks or has_explosives or 
-                    ( (Nuts or can_use(Boomerang)) and 
-                        (can_use(Kokiri_Sword) or Slingshot) ) ))",
-            "Spirit Temple Child Early Torches Chest": "(is_adult and has_fire_source) or 
+            "Spirit Temple Child Bridge Chest": "(can_use(Boomerang) or can_use(Slingshot) or can_use(Bow) or has_bombchus or can_mega or can_use(Hover_Boots)) and
+                (can_use(Sticks) or can_use(Megaton_Hammer) or is_adult or has_explosives or
+                    ( (Nuts or can_use(Boomerang)) and (can_use(Kokiri_Sword) or can_use(Slingshot)) ) )",
+            "Spirit Temple Child Early Torches Chest": "(is_adult and has_fire_source) or
                 (has_fire_source_with_torch and (here(is_adult) or
                 (
-                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
-                (Sticks or has_explosives or 
-                    ( (Nuts or can_use(Boomerang)) and 
-                        (can_use(Kokiri_Sword) or Slingshot) ) ))))",
+                (can_use(Boomerang) or can_use(Slingshot) or has_bombchus or can_mega) and
+                (Sticks or has_explosives or
+                    ( (Nuts or can_use(Boomerang)) and
+                        (can_use(Kokiri_Sword) or can_use(Slingshot)) ) ))))",
             "Spirit Temple GS Metal Fence": "is_adult or
                 (
-                (can_use(Boomerang) or Slingshot or has_bombchus or can_mega) and 
-                (Sticks or has_explosives or 
-                    ( (Nuts or can_use(Boomerang)) and 
-                        (can_use(Kokiri_Sword) or Slingshot) ) ))",
+                (can_use(Boomerang) or can_use(Slingshot) or has_bombchus or can_mega) and
+                (Sticks or has_explosives or
+                    ( (Nuts or can_use(Boomerang)) and
+                        (can_use(Kokiri_Sword) or can_use(Slingshot)) ) ))",
             "Nut Crate": "True"
         },
         "exits": {
             "Child Spirit Temple Climb": "(Small_Key_Spirit_Temple, 2) and
-                (is_child or ((can_mega and can_use(Longshot)) or can_use(Hover_Boots))
-                )"
+                (is_child or (can_weirdshot and can_use(Longshot)) or can_use(Hover_Boots))"
         }
     },
     {
@@ -89,12 +91,10 @@
             "Silver Gauntlets Hand": "True",
             # access via Early Adult Spirit Temple requires 2 keys (+ jumpslash + explosives)
             # access to Early Adult Spirit Temple guaranteed via can_jumpslash from here
-            "Spirit Temple Beyond Central Locked Door": "can_jumpslash and (
-                (Small_Key_Spirit_Temple, 2) or
-                can_hover or
-                can_use(Hookshot)) and has_explosives",
+            "Spirit Temple Beyond Central Locked Door": "can_jumpslash and has_explosives and
+                ((Small_Key_Spirit_Temple, 2) or can_hover or can_use(Hookshot))",
             "Child Spirit Temple Climb": "True",
-            "Spirit Temple Boss": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit",
+            "Spirit Temple Boss Door": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit",
             "Early Adult Spirit Temple": "can_jumpslash or can_hover or can_use(Hookshot)"
         }
     },
@@ -106,6 +106,7 @@
         },
         "exits": {
             "Desert Colossus": "True",
+            "Spirit Temple Lobby": "True",
             "Silver Gauntlets Hand": "
                 can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_mega)",
             "Spirit Temple Beyond Central Locked Door": "True"
@@ -119,16 +120,9 @@
         },
         "exits": {
             "Desert Colossus": "True",
+            "Spirit Temple Lobby": "True",
             "Mirror Shield Hand": "can_hover or (can_use(Hover_Boots) and can_mega)",
             "Spirit Temple Central Chamber": "(Small_Key_Spirit_Temple, 2)"
-        }
-    },
-    {
-        "region_name": "Spirit Temple Outdoor Hands",
-        "dungeon": "Spirit Temple",
-        "exits": {
-            "Silver Gauntlets Hand": "True",
-            "Mirror Shield Hand": "True"
         }
     },
     {
@@ -156,16 +150,8 @@
             "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
         },
         "exits": {
-            "Spirit Temple Boss": "can_use(Mirror_Shield) and Boss_Key_Spirit_Temple",
+            "Spirit Temple Boss Door": "can_use(Mirror_Shield) and Boss_Key_Spirit_Temple",
             "Spirit Temple Central Chamber": "can_use(Mirror_Shield) or can_use(Hookshot)"
-        }
-    },
-    {
-        "region_name": "Spirit Temple Boss",
-        "dungeon": "Spirit Temple",
-        "locations": {
-            "Spirit Temple Twinrova Heart": "True",
-            "Twinrova": "True"
         }
     }
 ]
