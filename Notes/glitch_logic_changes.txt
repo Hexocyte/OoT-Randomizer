@@ -2,10 +2,11 @@ Records of changes prior to 8/7/2021 are missing as I didn't really keep great n
 
 TO DO
 ------------------------------------
+Bosses - Working
 Dungeons:
     Vanilla dungeons:
         Water
-        Spirit
+        Spirit - Semi-updated - See 07/11/2022
         Ice
         Ganon's
      MQ Dungeons:
@@ -24,12 +25,32 @@ Dungeons:
         
 UPDATED:
 ----------------------
+07/11/2022
+    Brought up to 2.0 standards:
+        Spirit Temple
+            NOTE: I have NOT gotten this to a point where I'm happy yet.
+            However, the only way I can actually see if it has any bugs or not at this point is to actually playtest it.
+            I'm simply not able to parse spirit logic well enough to see if it's broken or not.
+        
+    Logic:
+        Adult can be expected to knock down the pillar in fire so that child can damage boost to Volv's boss door.
+        
+    Settings:
+        Boss shuffle and dungeon shortcuts enabled and functional
+        
+    New glitches:
+        TSC with 1st person item - only added to spirit right now though. Base logic.
+        
+    Other changes:
+        None
+        
 05/19/2022
     Updated from main.
     MQ dungeons have been enabled, but are NOT functional.
         The reason for this is that main dev changed various settings related to MQ dungeons, and honestly at this point it's just a pain to keep it up to         date.
         Enabling MQ for glitch logic is planned for 2.0 anyway, so this isn't too much of a problem.
         Just, ya know...don't use it yet.
+
 
 05/18/2022
     Brought up to 2.0 standards:
