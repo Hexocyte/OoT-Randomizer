@@ -447,7 +447,7 @@
     {
         "region_name": "GV Upper Stream",
         "scene": "Gerudo Valley",
-        "hint": "GERUDO_VALLEY,
+        "hint": "GERUDO_VALLEY",
         "time_passes": true,
         "locations": {
             "GV Waterfall Freestanding PoH": "True",
