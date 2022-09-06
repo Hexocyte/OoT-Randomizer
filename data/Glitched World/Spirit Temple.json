@@ -89,7 +89,18 @@
                 ((Small_Key_Spirit_Temple, 1) and
                     (at('Desert Colossus',
                         can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))) or
-                    spirit_temple_shortcuts)))"
+                    spirit_temple_shortcuts)))",
+            "Spirit Temple Adult Central Chamber Unknown": "
+                ((is_child and
+                    ((glitch_spirit_statue and (can_jumpslash or can_use(Megaton_Hammer))) or can_hover)) or
+                'A at Door C1') and
+
+                has_explosives and
+
+                ((Small_Key_Spirit_Temple, 2) or
+                ((Small_Key_Spirit_Temple, 1) and not spirit_temple_shortcuts and
+                    at('Desert Colossus',
+                        can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot)))))"
         }
     },
     {
@@ -123,7 +134,7 @@
                 (Small_Key_Spirit_Temple, 2) or
                 ((Small_Key_Spirit_Temple, 1) and
                     at('Desert Colossus', can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))))",
-            "Spirit Temple Central Chamber Unknown": "
+            "Spirit Temple Adult Central Chamber Unknown": "
                 (Small_Key_Spirit_Temple, 3) or
                 ((Small_Key_Spirit_Temple, 2) and
                     at('Desert Colossus', can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))))"
@@ -257,7 +268,10 @@
                 ((Small_Key_Spirit_Temple, 4) and (has_explosives or 'A Access via Top')) or
                 ((Small_Key_Spirit_Temple, 3) and has_explosives and 'A Access via Top'))",
             "Child Spirit Temple Climb Unknown": "(Small_Key_Spirit_Temple, 2) or
-                ((Small_Key_Spirit_Temple, 1) and 'A Access via Top')"
+                ((Small_Key_Spirit_Temple, 1) and 'A Access via Top')",
+            "Spirit Temple Adult Central Chamber Unknown": "(can_use(Hookshot) or can_hover) and
+                ((Small_Key_Spirit_Temple, 3) or
+                ((Small_Key_Spirit_Temple, 2) and 'A Access via Top'))"
         }
     },
     {
