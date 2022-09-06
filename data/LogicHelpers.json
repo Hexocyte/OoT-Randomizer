@@ -63,8 +63,8 @@
     "can_use_projectile": "has_explosives or (is_adult and (Bow or Hookshot or (Boomerang and can_equipswap))) or (is_child and (Slingshot or Boomerang))",
     "has_projectile(for_age)": "has_explosives
             or (for_age == child and (Slingshot or Boomerang))
-            or (for_age == adult and (Bow or Hookshot or (Boomerang and can_equipswap)))
-            or (for_age == both and (Slingshot or Boomerang) and (Bow or Hookshot or (Boomerang and can_equipswap)))
+            or (for_age == adult and (Bow or Hookshot or (Boomerang and adult_can_equipswap)))
+            or (for_age == both and (Slingshot or Boomerang) and (Bow or Hookshot or (Boomerang and adult_can_equipswap)))
             or (for_age == either and (Slingshot or Boomerang or Bow or Hookshot))",
     "can_bonk_tree": "deadly_bonks == False or Fairy or can_use(Nayrus_Love)",
     "can_bonk_crate": "deadly_bonks == False or Fairy or can_use(Nayrus_Love) or can_blast_or_smash",
@@ -125,6 +125,9 @@
     "can_isg": "can_shield and (is_adult or Sticks or Kokiri_Sword or can_use(Megaton_Hammer))",
     "can_enemy_hover": "can_isg and glitch_hover",
     "can_hover": "has_explosives and can_enemy_hover",
+    "child_can_hover": "Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
+        has_explosives and glitch_hover",
+    "adult_can_hover": "(Hylian_Shield or Mirror_Shield) and has_explosives and glitch_hover",
     # Make sure to specify WHICH item you're expecting a weirdshot with.
     # Logically requires being adult as child crashes often while weirdshotting/weirdclipping
     "can_weirdshot": "is_adult and (has_explosives and can_shield and glitch_weirdshot)",
@@ -132,6 +135,8 @@
     "can_oi": "(Fish or Bugs) and glitch_oi",
     "can_groundjump": "can_shield and Bombs",
     "can_equipswap": "(Dins_Fire or (is_child and Sticks)) and glitch_equipswap",
+    "child_can_equipswap": "(Dins_Fire or Sticks) and glitch_equipswap",
+    "adult_can_equipswap": "Dins_Fire and glitch_equipswap",
     "can_bomb_slide": "has_explosives and can_shield and glitch_slide",
     "can_wess": "can_jumpslash and glitch_slide",
     # This can also be done with a ledge, but that's better to define on-location rather than with a helper.

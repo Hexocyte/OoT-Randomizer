@@ -617,8 +617,8 @@
         "locations": {
             "Colossus Freestanding PoH": "
                 (is_adult and here(can_plant_bean)) or
-                at('Mirror Shield Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
-                at('Silver Gauntlets Hand', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
+                at('Mirror Shield Hand Known', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
+                at('Silver Gauntlets Hand Known', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
                 (can_hover and (can_use(Hover_Boots) or can_qpa or glitch_insane))",
             "Colossus GS Bean Patch": "can_plant_bugs and can_child_attack",
             "Colossus GS Tree": "is_adult and (can_use(Hookshot) or can_hover or can_use(Boomerang)) and at_night",
@@ -636,11 +636,11 @@
             "Colossus Grotto": "can_use(Silver_Gauntlets) or (can_weirdclip and glitch_insane) or (can_ledge_cancel and is_child)",
             # Reaching either hand from here reasonably requires coming from arch or hooking silvers chest and crossing from silvers to mirror. It's a *very* long hover otherwise.
             # Need to use a special form of QPA here so that one-time bottles aren't in logic
-            "Silver Gauntlets Hand": "can_hover and (can_use(Hover_Boots) or
+            "Silver Gauntlets Hand Known": "can_hover and (can_use(Hover_Boots) or
                 (glitch_qpa and can_use(Sticks) and (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
                     (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))))) and
                 (can_use(Hookshot) or (here(can_plant_bean) and is_adult) or (glitch_insane and has_bombchus))",
-            "Mirror Shield Hand": "can_hover and (can_use(Hover_Boots) or
+            "Mirror Shield Hand Known": "can_hover and (can_use(Hover_Boots) or
                 (glitch_qpa and can_use(Sticks) and (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
                     (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))))) and
                 (here(can_plant_bean and is_adult) or (glitch_insane and has_bombchus))"
