@@ -159,10 +159,26 @@
                 at('Child Spirit Temple Climb Known', can_use_projectile)",
             "Spirit Temple Child Climb East Chest": "has_projectile(both) or
                 at('Child Spirit Temple Climb Known', can_use_projectile)",
-            "Spirit Temple GS Sun on Floor Room": "(adult_can_equipswap and Boomerang) or
-                ((Slingshot or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or (child_can_equipswap and Megaton_Hammer)) and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or
-                at('Child Spirit Temple Climb Known',
-                can_use(Boomerang) or can_use(Hookshot) or (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))))"
+            # Use projectiles or Din's or jumpslash it (take fall damage) or hover off of it
+            # or hit it with an Iron Boots ISG dive (use something other than ocarina for the cutscene item)
+            "Spirit Temple GS Sun on Floor Room": "
+                can_use(Dins_Fire) or
+                ((Sticks or Kokiri_Sword) and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or
+
+                ((
+                    has_projectile(child) or
+                    (glitch_hover and Deku_Shield and
+                        (Sticks or Kokiri_Sword or (child_can_equipswap and Megaton_Hammer)))) and
+                (
+                    has_projectile(adult) or can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love) or
+                    ((Hylian_Shield or Mirror_Shield) and (
+                        glitch_hover or
+                        (glitch_ib_dive and Iron_Boots and
+                            (has_adult_trade_item or can_use(Farores_Wind) or has_bottle_item)))))) or
+
+                at('Child Spirit Temple Climb Known', can_use_projectile or
+                    (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or can_enemy_hover or
+                    (can_ib_dive and (has_adult_trade_item or can_use(Farores_Wind) or has_bottle_item)))"
         },
         "exits": {
             "Spirit Temple Central Chamber Unknown": "has_explosives"
@@ -341,8 +357,17 @@
         "region_name": "Spirit Temple Top",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and (can_live_dmg(1.0) or
-                (here(can_use(Bow) or can_qpa or (glitch_qpa and can_isg)) and can_use(Hookshot)))",
+            # With roll invincibility, you can open the flaming chest and not
+            # take damage until after you receive the item. Out of kindness,
+            # that's not in logic in OHKO without a way to avoid the game over.
+            # Out of cruelty however, you can be expected to spawn the platform
+            # as child and hookshot to it as adult.
+            "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and
+                (can_live_dmg(0.25) or Fairy or
+                (can_use(Hookshot) and
+                    (can_use(Nayrus_Love) or
+                    here(can_use(Bow) or can_use(Slingshot) or can_qpa or (glitch_qpa and can_isg)))) or
+                can_hover)",
             "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
         },
         "exits": {
