@@ -615,11 +615,12 @@
         "hint": "DESERT_COLOSSUS",
         "time_passes": true,
         "locations": {
+            # Start hovering from near the top of the animated slope.
             "Colossus Freestanding PoH": "
                 (is_adult and here(can_plant_bean)) or
                 at('Mirror Shield Hand Known', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
                 at('Silver Gauntlets Hand Known', (can_mega or (can_bomb_slide and can_use(Hover_Boots)))) or
-                (can_hover and (can_use(Hover_Boots) or can_qpa or glitch_insane))",
+                (can_hover and glitch_insane)",
             "Colossus GS Bean Patch": "can_plant_bugs and can_child_attack",
             "Colossus GS Tree": "is_adult and (can_use(Hookshot) or can_hover or can_use(Boomerang)) and at_night",
             "Colossus GS Hill": "is_adult and at_night",
@@ -634,16 +635,16 @@
             "Spirit Temple Lobby": "True",
             # This weirdclip is hard because sand is sand and leevers are a mistake.
             "Colossus Grotto": "can_use(Silver_Gauntlets) or (can_weirdclip and glitch_insane) or (can_ledge_cancel and is_child)",
-            # Reaching either hand from here reasonably requires coming from arch or hooking silvers chest and crossing from silvers to mirror. It's a *very* long hover otherwise.
-            # Need to use a special form of QPA here so that one-time bottles aren't in logic
-            "Silver Gauntlets Hand Known": "can_hover and (can_use(Hover_Boots) or
-                (glitch_qpa and can_use(Sticks) and (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
-                    (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))))) and
-                (can_use(Hookshot) or (here(can_plant_bean) and is_adult) or (glitch_insane and has_bombchus))",
-            "Mirror Shield Hand Known": "can_hover and (can_use(Hover_Boots) or
-                (glitch_qpa and can_use(Sticks) and (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
-                    (has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))))) and
-                (here(can_plant_bean and is_adult) or (glitch_insane and has_bombchus))"
+            # Reaching either hand from here reasonably requires coming from arch or hooking silvers chest and crossing
+            # from silvers to mirror. It's a *very* long hover otherwise. Logic for hovering to silvers from here
+            # without hookshot would be redundant with hovering to mirror and then to silvers, so it isn't included.
+            "Silver Gauntlets Hand Known": "can_hover and can_use(Hookshot) and
+                (Hover_Boots or (glitch_qpa and Bombs and has_bombchus))",
+            # Hovering from the arch is possible with 11 bombchu hovers or 11 QPA contortion hovers
+            # or 11 kokiri bomb hovers
+            "Mirror Shield Hand Known": "can_hover and ((here(can_plant_bean) and is_adult and
+                (has_bombchus or (glitch_qpa and has_first_person_item) or Hover_Boots or glitch_insane)) or
+                (glitch_insane and has_bombchus))"
         }
     },
     {
