@@ -17,22 +17,29 @@
             "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or
                 (glitch_strength2_blocks and (can_use(Hover_Boots) or (is_adult and can_bomb_slide))) or
                 (is_adult and has_first_person_item)",
-            "Spirit Temple Central Chamber Known": "is_adult and spirit_temple_shortcuts",
-
             # Age-known access by presence at combinations of locked doors. Access via
             # the lower doors individually is handled at their own regions. Access solely
             # via the hands is handled at Silver Gauntlets Hand Known. Each locked door
             # required is listed explicitly, even if it could be implied by other
             # requirements.
+            "Spirit Temple Central Chamber Known": "is_adult and (spirit_temple_shortcuts or
+                ((Small_Key_Spirit_Temple, 4) and
+                    (('A at Door A1' and 'A at Door C2') or
+                    ('A at Door C2' and 'A Access via Top'))) or
+                (Small_Key_Spirit_Temple, 3) and
+                    'A at Door A1' and 'A at Door C2' and 'A Access via Top')",
             "Child Spirit Temple Climb Known": "
                 ((Small_Key_Spirit_Temple, 4) and
-                    is_adult and 'A at Door C1' and 'A at Door A1') or
+                    is_adult and
+                        'A at Door C1' and 'A at Door A1') or
                 ((Small_Key_Spirit_Temple, 3) and
                     ((is_child and
                         'C at Door C1' and 'C at Door C2' and 'C at Door A2') or
                     (is_adult and
                         (('A at Door C1' and 'A at Door C2' and 'A at Door A2') or
-                        ('A at Door A1' and 'A at Door C2' and 'A at Door A2'))))) or
+                        ('A at Door C1' and 'A at Door C2' and 'A Access via Top') or
+                        ('A at Door A1' and 'A at Door C2' and 'A at Door A2') or
+                        ('A at Door A1' and 'A at Door C2' and 'A Access via Top'))))) or
                 ((Small_Key_Spirit_Temple, 2) and
                     ((is_child and
                         'C at Door C1' and 'C at Door C2' and 'C at Door A2' and 'C Access via Top') or
@@ -181,8 +188,10 @@
         "exits": {
             "Spirit Temple Adult Central Chamber Unknown": "True",
             "Spirit Temple Central Chamber Known": "True",
-            "Spirit Temple Beyond Central Locked Door Known": "(Small_Key_Spirit_Temple, 5) or
-                ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield)))",
+            "Spirit Temple Before Mirror Shield Known": "has_explosives and
+                ((Small_Key_Spirit_Temple, 5) or
+                ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield))))",
+            "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5)",
             "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
             "Spirit Temple Boss Door": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit"
         }
@@ -200,7 +209,7 @@
         },
         "exits": {
             "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Beyond Central Locked Door Unknown": "(Small_Key_Spirit_Temple, 4)"
+            "Spirit Temple Before Mirror Shield Unknown": "(Small_Key_Spirit_Temple, 4) and has_explosives"
         }
     },
     {
@@ -214,12 +223,15 @@
             "Silver Gauntlets Hand Unknown": "True",
             "Desert Colossus": "True",
             "Spirit Temple Lobby": "True",
-            "Mirror Shield Hand Known": "can_hover or (can_use(Hover_Boots) and can_mega) or (can_use(Hookshot) and at('Mirror Shield Hand Unknown', True))",
+            "Mirror Shield Hand Known": "can_hover or
+                (can_use(Hover_Boots) and can_shield and (can_bomb_slide or Megaton_Hammer)) or
+                (can_use(Hookshot) and at('Mirror Shield Hand Unknown', True))",
             # Assumed access to either hand if coming from Colossus
             "Spirit Temple Central Chamber Known": "is_adult and
-                ((Small_Key_Spirit_Temple, 4) or
-                ((Small_Key_Spirit_Temple, 3) and 'A Access via Top'))",
-            "Spirit Temple Central Chamber Unknown": "(Small_Key_Spirit_Temple, 2) or
+                ((Small_Key_Spirit_Temple, 5) or
+                ((Small_Key_Spirit_Temple, 4) and (has_explosives or 'A Access via Top')) or
+                ((Small_Key_Spirit_Temple, 3) and has_explosives and 'A Access via Top'))",
+            "Child Spirit Temple Climb Unknown": "(Small_Key_Spirit_Temple, 2) or
                 ((Small_Key_Spirit_Temple, 1) and 'A Access via Top')"
         }
     },
@@ -240,8 +252,8 @@
             "Mirror Shield Hand Unknown": "True",
             "Desert Colossus": "True",
             "Spirit Temple Lobby": "True",
-            "Silver Gauntlets Hand Known": "can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_mega)",
-            "Spirit Temple Beyond Central Locked Door Known": "True"
+            "Silver Gauntlets Hand Known": "can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_bomb_slide)",
+            "Spirit Temple Before Mirror Shield Known": "True"
         }
     },
     {
@@ -252,38 +264,38 @@
         },
         "exits": {
             "Silver Gauntlets Hand Unknown": "child_can_hover and (adult_can_hover or Hookshot)",
-            "Spirit Temple Beyond Central Locked Door Unknown": "True"
+            "Spirit Temple Before Mirror Shield Unknown": "True"
         }
     },
     {
-        "region_name": "Spirit Temple Beyond Central Locked Door Known",
+        "region_name": "Spirit Temple Before Mirror Shield Known",
         "dungeon": "Spirit Temple",
         "events": {
+            # Child already has explosives if coming from Colossus
             "C at Door A2": "is_child",
-            "A at Door A2": "is_adult",
+            "A at Door A2": "is_adult and has_explosives",
             "C Access via Top": "is_child and here(can_use(Mirror_Shield) or spirit_temple_shortcuts)",
             # When weirdshotting, use a jumpslash recoil to land on the floor
             # instead of the statue so you don't take fall damage.
             "A Access via Top": "can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))"
         },
         "locations": {
-            "Spirit Temple Near Four Armos Chest": "has_explosives and can_use(Mirror_Shield)"
+            "Spirit Temple Near Four Armos Chest": "can_use(Mirror_Shield)"
         },
         "exits": {
-            "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5) and
-                (can_use(Hookshot) or has_explosives)",
-            "Mirror Shield Hand Known": "has_explosives"
+            "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5)",
+            "Mirror Shield Hand Known": "True"
         }
     },
     {
-        "region_name": "Spirit Temple Beyond Central Locked Door Unknown",
+        "region_name": "Spirit Temple Before Mirror Shield Unknown",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Hallway Right Invisible Chest": "has_explosives",
-            "Spirit Temple Hallway Left Invisible Chest": "has_explosives"
+            "Spirit Temple Hallway Right Invisible Chest": "True",
+            "Spirit Temple Hallway Left Invisible Chest": "True"
         },
         "exits": {
-            "Mirror Shield Hand Unknown": "has_explosives"
+            "Mirror Shield Hand Unknown": "True"
         }
     },
     {
