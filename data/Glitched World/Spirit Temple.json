@@ -148,14 +148,14 @@
             "Spirit Temple Hallway Left Invisible Chest": "True"
         },
         "exits": {
-            "Spirit Temple Beyond Final Locked Door": "(Small_Key_Spirit_Temple,5) and
+            "Spirit Temple Top": "(Small_Key_Spirit_Temple,5) and
                 (can_use(Hookshot) or has_explosives)",
             "Mirror Shield Hand": "True",
             "Spirit Temple Central Chamber": "has_explosives"
         }
     },
     {
-        "region_name": "Spirit Temple Beyond Final Locked Door",
+        "region_name": "Spirit Temple Top",
         "dungeon": "Spirit Temple",
         "locations": {
             "Spirit Temple Boss Key Chest": "
