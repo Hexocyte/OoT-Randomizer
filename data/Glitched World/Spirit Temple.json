@@ -94,7 +94,7 @@
         "dungeon": "Spirit Temple",
         "locations": {
             "Spirit Temple Child Bridge Chest": "True",
-            "Spirit Temple Child Early Torches Chest": "has_fire_source_with_torch",
+            "Spirit Temple Child Early Torches Chest": "has_fire_source_with_torch or (glitch_qpa and can_isg)",
             "Spirit Temple GS Metal Fence": "True"
         }
     },
@@ -166,10 +166,15 @@
         "region_name": "Spirit Temple Central Chamber Unknown",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Map Chest": "can_use(Dins_Fire) or ((Bow or adult_can_equipswap) and Sticks) or
-                at('Spirit Temple Central Chamber Known', can_use(Bow) or can_use(Sticks))",
-            "Spirit Temple Sun Block Room Chest": "can_use(Dins_Fire) or ((Bow or adult_can_equipswap) and Sticks) or
-                at('Spirit Temple Central Chamber Known', can_use(Bow) or can_use(Sticks))",
+            "Spirit Temple Map Chest": "can_use(Dins_Fire) or
+                (glitch_qpa and (Kokiri_Sword or (child_can_equipswap and Megaton_Hammer))) or
+                ((Bow or glitch_qpa or adult_can_equipswap) and Sticks) or
+                at('Spirit Temple Central Chamber Known',
+                can_use(Bow) or can_use(Sticks) or (glitch_qpa and is_adult))",
+            "Spirit Temple Sun Block Room Chest": "can_use(Dins_Fire) or
+                ((Sticks or (glitch_qpa and (Kokiri_Sword or (child_can_equipswap and Megaton_Hammer)) and Deku_Shield)) and
+                (Bow or (adult_can_equipswap and Sticks) or (glitch_qpa and (Hylian_Shield or Mirror_Shield)))) or
+                at('Spirit Temple Central Chamber Known', can_use(Bow) or can_use(Sticks) or (glitch_qpa and can_isg))",
             "Spirit Temple GS Hall After Sun Block Room": "(adult_can_equipswap and Boomerang) or
                 ((Boomerang or child_can_hover) and (Hookshot or adult_can_hover)) or
                 at('Spirit Temple Central Chamber Known', can_use(Hookshot) or can_use(Boomerang) or can_hover)",
@@ -302,8 +307,8 @@
         "region_name": "Spirit Temple Top",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and
-                (can_live_dmg(1.0) or (is_adult and Bow and Hookshot))",
+            "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and (can_live_dmg(1.0) or
+                (here(can_use(Bow) or can_qpa or (glitch_qpa and can_isg)) and can_use(Hookshot)))",
             "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
         },
         "exits": {

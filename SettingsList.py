@@ -233,23 +233,27 @@ logic_glitches = {
                     the glitch incorrectly.
                     '''},
     # UPDATE: Update this tooltip to include ledge QPA
-     'Quick Putaway': {
+    'Glitched Damage': {
         'name'    : 'glitch_qpa',
         'tags'    : ("General",),
         'tooltip' : '''\
-                    By holding a stick, then pressing A to put it away and
-                    using a cutscene item (Adult trade items, bottled items,
-                    or ocarina) or nuts a frame later, then performing broken
-                    stick (Note that you will NOT actually activate broken
-                    stick if QPA is performed correctly!) your crouch stabs
-                    (as well as the initial jummpslash) will gain numerous
-                    different damage types.
-                    
-                    The three damage values that are logically useful are
-                    din's fire, ice arrow, and slingshot.
-                    
-                    For this to be in logic for adult, Equip Swap must also
-                    be in logic.
+                    Jumpslashing with nothing in hand deals numerous different
+                    damage types, and the damage is stored for power
+                    crouchstabs. This is possible by empty jumpslash or by Deku
+                    Stick quick putaway (QPA). The three damage values that are
+                    logically useful are Din's Fire, Ice Arrows, and Slingshot.
+
+                    To do empty jumpslash, walk slowly and press A to put away
+                    your weapon 2 frames before falling from Hover Boots or a
+                    ledge. Then jumpslash with that weapon on the frame before
+                    falling.
+
+                    By holding a stick, then pressing A to put it away and using
+                    a cutscene item (Adult trade items, bottled items, or
+                    ocarina) or nuts a frame later, you will get the QPA state.
+                    With QPA a jumpslash that would otherwise activate broken
+                    stick will instead deal glitched damage as the stick gets
+                    put away instantly.
                     '''},
     'Door of Time skip': {
         'name'    : 'glitch_dot_skip',
