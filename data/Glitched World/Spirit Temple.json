@@ -162,8 +162,11 @@
         "dungeon": "Spirit Temple",
         "exits": {
             "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Adult Central Chamber Known": "can_use(Hookshot) or can_use(Hover_Boots) or can_hover or
-                (is_adult and has_explosives and can_live_dmg(0.5)) or (is_child and (can_jumpslash or can_use(Megaton_Hammer)))",
+            "Spirit Temple Adult Central Chamber Known": "
+                can_use(Hookshot) or can_use(Hover_Boots) or can_hover or
+                (glitch_spirit_statue and
+                    ((is_adult and has_explosives and can_live_dmg(0.5)) or
+                    (is_child and (can_jumpslash or can_use(Megaton_Hammer)))))",
             # Ground clip into and out of the Knuckle room
             "Silver Gauntlets Hand Known": "(Small_Key_Spirit_Temple, 5) or
                 ((Small_Key_Spirit_Temple, 4) and (can_use(Hookshot) or (can_bomb_slide and can_use(Hover_Boots)))) or
@@ -191,8 +194,12 @@
         },
         "exits": {
             "Spirit Temple Adult Central Chamber Unknown": "
-                (Kokiri_Sword or Sticks or (child_can_equipswap and Megaton_Hammer)) and
-                (Hookshot or Hover_Boots or (has_explosives and can_live_dmg(0.5)) or adult_can_hover or
+                (child_can_hover or
+                (glitch_spirit_statue and
+                    (Kokiri_Sword or Sticks or (child_can_equipswap and Megaton_Hammer)))) and
+
+                (Hookshot or Hover_Boots or adult_can_hover or
+                (glitch_spirit_statue and has_explosives and can_live_dmg(0.5)) or
                 not spirit_temple_shortcuts)",
             "Child Spirit Temple Climb Unknown": "True",
             "Silver Gauntlets Hand Unknown": "child_can_hover and adult_can_hover and
@@ -210,17 +217,7 @@
                 ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield))))",
             "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5)",
             "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
-            # Use some precise jumps to climb the statue and clip into the head.
-            "Spirit Temple Boss Door": "
-                Boss_Key_Spirit_Temple or
-                (glitch_bk_skip_spirit and
-                    (can_use(Hover_Boots) or
-                    (can_hover and
-                        ((can_live_dmg(0.5) and shuffle_bosses == 'off') or
-                        (has_bombchus and
-                            ((is_adult and has_2h_sword) or
-                            can_use(Sticks) or can_use(Megaton_Hammer))))) or
-                    (can_mega and can_use(Iron_Boots))))",
+            "Spirit Temple Before Boss": "glitch_spirit_statue or (spirit_temple_shortcuts and can_use(Hookshot))",
             "Desert Colossus": "(Small_Key_Spirit_Temple, 4) and has_explosives"
         }
     },
@@ -333,6 +330,26 @@
             "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and (can_live_dmg(1.0) or
                 (here(can_use(Bow) or can_qpa or (glitch_qpa and can_isg)) and can_use(Hookshot)))",
             "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
+        },
+        "exits": {
+            "Spirit Temple Before Boss": "here(can_use(Mirror_Shield) or spirit_temple_shortcuts) and
+                (can_use(Hookshot) or can_hover)"
+        }
+    },
+    {
+        "region_name": "Spirit Temple Before Boss",
+        "dungeon": "Spirit Temple",
+        "exits": {
+            "Spirit Temple Boss Door": "
+                Boss_Key_Spirit_Temple or
+                (glitch_bk_skip_spirit and
+                    ((glitch_spirit_statue and can_use(Hover_Boots)) or
+                    (can_hover and
+                        ((can_live_dmg(0.5) and shuffle_bosses == 'off') or
+                        (has_bombchus and
+                            ((is_adult and has_2h_sword) or
+                            can_use(Sticks) or can_use(Megaton_Hammer))))) or
+                    (can_mega and can_use(Iron_Boots))))"
         }
     }
 ]

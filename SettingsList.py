@@ -549,9 +549,10 @@ logic_glitches = {
         'name'    : 'glitch_bk_skip_spirit',
         'tags'    : ("BK Skip", "Spirit Temple",),
         'tooltip' : '''\
-                    You can clip into the statue's head and run to the load with
-                    Hover Boots. You can also ground clip through the boss
-                    door.'
+                    You can ground clip through the boss door. You can also clip
+                    into the statue's head and run to the load with Hover Boots,
+                    which is only in logic when this is combined with Spirit
+                    Temple Statue Slide and Statue Climb.
                     
                     Applies to both vanilla and MQ.
                     '''},
@@ -670,6 +671,18 @@ logic_glitches = {
 
                     All Uses Enabled adds Bombchu hovering directly to either
                     hand without using the bean.
+                    '''},
+    'Spirit Temple Statue Slide and Statue Climb': {
+        'name'    : 'glitch_spirit_statue',
+        'tags'    : ("Spirit Temple",),
+        'tooltip' : '''\
+                    Statue slide (aka crazy dance): crossing from the child side
+                    of Spirit Temple's central chamber to the adult side by
+                    sliding along the snake on the statue's neck. Adult needs a
+                    damage boost or damage clip. Child only needs a jumpslash.
+
+                    Statue climb and head clip: Use precise jumps and
+                    jumpslashes to reach the boss door from the adult side.
                     '''},
 }
 
