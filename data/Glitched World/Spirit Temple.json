@@ -201,7 +201,17 @@
                 ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield))))",
             "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5)",
             "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
-            "Spirit Temple Boss Door": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit"
+            # Use some precise jumps to climb the statue and clip into the head.
+            "Spirit Temple Boss Door": "
+                Boss_Key_Spirit_Temple or
+                (glitch_bk_skip_spirit and
+                    (can_use(Hover_Boots) or
+                    (can_hover and
+                        ((can_live_dmg(0.5) and shuffle_bosses == 'off') or
+                        (has_bombchus and
+                            ((is_adult and has_2h_sword) or
+                            can_use(Sticks) or can_use(Megaton_Hammer))))) or
+                    (can_mega and can_use(Iron_Boots))))"
         }
     },
     {
@@ -313,9 +323,6 @@
             "Spirit Temple Boss Key Chest": "can_play(Zeldas_Lullaby) and (can_live_dmg(1.0) or
                 (here(can_use(Bow) or can_qpa or (glitch_qpa and can_isg)) and can_use(Hookshot)))",
             "Spirit Temple Topmost Chest": "can_use(Mirror_Shield)"
-        },
-        "exits": {
-            "Spirit Temple Boss Door": "can_use(Mirror_Shield) and Boss_Key_Spirit_Temple"
         }
     }
 ]

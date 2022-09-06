@@ -549,7 +549,9 @@ logic_glitches = {
         'name'    : 'glitch_bk_skip_spirit',
         'tags'    : ("BK Skip", "Spirit Temple",),
         'tooltip' : '''\
-                    UPDATE: Add description here
+                    You can clip into the statue's head and run to the load with
+                    Hover Boots. You can also ground clip through the boss
+                    door.'
                     
                     Applies to both vanilla and MQ.
                     '''},
