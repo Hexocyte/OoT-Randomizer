@@ -609,11 +609,21 @@
             "Haunted Wasteland": "True"
         }
     },
+    # A collection delay hookshot jump can provide access to the arch, but
+    # collection delay is never in logic due to unrepeatability
     {
         "region_name": "Desert Colossus",
         "scene": "Desert Colossus",
         "hint": "DESERT_COLOSSUS",
         "time_passes": true,
+        "events": {
+            "Adult Spirit Hover Is Repeatable": "
+                is_adult and can_shield and
+                    (bombchus_are_repeatable or (Hover_Boots and Bombs and Hookshot) or
+                    (here(can_plant_bean) and Hookshot and
+                        ((Hover_Boots and Megaton_Hammer) or
+                        (glitch_qpa and Bombs))))"
+        },
         "locations": {
             # Start hovering from near the top of the animated slope.
             # Any method from the hands is possible from either hand except a hammer hoverboost

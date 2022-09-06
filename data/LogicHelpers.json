@@ -152,6 +152,10 @@
     "has_cutscene_item": "(has_adult_trade_item and (is_adult or (glitch_equipswap and Dins_Fire))) or
         can_use(Dins_Fire) or can_use(Farores_Wind) or can_use(Nayrus_Love) or Ocarina or has_bottle_item",
     "has_bottle_item": "(Bugs or Fish or Fairy or Milk) and Bottle",
+    "bombchus_are_repeatable": "has_bombchus or (bombchus_in_logic and
+        ((not shuffle_interior_entrances and not shuffle_overworld_entrances and shopsanity == 'off') or
+        at('Market Bombchu Bowling', True)))",
+    "explosives_are_repeatable": "Bombs or bombchus_are_repeatable",
     
     # Bridge Requirements
     "has_all_stones": "Kokiri_Emerald and Goron_Ruby and Zora_Sapphire",

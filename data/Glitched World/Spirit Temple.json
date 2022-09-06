@@ -3,12 +3,54 @@
     # Location rules in unknown-age regions check that either both ages have the necessary
     # items or one age is at the known-age variant with the necessary items.
 
+    # There are some ways to reach the central chamber that are possible to lose access
+    # to:
+    # A. In-logic methods out of logic using consumable bombchus, consumable bottle
+    #    items, or a losable shield
+    # B. An inherently unrepeatable method using in-logic or togglable glitches
+    #     * Use hoverboots to climb the 1st silver block, hover to the shortcut, and
+    #       ground clip to reach the door
+    # C. Glitches that are never in logic
+    #     * Token delay hookshot jump to reach the hands.
+    #     * Action swap ground jump from a hover to climb the 1st silver block
+    # D. A very hard method that is never in logic using consumable bombchus or a losable
+    #    shield
+    #     * Hovering from OoB floor in the lobby to the shortcut
+    # E. Unrepeatable access to the temple or Colossus
+
+    # This logic is designed to prevent softlocks from A. If you lose the bombchus,
+    # bottle item, or shield you initially use to reach a locked door, you may be
+    # expected to return by using the same toggleable glitches with different items.
+    # With the protections for A, softlocks from E should be rare and only possible in
+    # ER.
+
     # Any number of keys can be required to get to the regions blocked by locked doors.
     # The requirements for one-key access include a choice between Mirror Shield to lower
     # the top elevator and longshot weirdshot to clip through it.
     {
         "region_name": "Spirit Temple Lobby",
         "dungeon": "Spirit Temple",
+        "events": {
+            # Checks that you can return to any locked door you open that blocks Central
+            # Chamber. If this is the Child Spirit door, you will blocked by the
+            # explosive requirement at Child Climb.
+
+            # Logical access to one door + the Any Door Is Repeatable event
+            # is enough for logical age-unknown access to Child Climb. Can also have age-
+            # unknown access without checking for this event with logical access to
+            # multiple doors and enough keys to unlock one. Age-unknown access is omitted
+            # in exit rules when the requirements are the same as age-known, such as
+            # anything requiring all 5 keys.
+            "Any Door Is Repeatable": "(is_child or 'A at Door C1' or
+                (explosives_are_repeatable and (Hylian_Shield or Mirror_Shield) and can_live_dmg(1.5))) and
+
+                (Silver_Gauntlets or (glitch_strength2_blocks and Hover_Boots) or has_first_person_item or
+                (Bombs and can_live_dmg(0.5)) or (explosives_are_repeatable and (Hylian_Shield or Mirror_Shield))) and
+
+                ('Adult Spirit Hover Is Repeatable' or 'C at Door C2' or
+                (Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
+                (Hylian_Shield or Mirror_Shield) and bombchus_are_repeatable))"
+        },
         "exits": {
             "Desert Colossus From Spirit Lobby": "True",
             # Clip with a weirdclip, armos hess, bomb push, or TSC
@@ -22,9 +64,9 @@
                 has_first_person_item)",
             # Age-known access by presence at combinations of locked doors. Access via
             # the lower doors individually is handled at their own regions. Access solely
-            # via the hands is handled at Silver Gauntlets Hand Known. Each locked door
-            # required is listed explicitly, even if it could be implied by other
-            # requirements.
+            # via the hands is at Silver Gauntlets Hand Known. Age-unknown access by
+            # combinations is at Early Child Spirit Temple. Each locked door required is
+            # listed explicitly, even if it could be implied by other requirements.
             "Spirit Temple Central Chamber Known": "is_adult and (spirit_temple_shortcuts or
                 ((Small_Key_Spirit_Temple, 4) and
                     (('A at Door A1' and 'A at Door C2') or
@@ -47,10 +89,10 @@
                     ((is_child and
                         'C at Door C1' and 'C at Door C2' and 'C at Door A2' and 'C Access via Top') or
                     (is_adult and
-                        'A at Door C1' and 'A at Door A1' and at('Desert Colossus', is_adult and can_isg)))) or
+                        'A at Door C1' and 'A at Door A1' and 'Adult Spirit Hover Is Repeatable'))) or
                 ((Small_Key_Spirit_Temple, 1) and
                     is_adult and
-                        (('A at Door C1' and 'A at Door A1' and at('Desert Colossus', can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot)))) or
+                        (('A at Door C1' and 'A at Door A1' and 'Adult Spirit Hover Is Repeatable' and (Mirror_Shield or (can_weirdshot and Longshot))) or
                         ('A at Door C1' and 'A at Door C2' and 'A at Door A2' and 'A Access via Top')))"
         }
     },
@@ -83,13 +125,20 @@
                 here(
                     can_use(Boomerang) or can_use(Slingshot) or can_use(Bow) or can_use(Hookshot) or has_bombchus or
                     can_mega or can_use(Hover_Boots))",
-            "Child Spirit Temple Climb Known": "(Small_Key_Spirit_Temple, 5) and (is_child or 'A at Door C1')",
+            "Child Spirit Temple Climb Known": "(Small_Key_Spirit_Temple, 5) and
+                (is_child or 'A at Door C1')",
             "Child Spirit Temple Climb Unknown": "(is_child or 'A at Door C1') and
-                ((Small_Key_Spirit_Temple, 2) or
-                ((Small_Key_Spirit_Temple, 1) and
-                    (at('Desert Colossus',
-                        can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))) or
-                    spirit_temple_shortcuts)))",
+                (((Small_Key_Spirit_Temple, 4) and
+                    ('A at Door A1' or 'A at Door C2')) or
+                ((Small_Key_Spirit_Temple, 3) and
+                    (('A at Door C2' and 'A at Door A2') or
+                    ('A at Door C2' and 'A Access via Top'))) or
+                ('Any Door Is Repeatable' and
+                    ((Small_Key_Spirit_Temple, 2) or
+                    ((Small_Key_Spirit_Temple, 1) and
+                        (('Adult Spirit Hover Is Repeatable' and
+                            (Mirror_Shield or (glitch_weirdshot and has_explosives and Longshot))) or
+                        spirit_temple_shortcuts)))))",
             "Spirit Temple Adult Central Chamber Unknown": "
                 ((is_child and
                     ((glitch_spirit_statue and (can_jumpslash or can_use(Megaton_Hammer))) or can_hover)) or
@@ -97,10 +146,12 @@
 
                 has_explosives and
 
-                ((Small_Key_Spirit_Temple, 2) or
-                ((Small_Key_Spirit_Temple, 1) and not spirit_temple_shortcuts and
-                    at('Desert Colossus',
-                        can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot)))))"
+                (((Small_Key_Spirit_Temple, 4) and 'A at Door A1') or
+                ('Any Door Is Repeatable' and
+                    ((Small_Key_Spirit_Temple, 2) or
+                    ((Small_Key_Spirit_Temple, 1) and not spirit_temple_shortcuts and
+                        'Adult Spirit Hover Is Repeatable' and
+                        (Mirror_Shield or (glitch_weirdshot and Longshot))))))"
         }
     },
     {
@@ -130,14 +181,22 @@
         },
         "exits": {
             "Spirit Temple Adult Central Chamber Known": "(Small_Key_Spirit_Temple, 5)",
-            "Child Spirit Temple Climb Unknown": "
-                (Small_Key_Spirit_Temple, 2) or
+            "Child Spirit Temple Climb Unknown": "'Any Door Is Repeatable' and
+                ((Small_Key_Spirit_Temple, 2) or
                 ((Small_Key_Spirit_Temple, 1) and
-                    at('Desert Colossus', can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))))",
-            "Spirit Temple Adult Central Chamber Unknown": "
-                (Small_Key_Spirit_Temple, 3) or
+                    'Adult Spirit Hover Is Repeatable' and (Mirror_Shield or (can_weirdshot and Longshot))))",
+            "Spirit Temple Central Chamber Unknown": "'Any Door Is Repeatable' and explosives_are_repeatable and
+                ((Small_Key_Spirit_Temple, 3) or
                 ((Small_Key_Spirit_Temple, 2) and
-                    at('Desert Colossus', can_use(Mirror_Shield) or (can_weirdshot and can_use(Longshot))))"
+                    'Adult Spirit Hover Is Repeatable' and (Mirror_Shield or (can_weirdshot and Longshot))))",
+            "Spirit Temple Adult Central Chamber Unknown": "
+                'Any Door Is Repeatable' and explosives_are_repeatable and
+                (Sticks or Kokiri_Sword or (child_can_equipswap and Megaton_Hammer)) and
+                (glitch_spirit_statue or Deku_Shield) and
+
+                ((Small_Key_Spirit_Temple, 3) or
+                ((Small_Key_Spirit_Temple, 2) and
+                    'Adult Spirit Hover Is Repeatable' and (Mirror_Shield or (can_weirdshot and Longshot))))"
         }
     },
     {
@@ -147,6 +206,7 @@
             "Nut Crate": "(Small_Key_Spirit_Temple, 5)"
         },
         "exits": {
+            "Child Spirit Temple Climb Unknown": "True",
             "Early Child Spirit Temple": "(Small_Key_Spirit_Temple, 5) and can_weirdshot and can_use(Hookshot)",
             "Spirit Temple Central Chamber Known": "has_explosives"
         }
@@ -261,7 +321,9 @@
         },
         "exits": {
             "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Before Mirror Shield Unknown": "(Small_Key_Spirit_Temple, 4) and has_explosives"
+            "Spirit Temple Before Mirror Shield Unknown": "(Small_Key_Spirit_Temple, 4) and has_explosives and
+                Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
+                (Hylian_Shield or Mirror_Shield)"
         }
     },
     {
@@ -283,9 +345,19 @@
                 ((Small_Key_Spirit_Temple, 5) or
                 ((Small_Key_Spirit_Temple, 4) and (has_explosives or 'A Access via Top')) or
                 ((Small_Key_Spirit_Temple, 3) and has_explosives and 'A Access via Top'))",
-            "Child Spirit Temple Climb Unknown": "(Small_Key_Spirit_Temple, 2) or
-                ((Small_Key_Spirit_Temple, 1) and 'A Access via Top')",
+            "Child Spirit Temple Climb Unknown": "'Any Door Is Repeatable' and
+                ((Small_Key_Spirit_Temple, 2) or
+                ((Small_Key_Spirit_Temple, 1) and 'A Access via Top'))",
+            "Spirit Temple Central Chamber Unknown": "(can_use(Hookshot) or can_hover) and
+                'Any Door Is Repeatable' and explosives_are_repeatable and
+
+                ((Small_Key_Spirit_Temple, 3) or
+                ((Small_Key_Spirit_Temple, 2) and 'A Access via Top'))",
             "Spirit Temple Adult Central Chamber Unknown": "(can_use(Hookshot) or can_hover) and
+                'Any Door Is Repeatable' and explosives_are_repeatable and
+                (Sticks or Kokiri_Sword or (child_can_equipswap and Megaton_Hammer)) and
+                (glitch_spirit_statue or Deku_Shield) and
+
                 ((Small_Key_Spirit_Temple, 3) or
                 ((Small_Key_Spirit_Temple, 2) and 'A Access via Top'))"
         }
