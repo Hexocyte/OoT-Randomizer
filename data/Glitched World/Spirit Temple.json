@@ -4,7 +4,9 @@
         "dungeon": "Spirit Temple",
         "exits": {
             "Desert Colossus From Spirit Lobby": "True",
-            "Early Child Spirit Temple": "is_child or can_mega or Hover_Boots or (glitch_spirit_crawlspace and has_first_person_item)",
+            "Early Child Spirit Temple": "is_child or (glitch_weirdshot and can_mega) or
+                (glitch_slide and can_shield and can_use(Hover_Boots)) or
+                (glitch_spirit_crawlspace and has_first_person_item)",
             "Early Adult Spirit Temple": "can_use(Silver_Gauntlets) or
                 (glitch_strength2_blocks and (can_use(Hover_Boots) or (is_adult and can_bomb_slide))) or
                 (is_adult and has_first_person_item)",
@@ -18,27 +20,38 @@
         "region_name": "Early Child Spirit Temple",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Child Bridge Chest": "(can_use(Boomerang) or can_use(Slingshot) or can_use(Bow) or has_bombchus or can_mega or can_use(Hover_Boots)) and
-                (can_use(Sticks) or can_use(Megaton_Hammer) or is_adult or has_explosives or
-                    ( (Nuts or can_use(Boomerang)) and (can_use(Kokiri_Sword) or can_use(Slingshot)) ) )",
-            "Spirit Temple Child Early Torches Chest": "(is_adult and has_fire_source) or
-                (has_fire_source_with_torch and (here(is_adult) or
-                (
-                (can_use(Boomerang) or can_use(Slingshot) or has_bombchus or can_mega) and
-                (Sticks or has_explosives or
-                    ( (Nuts or can_use(Boomerang)) and
-                        (can_use(Kokiri_Sword) or can_use(Slingshot)) ) ))))",
-            "Spirit Temple GS Metal Fence": "is_adult or
-                (
-                (can_use(Boomerang) or can_use(Slingshot) or has_bombchus or can_mega) and
-                (Sticks or has_explosives or
-                    ( (Nuts or can_use(Boomerang)) and
-                        (can_use(Kokiri_Sword) or can_use(Slingshot)) ) ))",
-            "Nut Crate": "True"
+            # Duplicated in Child Spirit Temple Climb Known with alternate requirements
+            "Nut Crate": "
+                is_child or
+                (glitch_actor and Hookshot and
+                    ((can_shield and Hover_Boots and can_live_dmg(1.0)) or
+                    (has_explosives and can_live_dmg(1.5))))"
         },
         "exits": {
-            "Child Spirit Temple Climb": "(Small_Key_Spirit_Temple, 2) and
-                (is_child or (can_weirdshot and can_use(Longshot)) or can_use(Hover_Boots))"
+            # Can hookshot the fence and climb the upright bridge to clip through the ceiling
+            "Child Spirit Temple Across Bridges": "
+                here(
+                    is_adult or Sticks or has_explosives or can_use(Megaton_Hammer) or
+                    (Nuts and (can_use(Kokiri_Sword) or can_use(Slingshot)) )) and
+                here(
+                    can_use(Boomerang) or can_use(Slingshot) or can_use(Bow) or can_use(Hookshot) or has_bombchus or
+                    can_mega or can_use(Hover_Boots))",
+            "Child Spirit Temple Climb": "
+                (Small_Key_Spirit_Temple, 2) and
+                    (is_child or
+                    (can_weirdshot and Longshot) or
+                    (glitch_actor and Hookshot and
+                        ((can_shield and Hover_Boots and can_live_dmg(1.0)) or
+                        (has_explosives and can_live_dmg(1.5)))))"
+        }
+    },
+    {
+        "region_name": "Child Spirit Temple Across Bridges",
+        "dungeon": "Spirit Temple",
+        "locations": {
+            "Spirit Temple Child Bridge Chest": "True",
+            "Spirit Temple Child Early Torches Chest": "has_fire_source_with_torch",
+            "Spirit Temple GS Metal Fence": "True"
         }
     },
     {
@@ -51,7 +64,8 @@
                 or is_child or has_projectile(adult)",
             "Spirit Temple GS Sun on Floor Room": "can_use(Boomerang) or can_use(Hookshot) or
                 (can_child_damage and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or 
-                (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love)))"
+                (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love)))",
+            "Nut Crate": "(Small_Key_Spirit_Temple, 5)"
         },
         "exits": {
             "Spirit Temple Central Chamber": "has_explosives"

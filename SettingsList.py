@@ -571,16 +571,23 @@ logic_glitches = {
                     instead of the object exploding on its own, the
                     chu blows the object up.
                     '''},
-    # UPDATE: Add description for EPG
     'Actor Glitch and EPG': {
         'name'    : 'glitch_actor',
         'tags'    : ("General",),
         'tooltip' : '''\
-                    By exiting a crawlspace and opening a door before
-                    the camera has returned to normal, you can load
-                    the next room while remaining in the current room,
-                    allowing you to bypass some actors, such as the
-                    water in BotW.
+                    Actor glitch: By exiting a crawlspace and opening a knobbed
+                    door before the camera has returned to normal, you can load
+                    the next room while remaining in the current room, allowing
+                    you to bypass some actors, such as the water in BotW.
+
+                    Entrance point glitch: By opening a sliding door while
+                    moving away from it at high speed, you can walk through the
+                    door but not go far enough from it for it to shut. Then you
+                    can move to set the position and angle you will respawn from
+                    if you void. When you respawn, you will walk forward from
+                    that point, even through walls. If you clip back into the
+                    previous room while the door is open, the previous room will
+                    remain loaded with some actors missing.
                     '''},
     'Bosses Without Usual Items': {
         'name'    : 'glitch_hard_bosses',
