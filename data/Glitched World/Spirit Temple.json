@@ -157,7 +157,8 @@
         "dungeon": "Spirit Temple",
         "exits": {
             "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Adult Central Chamber Known": "can_jumpslash",
+            "Spirit Temple Adult Central Chamber Known": "can_use(Hookshot) or can_use(Hover_Boots) or can_hover or
+                (is_adult and has_explosives and can_live_dmg(0.5)) or (is_child and (can_jumpslash or can_use(Megaton_Hammer)))",
             "Silver Gauntlets Hand Known": "(Small_Key_Spirit_Temple, 5) or
                 ((Small_Key_Spirit_Temple, 4) and (can_use(Hookshot) or (can_bomb_slide and can_use(Hover_Boots))))"
         }
@@ -182,8 +183,10 @@
                 at('Spirit Temple Central Chamber Known', is_adult)"
         },
         "exits": {
-            "Spirit Temple Adult Central Chamber Unknown": "Kokiri_Sword or Sticks or
-                (child_can_equipswap and Megaton_Hammer)",
+            "Spirit Temple Adult Central Chamber Unknown": "
+                (Kokiri_Sword or Sticks or (child_can_equipswap and Megaton_Hammer)) and
+                (Hookshot or Hover_Boots or (has_explosives and can_live_dmg(0.5)) or adult_can_hover or
+                not spirit_temple_shortcuts)",
             "Child Spirit Temple Climb Unknown": "True"
         }
     },
