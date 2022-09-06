@@ -92,33 +92,6 @@
         }
     },
     {
-        "region_name": "Child Spirit Temple Climb Known",
-        "dungeon": "Spirit Temple",
-        "locations": {
-            "Nut Crate": "(Small_Key_Spirit_Temple, 5)"
-        },
-        "exits": {
-            "Spirit Temple Central Chamber Known": "has_explosives"
-        }
-    },
-    {
-        "region_name": "Child Spirit Temple Climb Unknown",
-        "dungeon": "Spirit Temple",
-        "locations": {
-            "Spirit Temple Child Climb North Chest": "has_projectile(both) or
-                at('Child Spirit Temple Climb Known', can_use_projectile)",
-            "Spirit Temple Child Climb East Chest": "has_projectile(both) or
-                at('Child Spirit Temple Climb Known', can_use_projectile)",
-            "Spirit Temple GS Sun on Floor Room": "(adult_can_equipswap and Boomerang) or
-                ((Slingshot or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or (child_can_equipswap and Megaton_Hammer)) and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or
-                at('Child Spirit Temple Climb Known',
-                can_use(Boomerang) or can_use(Hookshot) or (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))))"
-        },
-        "exits": {
-            "Spirit Temple Central Chamber Unknown": "has_explosives"
-        }
-    },
-    {
         "region_name": "Early Adult Spirit Temple",
         "dungeon": "Spirit Temple",
         "events": {
@@ -146,31 +119,30 @@
         }
     },
     {
-        "region_name": "Spirit Temple Adult Central Chamber Known",
+        "region_name": "Child Spirit Temple Climb Known",
         "dungeon": "Spirit Temple",
+        "locations": {
+            "Nut Crate": "(Small_Key_Spirit_Temple, 5)"
+        },
         "exits": {
-            "Spirit Temple Adult Central Chamber Unknown": "True",
-            "Spirit Temple Central Chamber Known": "True",
-            "Spirit Temple Boss Door": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit",
-            "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
-            "Spirit Temple Beyond Central Locked Door Known": "(Small_Key_Spirit_Temple, 5) or
-                ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield)))"
+            "Spirit Temple Central Chamber Known": "has_explosives"
         }
     },
     {
-        "region_name": "Spirit Temple Adult Central Chamber Unknown",
+        "region_name": "Child Spirit Temple Climb Unknown",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple First Mirror Left Chest": "True",
-            "Spirit Temple First Mirror Right Chest": "True",
-            "Spirit Temple Statue Room Hand Chest": "can_play(Zeldas_Lullaby)",
-            "Spirit Temple Statue Room Northeast Chest": "can_play(Zeldas_Lullaby) and
-                ((glitch_megaflip and has_explosives and Deku_Shield) or
-                at('Spirit Temple Adult Central Chamber Known', is_adult))"
+            "Spirit Temple Child Climb North Chest": "has_projectile(both) or
+                at('Child Spirit Temple Climb Known', can_use_projectile)",
+            "Spirit Temple Child Climb East Chest": "has_projectile(both) or
+                at('Child Spirit Temple Climb Known', can_use_projectile)",
+            "Spirit Temple GS Sun on Floor Room": "(adult_can_equipswap and Boomerang) or
+                ((Slingshot or Sticks or Kokiri_Sword or has_explosives or can_use(Dins_Fire) or (child_can_equipswap and Megaton_Hammer)) and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))) or
+                at('Child Spirit Temple Climb Known',
+                can_use(Boomerang) or can_use(Hookshot) or (is_adult and (can_live_dmg(0.5) or Fairy or can_use(Nayrus_Love))))"
         },
         "exits": {
-            "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Beyond Central Locked Door Unknown": "(Small_Key_Spirit_Temple, 4)"
+            "Spirit Temple Central Chamber Unknown": "has_explosives"
         }
     },
     {
@@ -204,25 +176,31 @@
         }
     },
     {
-        "region_name": "Mirror Shield Hand Known",
+        "region_name": "Spirit Temple Adult Central Chamber Known",
         "dungeon": "Spirit Temple",
         "exits": {
-            "Mirror Shield Hand Unknown": "True",
-            "Desert Colossus": "True",
-            "Spirit Temple Lobby": "True",
-            "Silver Gauntlets Hand Known": "can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_mega)",
-            "Spirit Temple Beyond Central Locked Door Known": "True"
+            "Spirit Temple Adult Central Chamber Unknown": "True",
+            "Spirit Temple Central Chamber Known": "True",
+            "Spirit Temple Beyond Central Locked Door Known": "(Small_Key_Spirit_Temple, 5) or
+                ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield)))",
+            "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
+            "Spirit Temple Boss Door": "can_use(Hookshot) and can_live_dmg(0.5) and Mirror_Shield and has_explosives and glitch_bk_skip_spirit"
         }
     },
     {
-        "region_name": "Mirror Shield Hand Unknown",
+        "region_name": "Spirit Temple Adult Central Chamber Unknown",
         "dungeon": "Spirit Temple",
         "locations": {
-            "Spirit Temple Mirror Shield Chest": "True"
+            "Spirit Temple First Mirror Left Chest": "True",
+            "Spirit Temple First Mirror Right Chest": "True",
+            "Spirit Temple Statue Room Hand Chest": "can_play(Zeldas_Lullaby)",
+            "Spirit Temple Statue Room Northeast Chest": "can_play(Zeldas_Lullaby) and
+                ((glitch_megaflip and has_explosives and Deku_Shield) or
+                at('Spirit Temple Adult Central Chamber Known', is_adult))"
         },
         "exits": {
-            "Silver Gauntlets Hand Unknown": "child_can_hover and (adult_can_hover or Hookshot)",
-            "Spirit Temple Beyond Central Locked Door Unknown": "True"
+            "Spirit Temple Central Chamber Unknown": "True",
+            "Spirit Temple Beyond Central Locked Door Unknown": "(Small_Key_Spirit_Temple, 4)"
         }
     },
     {
@@ -253,6 +231,28 @@
         },
         "exits": {
             "Mirror Shield Hand Unknown": "child_can_hover and adult_can_hover"
+        }
+    },
+    {
+        "region_name": "Mirror Shield Hand Known",
+        "dungeon": "Spirit Temple",
+        "exits": {
+            "Mirror Shield Hand Unknown": "True",
+            "Desert Colossus": "True",
+            "Spirit Temple Lobby": "True",
+            "Silver Gauntlets Hand Known": "can_hover or can_use(Hookshot) or (can_use(Hover_Boots) and can_mega)",
+            "Spirit Temple Beyond Central Locked Door Known": "True"
+        }
+    },
+    {
+        "region_name": "Mirror Shield Hand Unknown",
+        "dungeon": "Spirit Temple",
+        "locations": {
+            "Spirit Temple Mirror Shield Chest": "True"
+        },
+        "exits": {
+            "Silver Gauntlets Hand Unknown": "child_can_hover and (adult_can_hover or Hookshot)",
+            "Spirit Temple Beyond Central Locked Door Unknown": "True"
         }
     },
     {
