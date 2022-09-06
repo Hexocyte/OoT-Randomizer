@@ -616,12 +616,18 @@
         "time_passes": true,
         "locations": {
             # Start hovering from near the top of the animated slope.
+            # Any method from the hands is possible from either hand except a hammer hoverboost
+            # requires shield from Silver Gauntlets, and a damage hoverboost takes fall damage from
+            # Silver Gauntlets. Redundant possibilities are omitted.
             "Colossus Freestanding PoH": "
                 (is_adult and here(can_plant_bean)) or
+                at('Spirit Temple Adult Central Chamber Known',
+                    (Small_Key_Spirit_Temple, 4) and has_explosives and
+                    (can_mega or (can_use(Hover_Boots) and
+                    (can_bomb_slide or (Megaton_Hammer and can_shield) or (has_explosives and can_live_dmg(1.0)))))) or
                 at('Mirror Shield Hand Known',
-                can_mega or (can_use(Hover_Boots) and (can_bomb_slide or Megaton_Hammer or (has_explosives and can_live_dmg(0.5))))) or
-                at('Silver Gauntlets Hand Known',
-                can_mega or (can_use(Hover_Boots) and (can_bomb_slide or (Megaton_Hammer and can_shield) or (has_explosives and can_live_dmg(1.0))))) or
+                    can_use(Hover_Boots) and (can_bomb_slide or Megaton_Hammer or (has_explosives and can_live_dmg(0.5)))) or
+                at('Silver Gauntlets Hand Known', can_mega) or
                 (can_hover and glitch_insane)",
             "Colossus GS Bean Patch": "can_plant_bugs and can_child_attack",
             "Colossus GS Tree": "is_adult and (can_use(Hookshot) or can_hover or can_use(Boomerang)) and at_night",

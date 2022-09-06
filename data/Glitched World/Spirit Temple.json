@@ -215,7 +215,8 @@
                         (has_bombchus and
                             ((is_adult and has_2h_sword) or
                             can_use(Sticks) or can_use(Megaton_Hammer))))) or
-                    (can_mega and can_use(Iron_Boots))))"
+                    (can_mega and can_use(Iron_Boots))))",
+            "Desert Colossus": "(Small_Key_Spirit_Temple, 4) and has_explosives"
         }
     },
     {
