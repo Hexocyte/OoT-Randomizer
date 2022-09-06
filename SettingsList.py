@@ -652,6 +652,19 @@ logic_glitches = {
                         With precise movement, you can then reach
                         the lower level of child spirit as adult.
                         '''},
+    'Enter Spirit Temple via Hands': {
+        'name'    : 'glitch_spirit_hands',
+        'tags'    : ("Desert Colossus", "Spirit Temple", "Dungeon Entry",),
+        'tooltip' : '''\
+                    Use hovering, a hammer recoil hoverboost from the bean, or a
+                    Hover Boots superslide from the arch to reach the overhang
+                    between the hands and then hookshot the Silver Gauntlets
+                    chest. Without Hookshot hover directly from the arch to
+                    either hand.
+
+                    All Uses Enabled adds Bombchu hovering directly to either
+                    hand without using the bean.
+                    '''},
 }
 
 logic_tricks = {
