@@ -47,9 +47,11 @@
                 (Silver_Gauntlets or (glitch_strength2_blocks and Hover_Boots) or has_first_person_item or
                 (Bombs and can_live_dmg(0.5)) or (explosives_are_repeatable and (Hylian_Shield or Mirror_Shield))) and
 
-                ('Adult Spirit Hover Is Repeatable' or 'C at Door C2' or
+                'Spirit Hover Is Repeatable'",
+            # The Adult Spirit Hover Is Repeatable event is defined at Colossus
+            "Spirit Hover Is Repeatable": "'Adult Spirit Hover Is Repeatable' or 'C at Door C2' or
                 (Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
-                (Hylian_Shield or Mirror_Shield) and bombchus_are_repeatable))"
+                (Hylian_Shield or Mirror_Shield) and bombchus_are_repeatable)"
         },
         "exits": {
             "Desert Colossus From Spirit Lobby": "True",
@@ -255,8 +257,14 @@
                     ((is_adult and has_explosives and can_live_dmg(0.5)) or
                     (is_child and (can_jumpslash or can_use(Megaton_Hammer)))))",
             # Ground clip into and out of the Knuckle room
-            "Silver Gauntlets Hand Known": "(Small_Key_Spirit_Temple, 5) or
-                ((Small_Key_Spirit_Temple, 4) and (can_use(Hookshot) or (can_bomb_slide and can_use(Hover_Boots)))) or
+            "Silver Gauntlets Hand Known": "
+                (Small_Key_Spirit_Temple, 5) or
+                ((Small_Key_Spirit_Temple, 4) and
+                    has_explosives and
+                    (can_use(Hookshot) or (can_bomb_slide and can_use(Hover_Boots)) or can_hover)) or
+                ((Small_Key_Spirit_Temple, 3) and
+                    'Adult Spirit Hover Is Repeatable' and is_adult and has_explosives and
+                    (can_use(Hookshot) or (can_bomb_slide and can_use(Hover_Boots)) or can_hover)) or
                 (can_hover and (can_live_dmg(0.5) or glitch_insane))"
         }
     },
@@ -289,8 +297,12 @@
                 (glitch_spirit_statue and has_explosives and can_live_dmg(0.5)) or
                 not spirit_temple_shortcuts)",
             "Child Spirit Temple Climb Unknown": "True",
-            "Silver Gauntlets Hand Unknown": "child_can_hover and adult_can_hover and
-                (can_live_dmg(0.5) or glitch_insane)"
+            "Silver Gauntlets Hand Unknown": "
+                ((Small_Key_Spirit_Temple, 4) and
+                    child_can_hover and (adult_can_hover or Hookshot)) or
+                ((Small_Key_Spirit_Temple, 3) and
+                    'Spirit Hover Is Repeatable' and child_can_hover and (adult_can_hover or Hookshot)) or
+                (child_can_hover and adult_can_hover and (can_live_dmg(0.5) or glitch_insane))"
         }
     },
     {
@@ -301,7 +313,11 @@
             "Spirit Temple Central Chamber Known": "True",
             "Spirit Temple Before Mirror Shield Known": "has_explosives and
                 ((Small_Key_Spirit_Temple, 5) or
-                ((Small_Key_Spirit_Temple, 4) and (can_hover or (is_adult and can_shield))))",
+                ((Small_Key_Spirit_Temple, 4) and
+                    (can_hover or (is_adult and can_shield))) or
+                ((Small_Key_Spirit_Temple, 3) and
+                    'Adult Spirit Hover Is Repeatable' and is_adult and
+                    (can_hover or (can_shield and Hover_Boots and (Megaton_Hammer or can_bomb_slide)))))",
             "Spirit Temple Top": "(Small_Key_Spirit_Temple, 5)",
             "Early Adult Spirit Temple": "(Small_Key_Spirit_Temple, 5)",
             "Spirit Temple Before Boss": "glitch_spirit_statue or (spirit_temple_shortcuts and can_use(Hookshot))",
@@ -321,9 +337,13 @@
         },
         "exits": {
             "Spirit Temple Central Chamber Unknown": "True",
-            "Spirit Temple Before Mirror Shield Unknown": "(Small_Key_Spirit_Temple, 4) and has_explosives and
-                Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
-                (Hylian_Shield or Mirror_Shield)"
+            "Spirit Temple Before Mirror Shield Unknown": "
+                ((Small_Key_Spirit_Temple, 4) and
+                    has_explosives and
+                    Deku_Shield and (Sticks or Kokiri_Sword or (Megaton_Hammer and child_can_equipswap)) and
+                    (Hylian_Shield or Mirror_Shield)) or
+                ((Small_Key_Spirit_Temple, 3) and
+                    'Spirit Hover Is Repeatable' and child_can_hover and adult_can_hover)"
         }
     },
     {
