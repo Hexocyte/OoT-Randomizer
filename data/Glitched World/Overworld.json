@@ -617,6 +617,8 @@
         "hint": "DESERT_COLOSSUS",
         "time_passes": true,
         "events": {
+            # Used in Spirit logic, checks that adult can return to the hands
+            # after either age reaches them once from here
             "Adult Spirit Hover Is Repeatable": "
                 is_adult and can_shield and
                     (bombchus_are_repeatable or (Hover_Boots and Bombs and Hookshot) or
@@ -656,6 +658,11 @@
             # Reaching either hand from here reasonably requires coming from arch or hooking silvers chest and crossing
             # from silvers to mirror. It's a *very* long hover otherwise. Logic for hovering to silvers from here
             # without hookshot would be redundant with hovering to mirror and then to silvers, so it isn't included.
+
+            # The explosive hoverboost (glitchless Spirit hover) isn't in logic due to the difficulty and the lack of a
+            # setup from the Wasteland entrance and for a slight simplification to Spirit logic (access to either hand
+            # from Colossus is equivalent). A plain hoverboots forward sidehop jumpslash is also possible, which is
+            # even harder, and AFAIK there is no documented setup.
             "Silver Gauntlets Hand Known": "glitch_spirit_hands and can_use(Hookshot) and
                 ((can_hover and (Hover_Boots or (glitch_qpa and Bombs and has_bombchus))) or
                 (here(can_plant_bean) and can_shield and Hover_Boots and ((can_bomb_slide and Bombs) or Megaton_Hammer)))",
