@@ -145,7 +145,7 @@
     "can_ledge_cancel": "glitch_ledge_cancel and can_shield and Bombs",
     "can_ledge_cancel_chus": "glitch_ledge_cancel and can_shield and has_explosives",
     "can_damage_boost": "not_a_glitch_damage_boost and has_explosives and can_jumpslash and (can_live_dmg(0.5) or can_use(Nayrus_Love))",
-    "can_ib_dive": "glitch_ib_dive and can_isg and can_use(Iron_Boots) and has_cutscene_item",
+    "can_ib_dive": "can_isg and can_use(Iron_Boots) and has_cutscene_item",
     # Blue Fire works for this, but requiring 200 rupees every time for any glitch involving cutscene items is simply too cruel.
     # Beans, big poes, both letters, and weird egg are all also cutscene items, but they can all be used up so they can't be in logic.
     # I can't seem to add small poes or any kind of potion because it needs to be defined still. I've left it out for now but it could potentially be done.

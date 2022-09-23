@@ -684,15 +684,6 @@ logic_glitches = {
                     Statue climb and head clip: Use precise jumps and
                     jumpslashes to reach the boss door from the adult side.
                     '''},
-    'Iron Boots Dive': {
-        'name'    : 'glitch_ib_dive',
-        'tags'    : ("General",),
-        'tooltip' : '''\
-                    While walking into a ledge with ISG, equip iron boots and
-                    use a cutscene item simultaneously with the right timing.
-                    You will fall without taking fall damage and keep ISG even
-                    if you fall into water.
-                    '''},
 }
 
 logic_tricks = {
